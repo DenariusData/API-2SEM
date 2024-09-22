@@ -1,0 +1,16 @@
+# Ignore a pasta bin
+/Pacer/bin/
+
+# Ignore as configurações do Eclipse
+.classpath
+.project
+
+# Ignore arquivos gerados pelo build do JavaFX
+/build.fxbuild
+
+# Ignorar arquivos temporários e de cache
+*.class
+*.log
+*.tmp
+*.swp
+*.bak

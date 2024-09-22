@@ -85,7 +85,6 @@ Valorizamos a dedicação, o comprometimento com o desenvolvimento organizaciona
 <p align="left">
   <img src="https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=java&logoColor=white" height="30" alt="Java"/>
   <img src="https://img.shields.io/badge/Jira-%230A0FFF.svg?style=for-the-badge&logo=jira&logoColor=white" height="30" alt="Jira"/>
-  <img src="https://img.shields.io/badge/Trello-%23026AA7.svg?style=for-the-badge&logo=Trello&logoColor=white" height="30" alt="Trello"/>
   <img src="https://img.shields.io/badge/Slack-%234A154B.svg?style=for-the-badge&logo=slack&logoColor=white" height="30" alt="Slack"/>
   <img src="https://img.shields.io/badge/Canva-%2300C4CC.svg?style=for-the-badge&logo=Canva&logoColor=white" height="30" alt="Canva"/>
 </p>
@@ -101,10 +100,10 @@ Valorizamos a dedicação, o comprometimento com o desenvolvimento organizaciona
 
 | *Rafael Slivka* (Scrum Master) | *Larissa Claro* (Product Owner) | *Thiago Abreu* (Scrum Team) | *Mariana Yasmin* (Scrum Team) |
 |:-------------------------------:|:---------------------------------:|:----------------------------:|:------------------------------:|
-| ![Rafael Slivka](/Denarius/Docs/Images/rafael-slivka.jpg) | ![Larissa Claro](/Denarius/Docs/Images/larissa-claro.jpg) | ![Thiago Abreu](/Denarius/Docs/Images/thiago-abreu.jpg) | ![Mariana Yasmin](/Denarius/Docs/Images/mariana-yasmin.jpg) |
+| ![Rafael Slivka](/docs/assets-readme/rafael-slivka.jpg) | ![Larissa Claro](/docs/assets-readme/larissa-claro.jpg) | ![Thiago Abreu](/docs/assets-readme/thiago-abreu.jpg) | ![Mariana Yasmin](/docs/assets-readme/mariana-yasmin.jpg) |
 | [<img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" width="20">](https://www.linkedin.com/in/rafael-lopes-slivka-07753326a/) | [<img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" width="20">](https://www.linkedin.com/in/clarolarissa/) | [<img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" width="20">](https://www.linkedin.com/in/thiagosabreu/) | [<img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" width="20">](https://www.linkedin.com/in/oliveirasmari) |
 
 | *Tiago Bernardo* (Scrum Team) | *Beatriz Santos* (Scrum Team) | *Luiz Ricardo* (Scrum Team) |
 |:---------------------------------:|:----------------------------:|:------------------------------:|
- | ![Tiago Bernardo](/Denarius/Docs/Images/tiago-bernardo.jpg) | ![Beatriz Santos](/Denarius/Docs/Images/beatriz-santos.jpg) | ![Luiz Ricardo](/Denarius/Docs/Images/luiz-ricardo.jpg) |
+ | ![Tiago Bernardo](/docs/assets-readme/tiago-bernardo.jpg) | ![Beatriz Santos](/docs/assets-readme/beatriz-santos.jpg) | ![Luiz Ricardo](/docs/assets-readme/luiz-ricardo.jpg) |
 | [<img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" width="20">](https://www.linkedin.com/in/thiago-diniz-29b82798/) | [<img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" width="20">](https://www.linkedin.com/in/tiagobernardosantos/) | [<img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" width="20">](https://www.linkedin.com/in/beatriz-santos-0b6773220/) | [<img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" width="20">](https://www.linkedin.com/in/luiz-Ricardo) |

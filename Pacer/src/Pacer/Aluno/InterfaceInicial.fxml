@@ -9,7 +9,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="832.0" prefWidth="1377.0" xmlns="http://javafx.com/javafx/20.0.2" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="AnchorPane" prefHeight="832.0" prefWidth="1377.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#004aad" height="832.0" stroke="BLACK" strokeType="INSIDE" width="392.0" />
       <Button layoutX="72.0" layoutY="457.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="260.0" text="Critérios de avaliação" textFill="#004aad">
@@ -19,7 +19,7 @@
       </Button>
       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="125.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@Imagens/Pamela%20Silva.jpg" />
+            <Image url="@../../../resources/images/pamela-silva.jpg" />
          </image>
       </ImageView>
       <Label layoutX="101.0" layoutY="207.0" text="Nome: Pamela Silva" textFill="WHITE">
