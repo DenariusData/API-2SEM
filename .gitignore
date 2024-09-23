@@ -6,7 +6,7 @@
 .project
 
 # Ignore arquivos gerados pelo build do JavaFX
-/build.fxbuild
+/Pacer/build.fxbuild
 
 # Ignorar arquivos temporários e de cache
 *.class
