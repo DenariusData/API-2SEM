@@ -6,6 +6,8 @@
 
 * [📘 Tema e Descrição do Produto](#tema-e-descrição-do-produto)
 * [✅ Requisitos Funcionais](#requisitos-funcionais)
+* [✅ Backlog do produto](#backolog-do-produto)
+* [✅ User story](#user-story)
 * [🎯 Missão](#missão)
 * [🔭 Visão](#visão)
 * [💡 Valores](#valores)
@@ -50,6 +52,14 @@ Principais Funcionalidades:
 - Permitir o gerenciamento dos critérios de avaliação. Deve ser possível incluir novos critérios, além de alterar e desativar critérios existentes. Critérios desativados não devem aparecer durante uma avaliação;
 - Permitir que o professor cadastre o calendário de Sprints para cada semestre. Em vez de solicitar o número da Sprint em uma avaliação, o sistema deve verificar a data atual e automaticamente assumir que ela está associada à Sprint que acabou de finalizar;
 - Usar autenticação por usuário e senha para garantir que cada aluno possa realizar apenas uma avaliação por Sprint e que apenas o professor tenha acesso aos relatórios.
+  
+## ✅ Backolog do produto
+
+![Backolog](/Denarius/Docs/Images/backolog.png) 
+
+## ✅ User Story
+
+![User Story](/Denarius/Docs/Images/users.png) 
 
 ## 🎯 Missão
 
