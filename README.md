@@ -55,11 +55,11 @@ Principais Funcionalidades:
   
 ## ✅ Backolog do produto
 
-![Backolog](/Denarius/Docs/Images/backolog.jpg) 
+![Backolog](/docs/assets-readme/backlog.jpg) 
 
 ## ✅ User Story
 
-![User Story](/Denarius/Docs/Images/users.png) 
+![User Story](/docs/assets-readme/users.png) 
 
 ## 🎯 Missão
 
