@@ -55,7 +55,7 @@ Principais Funcionalidades:
   
 ## ✅ Backolog do produto
 
-![Backolog](/Denarius/Docs/Images/backolog.png) 
+![Backolog](/Denarius/Docs/Images/backolog.jpeg) 
 
 ## ✅ User Story
 
