@@ -1,5 +1,7 @@
 # Ignore a pasta bin
 /Pacer/bin/
+/Pacer/target/
+/Pacer/.vscode/
 
 # Ignore as configurações do Eclipse
 .classpath

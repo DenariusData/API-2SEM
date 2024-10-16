@@ -9,7 +9,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="anchorPane" prefHeight="832.0" prefWidth="1377.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Pacer.Aluno.ControllerInicial">
+<AnchorPane id="AnchorPane" fx:id="anchorPane" prefHeight="832.0" prefWidth="1377.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Pacer.Aluno.AlunoHomeController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#004aad" height="832.0" stroke="BLACK" strokeType="INSIDE" width="392.0" />
       <Button layoutX="72.0" layoutY="457.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="260.0" text="Critérios de avaliação" textFill="#004aad" onAction="#handleCriteriosAval">
@@ -19,7 +19,7 @@
       </Button>
       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="125.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../resources/images/pamela-silva.jpg" />
+            <Image url="@/images/pamela-silva.jpg" />
          </image>
       </ImageView>
       <Label layoutX="101.0" layoutY="207.0" text="Nome: Pamela Silva" textFill="WHITE">
@@ -44,7 +44,7 @@
       </Label>
       <ImageView fitHeight="26.0" fitWidth="32.0" layoutX="93.0" layoutY="462.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../Downloads/exclamation.png" />
+            <Image url="@../@../Downloads/exclamation.png" />
          </image>
       </ImageView>
       <Label layoutX="553.0" layoutY="42.0" text="Bem - vindo ao sistema de avaliação!" textFill="#004aad">
@@ -65,12 +65,12 @@
       </Button>
       <ImageView fitHeight="27.0" fitWidth="44.0" layoutX="93.0" layoutY="527.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../Downloads/to-do-list.png" />
+            <Image url="@../@../Downloads/to-do-list.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="36.0" fitWidth="26.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../Downloads/arrow-left.png" />
+            <Image url="@../@../Downloads/arrow-left.png" />
          </image>
       </ImageView>
    </children>

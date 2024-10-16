@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane prefHeight="597.0" prefWidth="846.0" style="-fx-background-position: fix;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Pacer.Login.Controller">
+<Pane prefHeight="597.0" prefWidth="846.0" style="-fx-background-position: fix;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Pacer.Login.LoginController">
    <children>
       <TextField layoutX="469.0" layoutY="310.0" prefHeight="30.0" prefWidth="296.0" promptText="  Digite seu email..." style="-fx-border-radius: 50; -fx-border-color: black;" />
       <Label layoutX="450.0" layoutY="213.0" prefHeight="30.0" prefWidth="279.0" text="SISTEMA DE GERENCIAMENTO">
@@ -30,7 +30,7 @@
       </Button>
       <ImageView fitHeight="617.0" fitWidth="458.0" layoutX="-122.0" layoutY="-7.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@API-2SEM-SPRINT-1/API-2SEM-SPRINT-1/Pacer/resources/images/login-background.jpeg" />
+            <Image url="@/images/login-background.jpeg" />
          </image>
          <viewport>
             <Rectangle2D height="800.0" minX="900.0" minY="900.0" />
@@ -38,12 +38,12 @@
       </ImageView>
       <ImageView fitHeight="68.0" fitWidth="105.0" layoutX="343.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@API-2SEM-SPRINT-1/API-2SEM-SPRINT-1/Pacer/resources/images/cps.png" />
+            <Image url="@/images/cps.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="96.0" fitWidth="142.0" layoutX="690.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@API-2SEM-SPRINT-1/API-2SEM-SPRINT-1/Pacer/resources/images/fatec.png" />
+            <Image url="@/images/fatec.png" />
          </image>
       </ImageView>
       <PasswordField layoutX="469.0" layoutY="386.0" prefHeight="30.0" prefWidth="302.0" promptText="   Digite sua senha..." style="-fx-border-radius: 50; -fx-border-color: black;" />
