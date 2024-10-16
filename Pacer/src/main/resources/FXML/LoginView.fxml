@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane prefHeight="597.0" prefWidth="846.0" style="-fx-background-position: fix;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Pacer.Login.LoginController">
+<Pane prefHeight="597.0" prefWidth="846.0" style="-fx-background-position: fix;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pacer.login.LoginController">
    <children>
       <TextField layoutX="469.0" layoutY="310.0" prefHeight="30.0" prefWidth="296.0" promptText="  Digite seu email..." style="-fx-border-radius: 50; -fx-border-color: black;" />
       <Label layoutX="450.0" layoutY="213.0" prefHeight="30.0" prefWidth="279.0" text="SISTEMA DE GERENCIAMENTO">

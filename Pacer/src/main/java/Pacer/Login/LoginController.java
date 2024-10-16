@@ -1,4 +1,4 @@
-package Pacer.Login;
+package pacer.login;
 
 import java.io.IOException;
 import java.net.URL;

@@ -1,4 +1,4 @@
-package Pacer.Data.Models;
+package pacer.data.models;
 
 public class Aluno {
     

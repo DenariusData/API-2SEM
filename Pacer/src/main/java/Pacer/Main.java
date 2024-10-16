@@ -1,4 +1,4 @@
-package Pacer;
+package pacer;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

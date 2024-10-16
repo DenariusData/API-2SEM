@@ -1,4 +1,4 @@
-package Pacer.Professor;
+package pacer.professor;
 
 public class ProfHomeController {
     

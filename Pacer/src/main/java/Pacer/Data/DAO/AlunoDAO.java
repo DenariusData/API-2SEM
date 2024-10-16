@@ -1,4 +1,4 @@
-package Pacer.Data.DAO;
+package pacer.data.dao;
 
 public class AlunoDAO {
     

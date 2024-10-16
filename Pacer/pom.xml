@@ -45,7 +45,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.5</version>
                 <configuration>
-                    <mainClass>Pacer.Main</mainClass> <!-- Classe principal do seu projeto -->
+                    <mainClass>pacer.Main</mainClass> <!-- Classe principal do seu projeto -->
                 </configuration>
                 <executions>
                     <execution>
