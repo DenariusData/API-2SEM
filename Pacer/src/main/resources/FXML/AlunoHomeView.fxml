@@ -1,130 +1,130 @@
-package Pacer.Aluno;
+<?xml version="1.0" encoding="UTF-8"?>
 
-import java.net.URL;
-import java.time.LocalDate;
-import java.time.YearMonth;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.ResourceBundle;
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
+<AnchorPane id="AnchorPane" fx:id="anchorPane" prefHeight="832.0" prefWidth="1377.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Pacer.Aluno.AlunoHomeController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#004aad" height="832.0" stroke="BLACK" strokeType="INSIDE" width="392.0" />
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="125.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../OneDrive/Documentos/Git/API-2SEM/Pacer/src/main/resources/images/pamela-silva.jpg" />
+         </image>
+      </ImageView>
+      <Label layoutX="101.0" layoutY="207.0" text="Nome: Pamela Silva" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="109.0" layoutY="236.0" text="RA:0278541230085" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="40.0" layoutY="289.0" text="Email: Pamela.silva@fatec.sp.gov.br" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="106.0" layoutY="317.0" text="Grupo: Denarius Data" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="538.0" layoutY="14.0" text="Bem - vindo ao sistema de avaliação!" textFill="#004aad">
+         <font>
+            <Font name="Arial Black" size="39.0" />
+         </font>
+      </Label>
 
-public class AlunoHomeController implements Initializable {
+      <!-- Label para exibir o mês e ano -->
+      <Label fx:id="monthYearLabel" layoutX="584.0" layoutY="234.0" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Dubai Bold" size="20.0" />
+         </font>
+      </Label>
 
-    @FXML
-    private AnchorPane anchorPane;
+      <!-- Labels para os dias da semana -->
+      <Label fx:id="domLabel" layoutX="614.0" layoutY="253.0" style="-fx-background-color: #004aad;" text="Dom" textFill="WHITE">
+         <font>
+            <Font name="Arial Black" size="17.0" />
+         </font>
+      </Label>
+      <Label fx:id="segLabel" layoutX="712.0" layoutY="253.0" style="-fx-background-color: #004aad;" text="Seg" textFill="WHITE">
+         <font>
+            <Font name="Arial Black" size="17.0" />
+         </font>
+      </Label>
+      <Label fx:id="terLabel" layoutX="807.0" layoutY="252.0" style="-fx-background-color: #004aad;" text="Ter" textFill="WHITE">
+         <font>
+            <Font name="Arial Black" size="17.0" />
+         </font>
+      </Label>
+      <Label fx:id="quaLabel" layoutX="909.0" layoutY="252.0" style="-fx-background-color: #004aad;" text="Qua" textFill="WHITE">
+         <font>
+            <Font name="Arial Black" size="17.0" />
+         </font>
+      </Label>
+      <Label fx:id="quiLabel" layoutX="1015.0" layoutY="253.0" style="-fx-background-color: #004aad;" text="Qui" textFill="WHITE">
+         <font>
+            <Font name="Arial Black" size="17.0" />
+         </font>
+      </Label>
+      <Label fx:id="sexLabel" layoutX="1113.0" layoutY="253.0" style="-fx-background-color: #004aad;" text="Sex" textFill="WHITE">
+         <font>
+            <Font name="Arial Black" size="17.0" />
+         </font>
+      </Label>
+      <Label fx:id="sabLabel" layoutX="1215.0" layoutY="252.0" style="-fx-background-color: #004aad;" text="Sáb" textFill="WHITE">
+         <font>
+            <Font name="Arial Black" size="17.0" />
+         </font>
+      </Label>
 
-    @FXML
-    private GridPane calendarGrid; 
+      <!-- Calendário GridPane -->
+      <GridPane fx:id="calendarGrid" layoutX="596.0" layoutY="279.0" prefHeight="470.0" prefWidth="700.0">
+         <columnConstraints>
+            <ColumnConstraints minWidth="100.0" prefWidth="100.0" />
+            <ColumnConstraints minWidth="100.0" prefWidth="100.0" />
+            <ColumnConstraints minWidth="100.0" prefWidth="100.0" />
+            <ColumnConstraints minWidth="100.0" prefWidth="100.0" />
+            <ColumnConstraints maxWidth="100.0" minWidth="100.0" />
+            <ColumnConstraints maxWidth="100.0" minWidth="100.0" />
+            <ColumnConstraints maxWidth="100.0" minWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="66.0" minHeight="50.0" prefHeight="64.0" />
+            <RowConstraints maxHeight="73.0" minHeight="43.0" prefHeight="73.0" />
+            <RowConstraints maxHeight="100.0" minHeight="50.0" prefHeight="73.0" />
+            <RowConstraints maxHeight="100.0" minHeight="50.0" prefHeight="73.0" />
+            <RowConstraints maxHeight="92.0" minHeight="50.0" prefHeight="77.0" />
+            <RowConstraints minHeight="50.0" prefHeight="100.0" />
+         </rowConstraints>
+      </GridPane>
 
-    @FXML
-    private Label monthYearLabel;  
-
-    // Mapa para armazenar dias coloridos
-    private Map<LocalDate, Color> coloredDays = new HashMap<>();
-
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        CentralizarJanela(anchorPane);
-
-        // Configurar o calendário customizado
-        setupColoredDays();
-        YearMonth currentMonth = YearMonth.now();  // Mês e ano atuais
-        populateCalendar(currentMonth);
-    }
-
-    // Método para preencher o calendário com os dias do mês
-    private void populateCalendar(YearMonth yearMonth) {
-        LocalDate firstOfMonth = yearMonth.atDay(1);
-        int daysInMonth = yearMonth.lengthOfMonth();
-        int startDayOfWeek = firstOfMonth.getDayOfWeek().getValue() % 7;  // Ajuste para domingo=0
-
-        // Limpar o GridPane antes de preencher
-        calendarGrid.getChildren().clear();
-
-        // Definir o texto do mês e ano
-        monthYearLabel.setText(yearMonth.getMonth().name() + "  " + yearMonth.getYear());
-
-        // Preencher os dias do mês no GridPane
-        int dayCounter = 1;
-        for (int row = 1; row <= 6; row++) {  // Ajustar para até 6 semanas
-            for (int col = 0; col < 7; col++) {
-                if (row == 1 && col < startDayOfWeek) {
-                    // Preencher espaços vazios antes do primeiro dia do mês
-                    calendarGrid.add(new Label(""), col, row);
-                } else if (dayCounter <= daysInMonth) {
-                    StackPane dayCell = createDayCell(dayCounter, yearMonth.atDay(dayCounter));
-                    calendarGrid.add(dayCell, col, row);
-                    dayCounter++;
-                }
-            }
-        }
-    }
-
-    private StackPane createDayCell(int day, LocalDate date) {
-        Label dayLabel = new Label(String.valueOf(day));
-        dayLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: black;");
-
-
-        Rectangle background = new Rectangle(60, 60);  
-        background.setFill(Color.DODGERBLUE);  
-        background.setArcWidth(10);  
-        background.setArcHeight(10);
-
-        if (coloredDays.containsKey(date)) {
-            background.setFill(coloredDays.get(date));  
-        }
-
-        StackPane stackPane = new StackPane();
-        stackPane.getChildren().addAll(background, dayLabel);
-
-        if (date.equals(LocalDate.now())) {
-            background.setStroke(Color.BLUE);  
-            background.setStrokeWidth(2);
-        }
-
-        return stackPane;
-    }
-
-    // Método para definir dias coloridos (exemplo: avaliação, dias especiais)
-    private void setupColoredDays() {
-        LocalDate avaliacaoStart = LocalDate.now().plusDays(3);  
-        LocalDate avaliacaoEnd = avaliacaoStart.plusDays(6);     
-
-        for (LocalDate date = avaliacaoStart; !date.isAfter(avaliacaoEnd); date = date.plusDays(1)) {
-            coloredDays.put(date, Color.LIGHTBLUE); 
-        }
-
-        // Destacar o dia atual
-        coloredDays.put(LocalDate.now(), Color.BLUE);  // Azul para o dia atual
-
-
-    @FXML
-    private void handleRealizarAval(javafx.event.ActionEvent event) {
-        Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("Realizar Avaliação");
-        alert.setHeaderText("Realizar Avaliação");
-        alert.setContentText("Aqui estará a janela para realizar a avaliação");
-        alert.showAndWait();
-    }
-
-    private void CentralizarJanela(AnchorPane no) {
-        no.setOnMouseEntered(event -> {
-            Stage stage = (Stage) no.getScene().getWindow();
-            if (stage != null) {
-                stage.setX((java.awt.Toolkit.getDefaultToolkit().getScreenSize().getWidth() - stage.getWidth()) / 2);
-                stage.setY((java.awt.Toolkit.getDefaultToolkit().getScreenSize().getHeight() - stage.getHeight()) / 2);
-            }
-        });
-    }
-}
+      <Label layoutX="538.0" layoutY="72.0" text="Você está na sprint 1, falta 4 dias para o início do período de avaliação">
+         <font>
+            <Font name="Arial Black" size="19.0" />
+         </font>
+      </Label>
+      <Button layoutX="50.0" layoutY="523.0" mnemonicParsing="false" onAction="#handleRealizarAval" prefHeight="64.0" prefWidth="269.0" text="Realizar avaliação" textFill="#004aad">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <Text fill="#0c04a1" layoutX="775.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-background-color: black;" text="OUTUBRO DE 2024" textAlignment="RIGHT">
+         <font>
+            <Font name="Arial Black" size="27.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>
