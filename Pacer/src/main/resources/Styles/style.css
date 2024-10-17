@@ -1,0 +1,59 @@
+.table-view {
+    -fx-background-color: white; /* Cor de fundo da tabela */
+    -fx-border-color: #004aad; /* Cor da borda externa da tabela */
+    -fx-border-width: 1; /* Largura da borda externa da tabela */
+    -fx-font-size: 14px; /* Tamanho da fonte */
+}
+
+/* Estilo do cabeçalho da coluna */
+.table-view .table-column-header {
+    -fx-background-color: #004aad; /* Cor do cabeçalho da coluna */
+    -fx-text-fill: white; /* Cor do texto do cabeçalho */
+    -fx-border-color: #004aad; /* Cor da borda do cabeçalho */
+    -fx-border-width: 1; /* Largura da borda do cabeçalho */
+    -fx-font-weight: bold; /* Peso da fonte */
+    -fx-padding: 10 5 10 5; /* Padding do cabeçalho */
+}
+
+/* Estilo das células da tabela */
+.table-view .table-row-cell {
+    -fx-border-color: #004aad; /* Cor da borda das células */
+    -fx-border-width: 0 0 1 0; /* Largura da borda das células (apenas na parte inferior) */
+    -fx-text-fill: #004aad; /* Cor do texto das células */
+    -fx-padding: 10; /* Padding das células */
+    -fx-background-color: white; /* Cor de fundo das células */
+}
+
+/* Estilo ao passar o mouse sobre as células */
+.table-view .table-row-cell:hover {
+    -fx-background-color: #f0f8ff; /* Cor de fundo ao passar o mouse */
+}
+
+/* Estilo das linhas selecionadas */
+.table-view .table-row-cell:selected {
+    -fx-background-color: #0080ff; /* Cor de fundo das células selecionadas */
+    -fx-text-fill: white; /* Cor do texto das células selecionadas */
+}
+
+/* Estilo das colunas */
+.table-view .table-column {
+    -fx-border-color:  #004aad; /* Cor da borda das colunas */
+    -fx-border-width: 1; /* Largura da borda das colunas */
+}
+
+/* Efeito de transição suave */
+.table-view .table-row-cell {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 3, 0.0, 0, 1);
+}
+
+/* Estilo para células vazias */
+.table-view .table-row-cell:empty {
+    -fx-background-color: #f8f8f8; /* Cor de fundo para células vazias */
+}
+
+/* Estilo para o rodapé da tabela (se aplicável) */
+.table-view .table-footer {
+    -fx-background-color: #e6e6e6; /* Cor de fundo do rodapé */
+    -fx-border-color:  #004aad; /* Cor da borda do rodapé */
+    -fx-border-width: 1; /* Largura da borda do rodapé */
+}
