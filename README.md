@@ -108,12 +108,14 @@ Valorizamos a dedicação, o comprometimento com o desenvolvimento organizaciona
 
 ## 📸 Nossa Equipe
 
+## 📸 Nossa Equipe
+
 | *Rafael Slivka* (Scrum Master) | *Larissa Claro* (Product Owner) | *Thiago Abreu* (Scrum Team) | *Mariana Yasmin* (Scrum Team) |
 |:-------------------------------:|:---------------------------------:|:----------------------------:|:------------------------------:|
 | ![Rafael Slivka](/docs/assets-readme/rafael-slivka.jpg) | ![Larissa Claro](/docs/assets-readme/larissa-claro.jpg) | ![Thiago Abreu](/docs/assets-readme/thiago-abreu.jpg) | ![Mariana Yasmin](/docs/assets-readme/mariana-yasmin.jpg) |
-| [<img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" width="20">](https://www.linkedin.com/in/rafael-lopes-slivka-07753326a/) | [<img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" width="20">](https://www.linkedin.com/in/clarolarissa/) | [<img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" width="20">](https://www.linkedin.com/in/thiagosabreu/) | [<img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" width="20">](https://www.linkedin.com/in/oliveirasmari) |
+| [<img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" width="20">](https://www.linkedin.com/in/rafael-lopes-slivka-07753326a/) | [<img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" width="20">](https://www.linkedin.com/in/clarolarissa/) | [<img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" width="20">](https://www.linkedin.com/in/thiagosabreu/) | [<img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" width="20">](https://www.linkedin.com/in/oliveirasmari/) |
 
 | *Tiago Bernardo* (Scrum Team) | *Beatriz Santos* (Scrum Team) | *Luiz Ricardo* (Scrum Team) |
-|:---------------------------------:|:----------------------------:|:------------------------------:|
- | ![Tiago Bernardo](/docs/assets-readme/tiago-bernardo.jpg) | ![Beatriz Santos](/docs/assets-readme/beatriz-santos.jpg) | ![Luiz Ricardo](/docs/assets-readme/luiz-ricardo.jpg) |
-| [<img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" width="20">](https://www.linkedin.com/in/thiago-diniz-29b82798/) | [<img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" width="20">](https://www.linkedin.com/in/tiagobernardosantos/) | [<img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" width="20">](https://www.linkedin.com/in/beatriz-santos-0b6773220/) | [<img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" width="20">](https://www.linkedin.com/in/luiz-Ricardo) |
+|:-------------------------------:|:----------------------------:|:------------------------------:|
+| ![Tiago Bernardo](/docs/assets-readme/tiago-bernardo.jpg) | ![Beatriz Santos](/docs/assets-readme/beatriz-santos.jpg) | ![Luiz Ricardo](/docs/assets-readme/luiz-ricardo.jpg) |
+| [<img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" width="20">](https://www.linkedin.com/in/thiago-diniz-29b82798/) | [<img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" width="20">](https://www.linkedin.com/in/beatriz-santos-0b6773220/) | [<img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" width="20">](https://www.linkedin.com/in/luiz-ricardo/) |
