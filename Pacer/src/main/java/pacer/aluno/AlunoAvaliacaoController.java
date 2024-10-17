@@ -55,11 +55,11 @@ public class AlunoAvaliacaoController implements Initializable {
         Tooltip tooltipResultados = new Tooltip("Definição de resultados.");
         Tooltip tooltipStatus = new Tooltip("Definição de status.");
 
-        colAutonomia.setTooltip(tooltipAutonomia);
-        colColaboracao.setTooltip(tooltipColaboracao);
-        colEntrega.setTooltip(tooltipEntrega);
-        colResultados.setTooltip(tooltipResultados);
-        colStatus.setTooltip(tooltipStatus);
+        // colAutonomia.setTooltip(tooltipAutonomia);  // precisa declarar essas variaveis col
+        // colColaboracao.setTooltip(tooltipColaboracao);  // precisa declarar essas variaveis col
+        // colEntrega.setTooltip(tooltipEntrega);  // precisa declarar essas variaveis col
+        // colResultados.setTooltip(tooltipResultados);  // precisa declarar essas variaveis col
+        // colStatus.setTooltip(tooltipStatus);  // precisa declarar essas variaveis col
     }
 
     @Override

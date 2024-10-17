@@ -16,11 +16,12 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
     }
 
     @FXML
     private void handleLogin(javafx.event.ActionEvent event) throws IOException {
+
+        // TODO verificaçao de login com o LoginDAO
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/AlunoHomeView.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
