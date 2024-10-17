@@ -59,7 +59,18 @@ Principais Funcionalidades:
 
 ## ✅ User Story
 
-![User Story](/docs/assets-readme/users.png) 
+| **Atividade**                           | **Epic**                                                                                                   | **Critério de Aceitação**                                                                                                                                                        |
+|-----------------------------------------|------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Avaliação de Membros da Equipe         | Como aluno, Eu quero avaliar todos os membros da minha equipe ao final de cada Sprint, Para que o desempenho deles seja registrado e considerado na avaliação final. | O sistema deve permitir que cada aluno avalie todos os membros da equipe ao final de uma Sprint. O aluno deve poder fazer uma única avaliação por Sprint.                          |
+| Relatório de Notas Individuais          | Como professor, Eu quero gerar um relatório contendo a nota média de cada aluno por critério de avaliação em uma determinada Sprint, Para que eu possa analisar o desempenho individual dos alunos. | O sistema deve gerar um relatório com a nota média por aluno em cada critério para uma Sprint específica.                                                                         |
+| Relatório de Notas do Grupo             | Como professor, Eu quero gerar um relatório contendo a nota média de todos os alunos de um grupo para uma Sprint específica, Para que eu possa verificar o desempenho coletivo do grupo. | O sistema deve gerar um relatório com a média de todos os alunos de um grupo para uma Sprint.                                                                                    |
+| Gerenciamento de Grupos                 | Como professor, Eu quero carregar informações de grupos por meio de um arquivo, Para que eu possa gerenciar os grupos de alunos de forma mais eficiente. | O sistema deve permitir a importação de grupos por arquivo e a inclusão/exclusão de membros de grupos.                                                                           |
+| Gerenciamento de Critérios de Avaliação  | Como professor, Eu quero gerenciar os critérios de avaliação, Para que eu possa adicionar novos critérios, alterar ou desativar os existentes conforme necessário. | O sistema deve permitir a inclusão, alteração e desativação de critérios de avaliação. Critérios desativados não devem aparecer nas avaliações realizadas pelos alunos.            |
+| Calendário de Sprints                   | Como professor, Eu quero cadastrar o calendário de Sprints para cada semestre, Para que o sistema identifique automaticamente a Sprint em que uma avaliação está sendo realizada. | O sistema deve verificar a data atual e associar automaticamente a avaliação à Sprint correspondente.                                                                             |
+| Autenticação                            | Como aluno, Eu quero realizar login com usuário e senha, Para que eu possa garantir que apenas eu faça minha avaliação e que meus dados sejam protegidos. | O sistema deve exigir autenticação de usuário e senha para alunos realizarem a avaliação. Somente o professor deve ter acesso aos relatórios.                                      |
+
+## Contribuições
+
 
 ## 🎯 Missão
 
