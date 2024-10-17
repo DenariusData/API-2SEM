@@ -76,7 +76,7 @@ public class AlunoHomeController implements Initializable {
         Label dayLabel = new Label(String.valueOf(day));
         dayLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: black;");
 
-        Rectangle background = new Rectangle(75, 75);  // Tamanho da célula aumentado
+        Rectangle background = new Rectangle(60, 60);  // Tamanho da célula aumentado
         background.setFill(Color.DODGERBLUE);  // Cor padrão para um fundo azul
         background.setArcWidth(10);  // Bordas arredondadas
         background.setArcHeight(10);
