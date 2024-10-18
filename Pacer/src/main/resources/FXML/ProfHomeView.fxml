@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane fx:id="pnlInicial" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="527.0" prefWidth="1198.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Pacer.Professor.ProfHomeController">
+   <children>
+      <Rectangle fx:id="pnlRetperfil" arcHeight="5.0" arcWidth="5.0" fill="TRANSPARENT" height="522.0" layoutX="-1.0" layoutY="-1.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="217.0" />
+      <ImageView fx:id="pnlFoto" fitHeight="125.0" fitWidth="150.0" layoutX="42.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../../../Downloads/user_7829883.png" />
+         </image></ImageView>
+      <ToggleButton fx:id="pnlBotaofoto" layoutX="32.0" layoutY="151.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="150.0" style="-fx-background-color: #3498db;" text="Edite a sua foto de perfil">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </ToggleButton>
+      <Label fx:id="pnlNome" layoutX="13.0" layoutY="181.0" prefHeight="20.0" prefWidth="182.0" text="Professor da Silva">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="pnlEmail" layoutX="13.0" layoutY="201.0" prefHeight="20.0" prefWidth="188.0" text="professordasilva@fatec.sp.gov.br">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="pnlCurso" layoutX="13.0" layoutY="221.0" prefHeight="20.0" prefWidth="182.0" text="Banco de dados">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="14.0" />
+         </font>
+      </Label>
+      <DatePicker fx:id="pnlCalendario" layoutX="228.0" layoutY="18.0" prefHeight="163.0" prefWidth="309.0" />
+      <Rectangle fx:id="pnlRetcalendario" arcHeight="5.0" arcWidth="5.0" fill="TRANSPARENT" height="264.0" layoutX="215.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="487.0" />
+      <Rectangle fx:id="pnlRetgerenciar" arcHeight="5.0" arcWidth="5.0" fill="TRANSPARENT" height="264.0" layoutX="702.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="481.0" />
+      <Rectangle fx:id="pnlRetrelatorio" arcHeight="5.0" arcWidth="5.0" fill="TRANSPARENT" height="264.0" layoutX="702.0" layoutY="260.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="481.0" />
+      <Rectangle fx:id="pnlRetrelatorio1" arcHeight="5.0" arcWidth="5.0" fill="TRANSPARENT" height="264.0" layoutX="215.0" layoutY="260.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="487.0" />
+      <ToggleButton fx:id="pnlBotaoconfig" layoutX="293.0" layoutY="186.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="150.0" style="-fx-background-color: #3498db;" text="Configurar">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </ToggleButton>
+      <Label fx:id="pnlOrientacaoconfig" alignment="CENTER" layoutX="267.0" layoutY="226.0" prefHeight="30.0" prefWidth="203.0" text="Clique no botão configurar para inserir datas do cronograma do projeto." textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" wrapText="true">
+         <font>
+            <Font name="Times New Roman" size="10.0" />
+         </font>
+      </Label>
+      <ToggleButton fx:id="pnlBotaoimport" layoutX="517.0" layoutY="362.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="150.0" style="-fx-background-color: #3498db;" text="Importar">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </ToggleButton>
+      <Label fx:id="pnlOrientacaoimport" alignment="CENTER" layoutX="490.0" layoutY="411.0" prefHeight="39.0" prefWidth="203.0" text="Clique no botão importar para incluir os dados disponibilizados pelos alunos." textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" wrapText="true">
+         <font>
+            <Font name="Times New Roman" size="10.0" />
+         </font>
+      </Label>
+      <ToggleButton fx:id="pnlBotaogerenciar" layoutX="990.0" layoutY="109.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="150.0" style="-fx-background-color: #3498db;" text="Gerenciar equipes">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </ToggleButton>
+      <ToggleButton fx:id="pnlBotaoextrair" layoutX="998.0" layoutY="362.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="150.0" style="-fx-background-color: #3498db;" text="Extrair relatórios">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </ToggleButton>
+      <Label fx:id="pnlOrientacaogerenciar" alignment="CENTER" layoutX="730.0" layoutY="182.0" prefHeight="39.0" prefWidth="418.0" text="Clique no botão gerenciar equipes para atribuir notas as equipes, excluir ou adicionar membros, editar informações." textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" wrapText="true">
+         <font>
+            <Font name="Times New Roman" size="10.0" />
+         </font>
+      </Label>
+      <Label fx:id="pnlOrientacaoextrair" alignment="CENTER" layoutX="734.0" layoutY="417.0" prefHeight="39.0" prefWidth="418.0" text="Clique no botão extrair ralatórios para escolher e baixar os relatórios que desejar." textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" wrapText="true">
+         <font>
+            <Font name="Times New Roman" size="10.0" />
+         </font>
+      </Label>
+      <Rectangle fx:id="pnlRetperfil1" arcHeight="5.0" arcWidth="5.0" fill="TRANSPARENT" height="258.0" layoutX="-4.0" layoutY="263.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" width="223.0" />
+      <TableView fx:id="pnlTabeladatas" layoutX="550.0" layoutY="14.0" prefHeight="233.0" prefWidth="137.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="Tarefa" />
+          <TableColumn prefWidth="75.0" text="Data" />
+        </columns>
+      </TableView>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="243.0" layoutY="306.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../../../Downloads/data-import_17753270.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="140.0" fitWidth="126.0" layoutX="753.0" layoutY="287.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../../../Downloads/icons8-baixar-relatório-de-gráfico-de-pizza-100.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="753.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../../../Downloads/leadership_9483013.png" />
+         </image>
+      </ImageView>
+      <ToggleButton fx:id="pnlBotaocriterios" layoutX="18.0" layoutY="396.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="188.0" style="-fx-background-color: #3498db;" text="Administraçaõ de critérios" onAction="#handlepnlBotaocriteriosClick">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </ToggleButton>
+      <Label fx:id="pnlOrientacaocriterios" alignment="CENTER" layoutX="10.0" layoutY="350.0" prefHeight="39.0" prefWidth="203.0" text="Clique no botão abaixo para inlcuir ou alterar os critérios de avaliação." textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" wrapText="true">
+         <font>
+            <Font name="Times New Roman" size="10.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>
