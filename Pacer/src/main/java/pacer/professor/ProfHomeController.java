@@ -1,4 +1,4 @@
-package Pacer.Professor;
+package pacer.professor;
 
 import java.io.IOException;
 import java.net.URL;
@@ -14,7 +14,11 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class ProfHomeController implements Initializable {
-     @FXML
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        
+    }
+    @FXML
     private void handlepnlBotaocriteriosClick(ActionEvent event) throws IOException {
         // Carregar a nova tela (substitua o caminho pelo FXML correto)
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/AdminCriteriaView.fxml"));

@@ -1,5 +1,6 @@
-package Pacer.Aluno;
+package pacer.aluno;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.YearMonth;
@@ -8,9 +9,11 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -116,12 +119,14 @@ public class AlunoHomeController implements Initializable {
     }
 
     @FXML
-    private void handleRealizarAval(javafx.event.ActionEvent event) {
-        Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("Realizar Avaliação");
-        alert.setHeaderText("Realizar Avaliação");
-        alert.setContentText("Aqui estará a janela para realizar a avaliação");
-        alert.showAndWait();
+    private void handleRealizarAval(javafx.event.ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/AlunoAvaliacaoView.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        Stage stage;
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
 
     private void CentralizarJanela(AnchorPane no) {
