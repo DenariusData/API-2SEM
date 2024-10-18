@@ -55,7 +55,8 @@ Principais Funcionalidades:
   
 ## ✅ Backolog do produto
 
-![Backolog](/docs/assets-readme/backlog.jpg) 
+[Backlog do produto](docs/backlog.pdf)
+ 
 
 ## ✅ User Story
 
@@ -116,10 +117,6 @@ Valorizamos a dedicação, o comprometimento com o desenvolvimento organizaciona
 - Respeitar os prazos e padrões de commit (organização).
 - Expor dificuldades durante o processo, evitando problemas próximos à apresentação.
 - Propõe-se que todos apresentem pelo menos uma sprint.
-
-## 📸 Nossa Equipe
-
-## 📸 Nossa Equipe
 
 ## 📸 Nossa Equipe
 
