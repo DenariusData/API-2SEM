@@ -19,6 +19,7 @@ CREATE TABLE GRUPO (
 
 CREATE TABLE PROFESSOR (
 	PROF_ID INT AUTO_INCREMENT,
+	PROF_NOME VARCHAR(100) NOT NULL,
     PROF_EMAIL VARCHAR(30) NOT NULL UNIQUE,  
     PROF_SENHA VARCHAR(30) NOT NULL,
     FOTO LONGBLOB,
@@ -32,13 +33,6 @@ CREATE TABLE MATERIA (
     PRIMARY KEY (MATERIA_ID)
 );
 
-CREATE TABLE PROF_MATERIA (
-    MATERIA_ID INT,
-    PROF_ID INT,               -- Chave composta para permitir que um professor possa lecionar várias matérias
-    PRIMARY KEY (PROF_ID, MATERIA_ID),
-    FOREIGN KEY (PROF_ID) REFERENCES PROFESSOR(PROF_ID),
-    FOREIGN KEY (MATERIA_ID) REFERENCES MATERIA(MATERIA_ID)
-);
 
 CREATE TABLE CRITERIOS (
     CRITERIO_ID INT AUTO_INCREMENT,            
@@ -51,7 +45,7 @@ CREATE TABLE CRITERIOS (
 CREATE TABLE AVALIACAO (
     AVALIACAO_ID INT AUTO_INCREMENT,          
 	AVALIADO_ALUNO_RA BIGINT NOT NULL,                      
-    AVALIADOR_ALUNO_RA BIGINT NOT NULL,                       
+    AVALIADOR_ALUNO_RA BIGINT NOT NULL,
     CRITERIO_ID INT NOT NULL,                         
     NOTA DECIMAL(3,1) NOT NULL,      -- podendo inserir um numero inteiro somente e um numero após a virgula        
     AVALIACAO_DATA DATETIME NOT NULL,             
@@ -99,19 +93,15 @@ INSERT INTO GRUPO (GRUPO_NOME)
 VALUES ('Denarius Data'), ('Programers');
 
 -- Inserindo professores (deixe o `PROF_ID` ser gerado automaticamente)
-INSERT INTO PROFESSOR (PROF_EMAIL, PROF_SENHA)
-VALUES ('Emerson.silva@fatec.sp.gov.br', 'senha789'),
-       ('Cinthia.costa@fatec.sp.gov.br', 'senha321');
+INSERT INTO PROFESSOR (PROF_NOME, PROF_EMAIL, PROF_SENHA)
+VALUES ('Emerson', 'Emerson.silva@fatec.sp.gov.br', 'senha789'),
+       ('Cinthia', 'Cinthia.costa@fatec.sp.gov.br', 'senha321');
 
 -- Inserindo matérias (deixe o `MATERIA_ID` ser gerado automaticamente)
 INSERT INTO MATERIA (MATERIA_NOME, MATERIA_SEMESTRE)
 VALUES ('Banco de Dados', 2),
        ('Algoritmo', 5);
 
--- Associando professores a matérias (verifique se os IDs inseridos para `PROF_ID` e `MATERIA_ID` existem)
-INSERT INTO PROF_MATERIA (MATERIA_ID, PROF_ID)
-VALUES (1, 1), -- Banco de Dados com Emerson
-       (2, 2); -- Algoritmo com Cinthia
 
 -- Inserindo critérios de avaliação
 INSERT INTO CRITERIOS (CRITERIO_ID,CRITERIO_NOME, CRITERIO_DESCRICAO)
@@ -138,3 +128,5 @@ VALUES ('2024-2', 1, '2024-03-01', '2024-03-31'),
 INSERT INTO ALUNO_GRUPO (ALUNO_RA, GRUPO_ID)
 VALUES (1144197338157, 1),
        (1144197338987, 2);
+       
+ DROP DATABASE API;      
