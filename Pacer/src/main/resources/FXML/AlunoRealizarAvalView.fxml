@@ -3,89 +3,78 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.ToggleGroup?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 
-<AnchorPane prefHeight="425.0" prefWidth="609.0" style="-fx-background-color: #f0f8ff;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+
+<AnchorPane prefHeight="425.0" prefWidth="609.0" style="-fx-background-color: #f0f8ff;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pacer.aluno.AlunoRealizarAvalController">
     
     <VBox layoutX="14.0" layoutY="51.0" prefWidth="250" spacing="10" style="-fx-background-color: #87CEEB; -fx-padding: 15; -fx-border-color: #4682B4; -fx-border-width: 2; -fx-border-radius: 10;">
         <Label style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #ffffff;" text="Informações do Aluno" />
         
         <ImageView fitHeight="100" fitWidth="100" preserveRatio="true">
-            <Image url="@../images/student-placeholder.png" />
+            <Image url="@../images/pamela-silva.jpg" />
         </ImageView>
         
         <HBox spacing="10">
             <Label style="-fx-text-fill: #ffffff;" text="Nome:" />
-         <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
         </HBox>
-        <HBox spacing="10" />
+        
         <HBox spacing="10">
-            <Label style="-fx-text-fill: #ffffff;" text="Grupo" />
-         <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+            <Label style="-fx-text-fill: #ffffff;" text="Grupo:" />
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
         </HBox>
     </VBox>
+
     <VBox layoutX="300.0" layoutY="44.0" prefHeight="278.0" prefWidth="224.0" spacing="15" style="-fx-background-color: #4682B4; -fx-padding: 15; -fx-border-color: #1E90FF; -fx-border-width: 2; -fx-border-radius: 10;">
         <Label style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #ffffff;" text="Critérios de Avaliação" />
 
         <VBox spacing="10">
             <Label style="-fx-text-fill: #ffffff;" text="Autonomia:" />
             <HBox spacing="10">
-                <RadioButton style="-fx-text-fill: #ffffff;" text="0">
-               <toggleGroup>
-                  <ToggleGroup fx:id="Autonomia" />
-               </toggleGroup></RadioButton>
-                <RadioButton style="-fx-text-fill: #ffffff;" text="1" toggleGroup="$Autonomia" />
-                <RadioButton style="-fx-text-fill: #ffffff;" text="2" toggleGroup="$Autonomia" />
-                <RadioButton style="-fx-text-fill: #ffffff;" text="3" toggleGroup="$Autonomia" />
+                <RadioButton fx:id="autonomia0" style="-fx-text-fill: #ffffff;" text="0" />
+                <RadioButton fx:id="autonomia1" style="-fx-text-fill: #ffffff;" text="1" />
+                <RadioButton fx:id="autonomia2" style="-fx-text-fill: #ffffff;" text="2" />
+                <RadioButton fx:id="autonomia3" style="-fx-text-fill: #ffffff;" text="3" />
             </HBox>
         </VBox>
 
         <VBox spacing="10">
             <Label style="-fx-text-fill: #ffffff;" text="Colaboração:" />
             <HBox spacing="10">
-                <RadioButton style="-fx-text-fill: #ffffff;" text="0">
-               <toggleGroup>
-                  <ToggleGroup fx:id="Colaboração" />
-               </toggleGroup></RadioButton>
-                <RadioButton style="-fx-text-fill: #ffffff;" text="1" toggleGroup="$Colaboração" />
-                <RadioButton style="-fx-text-fill: #ffffff;" text="2" toggleGroup="$Colaboração" />
-                <RadioButton style="-fx-text-fill: #ffffff;" text="3" toggleGroup="$Colaboração" />
+                <RadioButton fx:id="colaboracao0" style="-fx-text-fill: #ffffff;" text="0" />
+                <RadioButton fx:id="colaboracao1" style="-fx-text-fill: #ffffff;" text="1" />
+                <RadioButton fx:id="colaboracao2" style="-fx-text-fill: #ffffff;" text="2" />
+                <RadioButton fx:id="colaboracao3" style="-fx-text-fill: #ffffff;" text="3" />
             </HBox>
         </VBox>
 
         <VBox spacing="10">
             <Label style="-fx-text-fill: #ffffff;" text="Entrega:" />
             <HBox spacing="10">
-                <RadioButton style="-fx-text-fill: #ffffff;" text="0">
-               <toggleGroup>
-                  <ToggleGroup fx:id="Entrega" />
-               </toggleGroup></RadioButton>
-                <RadioButton style="-fx-text-fill: #ffffff;" text="1" toggleGroup="$Entrega" />
-                <RadioButton style="-fx-text-fill: #ffffff;" text="2" toggleGroup="$Entrega" />
-                <RadioButton style="-fx-text-fill: #ffffff;" text="3" toggleGroup="$Entrega" />
+                <RadioButton fx:id="entrega0" style="-fx-text-fill: #ffffff;" text="0" />
+                <RadioButton fx:id="entrega1" style="-fx-text-fill: #ffffff;" text="1" />
+                <RadioButton fx:id="entrega2" style="-fx-text-fill: #ffffff;" text="2" />
+                <RadioButton fx:id="entrega3" style="-fx-text-fill: #ffffff;" text="3" />
             </HBox>
         </VBox>
 
         <VBox spacing="10">
             <Label style="-fx-text-fill: #ffffff;" text="Resultados:" />
             <HBox spacing="10">
-                <RadioButton style="-fx-text-fill: #ffffff;" text="0">
-               <toggleGroup>
-                  <ToggleGroup fx:id="Resultados" />
-               </toggleGroup></RadioButton>
-                <RadioButton style="-fx-text-fill: #ffffff;" text="1" toggleGroup="$Resultados" />
-                <RadioButton style="-fx-text-fill: #ffffff;" text="2" toggleGroup="$Resultados" />
-                <RadioButton style="-fx-text-fill: #ffffff;" text="3" toggleGroup="$Resultados" />
+                <RadioButton fx:id="resultados0" style="-fx-text-fill: #ffffff;" text="0" />
+                <RadioButton fx:id="resultados1" style="-fx-text-fill: #ffffff;" text="1" />
+                <RadioButton fx:id="resultados2" style="-fx-text-fill: #ffffff;" text="2" />
+                <RadioButton fx:id="resultados3" style="-fx-text-fill: #ffffff;" text="3" />
             </HBox>
         </VBox>
-
     </VBox>
-   <Button fx:id="enviarAvaliacaoBtn" layoutX="225.0" layoutY="366.0" onAction="#enviarAvaliacao" prefWidth="150" style="-fx-font-size: 16px; -fx-background-color: #1E90FF; -fx-text-fill: white;" text="Enviar Avaliação" />
+
+    <Button fx:id="enviarAvaliacaoBtn" layoutX="225.0" layoutY="366.0" onAction="#enviarAvaliacao" prefWidth="150" style="-fx-font-size: 16px; -fx-background-color: #1E90FF; -fx-text-fill: white;" text="Enviar Avaliação" />
 
 </AnchorPane>

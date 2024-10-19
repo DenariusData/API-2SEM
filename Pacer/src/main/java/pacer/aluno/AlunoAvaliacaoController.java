@@ -4,8 +4,10 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -13,11 +15,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class AlunoAvaliacaoController implements Initializable {
-    public Button realizarAvaliacaoBtn; 
+    
+    @FXML
+    public Button realizarAvaliacaoBtn;
+    @FXML
+    private ImageView imgVoltar;
+
+    @FXML
     public void abrirRealizarAvaliacao(ActionEvent event) {
         try {
          
@@ -33,21 +40,24 @@ public class AlunoAvaliacaoController implements Initializable {
         }
     }
 
-    public void confirmarVoltar(MouseEvent event) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmação");
-        alert.setHeaderText("Tem certeza que deseja voltar?");
-        alert.setContentText("Clique em 'OK' para confirmar ou 'Cancelar' para retornar.");
+    @FXML
+public void confirmarVoltar(ActionEvent event) {
+    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+    alert.setTitle("Confirmação");
+    alert.setHeaderText("Tem certeza que deseja voltar?");
+    alert.setContentText("Clique em 'OK' para confirmar ou 'Cancelar' para retornar.");
 
-        alert.showAndWait().ifPresent(response -> {
-            if (response == ButtonType.OK) {
-                System.out.println("Usuário confirmou voltar.");
+    alert.showAndWait().ifPresent(response -> {
+        if (response == ButtonType.OK) {
+            System.out.println("Usuário confirmou voltar.");
 
-                Stage stage = (Stage) ((ImageView) event.getSource()).getScene().getWindow();
-                stage.close();
-            }
-        });
-    }
+            // Obtenha o estágio a partir do evento ActionEvent
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.close();
+        }
+    });
+}
+
     public void setupTooltips() {
         Tooltip tooltipAutonomia = new Tooltip("Definição de autonomia.");
         Tooltip tooltipColaboracao = new Tooltip("Definição de colaboração.");
