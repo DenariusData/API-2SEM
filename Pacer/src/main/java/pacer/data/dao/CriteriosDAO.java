@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import pacer.data.DatabaseConnection;
 import pacer.data.models.Criterios;
@@ -37,6 +39,31 @@ public class CriteriosDAO {
             e.printStackTrace();
         }
         return criterio;
+    }
+
+    public static List<Criterios> getAll() {
+        String sql = "SELECT * FROM CRITERIOS";
+        List<Criterios> criteriosList = new ArrayList<>();
+
+        try (Connection conn = DatabaseConnection.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+                Criterios criterio = new Criterios(
+                    rs.getInt("CRITERIO_ID"),
+                    rs.getString("CRITERIO_NOME"),
+                    rs.getString("CRITERIO_DESCRICAO"),
+                    rs.getBoolean("CRITERIO_ATIVO")
+                );
+                criteriosList.add(criterio);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return criteriosList;
     }
 
     public static void update(Criterios criterio) {

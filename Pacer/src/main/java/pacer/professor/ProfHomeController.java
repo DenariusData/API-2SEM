@@ -21,7 +21,7 @@ public class ProfHomeController implements Initializable {
     @FXML
     private void handlepnlBotaocriteriosClick(ActionEvent event) throws IOException {
         // Carregar a nova tela (substitua o caminho pelo FXML correto)
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/AdminCriteriaView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/ProfCriteriosView.fxml"));
         Parent root = loader.load();
 
         // Obter a janela (Stage) atual
