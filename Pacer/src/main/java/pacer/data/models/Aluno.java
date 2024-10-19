@@ -1,7 +1,6 @@
 package pacer.data.models;
 
 public class Aluno {
-
     //region Atributos
     private long ra;
     private String email;
@@ -9,6 +8,14 @@ public class Aluno {
     private String senha;
     private byte[] foto;
     //endregion
+
+    //#region Aluno Logado
+    public static class AlunoLogado extends Aluno {
+        public AlunoLogado(long ra, String email, String nome, String senha, byte[] foto) {
+            super(ra, email, nome, senha, foto);
+        }
+    }
+    //#endregion Aluno Logado
 
     //region Construtor
     public Aluno(long ra, String email, String nome, String senha, byte[] foto) {

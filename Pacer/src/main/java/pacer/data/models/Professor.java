@@ -9,6 +9,14 @@ public class Professor {
     private byte[] foto;
     //endregion
 
+    //#region Professor Logado
+    public static class ProfessorLogado extends Professor {
+        public ProfessorLogado(int id, String email, String senha, byte[] foto) {
+            super(id, email, senha, foto);
+        }
+    }
+    //#endregion Professor Logado
+
     //region Construtor
     public Professor(int id, String email, String senha, byte[] foto) {
         this.id = id;
