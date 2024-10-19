@@ -7,18 +7,15 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
-
 
 <AnchorPane prefHeight="425.0" prefWidth="609.0" style="-fx-background-color: #f0f8ff;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pacer.aluno.AlunoRealizarAvalController">
     
     <VBox layoutX="14.0" layoutY="51.0" prefWidth="250" spacing="10" style="-fx-background-color: #87CEEB; -fx-padding: 15; -fx-border-color: #4682B4; -fx-border-width: 2; -fx-border-radius: 10;">
         <Label style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #ffffff;" text="Informações do Aluno" />
         
-        <ImageView fitHeight="100" fitWidth="100" preserveRatio="true">
-            <Image url="@../images/pamela-silva.jpg" />
-        </ImageView>
+        <!-- <ImageView fitHeight="100" fitWidth="100" preserveRatio="true">
+            <Image url="@../images/student-placeholder.png" />
+        </ImageView> -->
         
         <HBox spacing="10">
             <Label style="-fx-text-fill: #ffffff;" text="Nome:" />
