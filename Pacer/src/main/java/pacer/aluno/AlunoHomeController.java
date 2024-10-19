@@ -1,4 +1,4 @@
-package Pacer.Aluno;
+package pacer.aluno;
 
 import java.io.IOException;
 import java.net.URL;
@@ -14,8 +14,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -41,6 +39,7 @@ public class AlunoHomeController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         CentralizarJanela(anchorPane);
+        
 
         // Configurar o calendário customizado
         setupColoredDays();
@@ -114,10 +113,9 @@ public class AlunoHomeController implements Initializable {
             coloredDays.put(date, Color.LIGHTBLUE);  // Azul claro para o período de avaliação
         }
 
-        // Destacar o dia atual
-        coloredDays.put(LocalDate.now(), Color.BLUE);  // Azul para o dia atual
+        coloredDays.put(LocalDate.now(), Color.BLUE); 
 
-        // Adicionar outros dias especiais conforme necessário
+
     }
 
     @FXML
