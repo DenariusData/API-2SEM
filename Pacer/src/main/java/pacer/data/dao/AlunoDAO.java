@@ -36,8 +36,13 @@ public class AlunoDAO {
             stmt.setString(2, senha);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                return new Aluno(rs.getLong("ALUNO_RA"), rs.getString("ALUNO_EMAIL"),
-                        rs.getString("ALUNO_NOME"), rs.getString("ALUNO_SENHA"), rs.getBytes("FOTO"));
+                Aluno.AlunoLogado alunoLogado = Aluno.AlunoLogado.getInstancia(
+                    rs.getLong("ALUNO_RA"), 
+                    rs.getString("ALUNO_EMAIL"), 
+                    rs.getString("ALUNO_NOME"), 
+                    rs.getString("ALUNO_SENHA"), 
+                    rs.getBytes("FOTO"));
+                return alunoLogado;
             }
         } catch (SQLException e) {
             e.printStackTrace();

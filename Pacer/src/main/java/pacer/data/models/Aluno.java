@@ -9,13 +9,29 @@ public class Aluno {
     private byte[] foto;
     //endregion
 
-    //#region Aluno Logado
+    //region Aluno logado
     public static class AlunoLogado extends Aluno {
-        public AlunoLogado(long ra, String email, String nome, String senha, byte[] foto) {
+        private static AlunoLogado instancia;
+
+        // Construtor privado
+        private AlunoLogado(long ra, String email, String nome, String senha, byte[] foto) {
             super(ra, email, nome, senha, foto);
         }
+
+        // Método para obter a instância singleton
+        public static AlunoLogado getInstancia(long ra, String email, String nome, String senha, byte[] foto) {
+            if (instancia == null) {
+                instancia = new AlunoLogado(ra, email, nome, senha, foto);
+            }
+            return instancia;
+        }
+
+        // Método para limpar a instância
+        public static void logout() {
+            instancia = null;
+        }
     }
-    //#endregion Aluno Logado
+    //endregion
 
     //region Construtor
     public Aluno(long ra, String email, String nome, String senha, byte[] foto) {
