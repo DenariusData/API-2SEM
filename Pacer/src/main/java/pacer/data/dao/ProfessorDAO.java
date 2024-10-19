@@ -27,15 +27,20 @@ public class ProfessorDAO {
         }
     }
 
-    public static Professor findByEmailAndSenha(String email, String senha) {
+    public static Professor.ProfessorLogado findByEmailAndSenha(String email, String senha) {
         String sql = "SELECT * FROM PROFESSOR WHERE PROF_EMAIL = ? AND PROF_SENHA = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, email);
             stmt.setString(2, senha);
             ResultSet rs = stmt.executeQuery();
+            
             if (rs.next()) {
-                return new Professor(rs.getInt("PROF_ID"), rs.getString("PROF_EMAIL"),
-                        rs.getString("PROF_SENHA"), rs.getBytes("FOTO"));
+                return Professor.ProfessorLogado.getInstancia(
+                    rs.getInt("PROF_ID"),
+                    rs.getString("PROF_EMAIL"),
+                    rs.getString("PROF_SENHA"),
+                    rs.getBytes("FOTO")
+                );
             }
         } catch (SQLException e) {
             e.printStackTrace();
