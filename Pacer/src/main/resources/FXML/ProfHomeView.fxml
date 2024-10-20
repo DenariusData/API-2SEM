@@ -116,6 +116,6 @@
             <Font name="Times New Roman" size="10.0" />
          </font>
       </Label>
-      <Button layoutX="6.0" layoutY="6.0" mnemonicParsing="false" text="Sair" />
+      <Button onAction="#handleSair" layoutX="6.0" layoutY="6.0" mnemonicParsing="false" text="Sair" />
    </children>
 </Pane>

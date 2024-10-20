@@ -37,6 +37,7 @@ public class ProfessorDAO {
             if (rs.next()) {
                 return Professor.ProfessorLogado.getInstancia(
                     rs.getInt("PROF_ID"),
+                    rs.getString("PROF_NOME"),
                     rs.getString("PROF_EMAIL"),
                     rs.getString("PROF_SENHA"),
                     rs.getBytes("FOTO")
@@ -53,7 +54,7 @@ public class ProfessorDAO {
         String sql = "SELECT * FROM PROFESSOR";
         try (Statement stmt = connection.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
-                professores.add(new Professor(rs.getInt("PROF_ID"), rs.getString("PROF_EMAIL"),
+                professores.add(new Professor(rs.getInt("PROF_ID"), rs.getString("PROF_NOME"), rs.getString("PROF_EMAIL"),
                         rs.getString("PROF_SENHA"), rs.getBytes("FOTO")));
             }
         } catch (SQLException e) {
@@ -63,12 +64,13 @@ public class ProfessorDAO {
     }
 
     public static void updateProfessor(Professor professor) {
-        String sql = "UPDATE PROFESSOR SET PROF_EMAIL = ?, PROF_SENHA = ?, FOTO = ? WHERE PROF_ID = ?";
+        String sql = "UPDATE PROFESSOR SET PROF_NOME = ?, PROF_EMAIL = ?, PROF_SENHA = ?, FOTO = ? WHERE PROF_ID = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, professor.getEmail());
-            stmt.setString(2, professor.getSenha());
-            stmt.setBlob(3, new ByteArrayInputStream(professor.getFoto()));
-            stmt.setInt(4, professor.getId());
+            stmt.setString(1, professor.getNome());
+            stmt.setString(2, professor.getEmail());
+            stmt.setString(3, professor.getSenha());
+            stmt.setBlob(4, new ByteArrayInputStream(professor.getFoto()));
+            stmt.setInt(5, professor.getId());
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
