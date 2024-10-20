@@ -17,7 +17,7 @@
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#004aad" height="832.0" stroke="BLACK" strokeType="INSIDE" width="392.0" />
       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="125.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../OneDrive/Documentos/Git/API-2SEM/Pacer/src/main/resources/images/pamela-silva.jpg" />
+            <Image url="@../images/pamela-silva.jpg" />
          </image>
       </ImageView>
       <Label layoutX="101.0" layoutY="207.0" text="Nome: Pamela Silva" textFill="WHITE">

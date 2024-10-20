@@ -30,7 +30,7 @@
       </Button>
       <ImageView fitHeight="617.0" fitWidth="458.0" layoutX="-122.0" layoutY="-7.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@/images/login-background.jpeg" />
+            <Image url="@../images/login-background.jpeg" />
          </image>
          <viewport>
             <Rectangle2D height="800.0" minX="900.0" minY="900.0" />
@@ -38,23 +38,23 @@
       </ImageView>
       <ImageView fitHeight="68.0" fitWidth="105.0" layoutX="343.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@/images/cps.png" />
+            <Image url="@../images/cps.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="96.0" fitWidth="142.0" layoutX="690.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@/images/fatec.png" />
+            <Image url="@../images/fatec.png" />
          </image>
       </ImageView>
       <PasswordField fx:id = "passwordField" layoutX="469.0" layoutY="386.0" prefHeight="30.0" prefWidth="302.0" promptText="   Digite sua senha..." style="-fx-border-radius: 50; -fx-border-color: black;" />
       <ImageView fitHeight="49.0" fitWidth="43.0" layoutX="423.0" layoutY="298.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@Email.png" />
+            <Image url="@../images/Email.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="49.0" fitWidth="43.0" layoutX="423.0" layoutY="384.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@Password.png" />
+            <Image url="@../images/Password.png" />
          </image>
       </ImageView>
    </children>
