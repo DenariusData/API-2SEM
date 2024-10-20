@@ -25,6 +25,9 @@ public class Aluno {
             }
             return instancia;
         }
+        public static AlunoLogado getAluno() {
+            return instancia;
+        }
 
         // Método para limpar a instância
         public static void logout() {

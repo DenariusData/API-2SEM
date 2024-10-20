@@ -1,6 +1,7 @@
 package pacer.aluno;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.YearMonth;
@@ -15,12 +16,17 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import pacer.data.models.Aluno;
+import pacer.utils.convertImage;
+import pacer.utils.sceneSwitcher;
 
 public class AlunoHomeController implements Initializable {
 
@@ -32,6 +38,17 @@ public class AlunoHomeController implements Initializable {
 
     @FXML
     private Label monthYearLabel;  // Novo Label para exibir o mês e ano
+    
+    @FXML
+    private ImageView imgFoto;
+    @FXML
+    private Label nomeField;
+    @FXML
+    private Label raField;
+    @FXML
+    private Label emailField;
+    
+    private Aluno logado;
 
     // Mapa para armazenar dias coloridos
     private Map<LocalDate, Color> coloredDays = new HashMap<>();
@@ -45,6 +62,16 @@ public class AlunoHomeController implements Initializable {
         setupColoredDays();
         YearMonth currentMonth = YearMonth.now();  // Mês e ano atuais
         populateCalendar(currentMonth);
+
+        logado = Aluno.AlunoLogado.getAluno();
+        InputStream fotoStream = convertImage.imageToInputStream(logado.getFoto());
+        if (fotoStream != null) {
+            Image fotoAluno = new Image(fotoStream);
+            imgFoto.setImage(fotoAluno);
+        }
+        nomeField.setText(logado.getNome());
+        emailField.setText(logado.getEmail());
+        raField.setText(String.valueOf(logado.getRa()));
     }
 
     // Método para preencher o calendário com os dias do mês
@@ -116,6 +143,11 @@ public class AlunoHomeController implements Initializable {
         coloredDays.put(LocalDate.now(), Color.BLUE); 
 
 
+    }
+
+    @FXML
+    private void handleSair(javafx.event.ActionEvent event) throws IOException {
+        sceneSwitcher.switchScene("/FXML/LoginView.fxml", event);
     }
 
     @FXML
