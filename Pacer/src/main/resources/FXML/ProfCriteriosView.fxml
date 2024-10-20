@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -12,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane prefHeight="582.0" prefWidth="811.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pacer.professor.ProfCriteriosController">
+<BorderPane prefHeight="582.0" prefWidth="811.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pacer.professor.ProfCriteriosController">
 
     <!-- Formulário de Edição -->
     <bottom>
@@ -23,7 +24,7 @@
                 <Label text="Nome:" />
                 <TextField fx:id="nomeField" />
                 <Label text="Descrição:" />
-                <TextField fx:id="descricaoField" alignment="CENTER" prefHeight="61.0" prefWidth="149.0" />
+            <TextArea fx:id="descricaoField" prefHeight="200.0" prefWidth="200.0" wrapText="true" />
                 <Label text="Ativo:" />
                 <CheckBox fx:id="ativoField" mnemonicParsing="false" />
             </HBox>
@@ -41,6 +42,11 @@
                       <Font name="Arial Black" size="11.0" />
                    </font>
                 </Button>
+            <Button onAction="#limparCampos" style="-fx-background-color: #D3D3D3;" text="Limpar" textFill="WHITE">
+               <font>
+                  <Font name="Arial Black" size="11.0" />
+               </font>
+            </Button>
             </HBox>
         </VBox>
     </bottom>
@@ -55,7 +61,7 @@
                   </font>
                </Text>
                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="        " wrappingWidth="155.296875" />
-               <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="17.0" prefWidth="64.0" text="Voltar" />
+               <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#handleVoltar" prefHeight="17.0" prefWidth="64.0" text="Voltar" />
             </children>
          </HBox>
 
