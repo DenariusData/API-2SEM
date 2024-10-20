@@ -34,4 +34,9 @@ public class ProfHomeController implements Initializable {
         // Exibir a nova tela
         stage.show();
     }
+
+    @FXML
+    private void handleEditarFoto(ActionEvent event) throws IOException {
+        // TODO EDITAR FOTO
+    }
 }
