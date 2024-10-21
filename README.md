@@ -63,11 +63,11 @@ Principais Funcionalidades:
 
 ## ✅ Validações com o cliente
 
-[Clique aqui para visualizar as validações feitas com o cliente](docs/Validacoes_com_cliente.pdf)
+[Clique aqui para visualizar as validações feitas com o cliente](docs/Validacoes.pdf)
 
 ## ✅ Modelagem do banco de dados
 
-[Clique aqui visualizar a modelagem do banco de dados](docs/modelagem_do_banco_de_dados.png)
+[Clique aqui visualizar a modelagem do banco de dados](docs/Modelagem.png)
 
 ## Contribuições
 
