@@ -1,5 +1,7 @@
 # Ignore a pasta bin
 /Pacer/bin/
+/Pacer/target/
+/Pacer/.vscode/
 
 # Ignore as configurações do Eclipse
 .classpath
@@ -15,3 +17,10 @@
 *.swp
 *.bak
 Pacer/.idea/workspace.xml
+Pacer/.settings/org.eclipse.jdt.core.prefs
+Pacer/.idea/vcs.xml
+Pacer/.idea/misc.xml
+/Pacer/.idea
+/Pacer/.settings
+/Pacer/.env
+Pacer/nbactions.xml

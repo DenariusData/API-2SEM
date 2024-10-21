@@ -55,11 +55,22 @@ Principais Funcionalidades:
   
 ## ✅ Backolog do produto
 
-![Backolog](/docs/assets-readme/backlog.jpg) 
+[Clique aqui visualizar o backlog do produto](docs/backlog.pdf)
+ 
+## ✅ Epics   
 
-## ✅ User Story
+[Clique aqui visualizar as histórias principais](docs/Epics.pdf)
 
-![User Story](/docs/assets-readme/users.png) 
+## ✅ Validações com o cliente
+
+[Clique aqui para visualizar as validações feitas com o cliente](docs/Validacoes.pdf)
+
+## ✅ Modelagem do banco de dados
+
+[Clique aqui visualizar a modelagem do banco de dados](docs/Modelagem.png)
+
+## Contribuições
+
 
 ## 🎯 Missão
 
@@ -97,6 +108,10 @@ Valorizamos a dedicação, o comprometimento com o desenvolvimento organizaciona
   <img src="https://img.shields.io/badge/Jira-%230A0FFF.svg?style=for-the-badge&logo=jira&logoColor=white" height="30" alt="Jira"/>
   <img src="https://img.shields.io/badge/Slack-%234A154B.svg?style=for-the-badge&logo=slack&logoColor=white" height="30" alt="Slack"/>
   <img src="https://img.shields.io/badge/Canva-%2300C4CC.svg?style=for-the-badge&logo=Canva&logoColor=white" height="30" alt="Canva"/>
+  <img src="https://img.shields.io/badge/Visual_Studio_Code-0078d7?style=for-the-badge&logo=visual%20studio%20code&logoColor=white" height="30" alt="Visual Studio Code">
+  <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white" height="30" alt="MySQL">
+  <img src="https://img.shields.io/badge/Scene%20Builder-32A852?style=for-the-badge&logo=javafx&logoColor=white" height="30" alt="Scene Builder">
+  <img src="https://img.shields.io/badge/JavaFX-007396?style=for-the-badge&logo=java&logoColor=white" height="30" alt="JavaFX">
 </p>
 
 ## 📜 Requisitos de Permanência do Grupo
@@ -111,9 +126,9 @@ Valorizamos a dedicação, o comprometimento com o desenvolvimento organizaciona
 | *Rafael Slivka* (Scrum Master) | *Larissa Claro* (Product Owner) | *Thiago Abreu* (Scrum Team) | *Mariana Yasmin* (Scrum Team) |
 |:-------------------------------:|:---------------------------------:|:----------------------------:|:------------------------------:|
 | ![Rafael Slivka](/docs/assets-readme/rafael-slivka.jpg) | ![Larissa Claro](/docs/assets-readme/larissa-claro.jpg) | ![Thiago Abreu](/docs/assets-readme/thiago-abreu.jpg) | ![Mariana Yasmin](/docs/assets-readme/mariana-yasmin.jpg) |
-| [<img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" width="20">](https://www.linkedin.com/in/rafael-lopes-slivka-07753326a/) | [<img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" width="20">](https://www.linkedin.com/in/clarolarissa/) | [<img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" width="20">](https://www.linkedin.com/in/thiagosabreu/) | [<img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" width="20">](https://www.linkedin.com/in/oliveirasmari) |
+| [<img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" width="20">](https://www.linkedin.com/in/rafael-lopes-slivka-07753326a/) | [<img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" width="20">](https://www.linkedin.com/in/clarolarissa/) | [<img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" width="20">](https://www.linkedin.com/in/thiagosabreu/) | [<img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" width="20">](https://www.linkedin.com/in/oliveirasmari/) |
 
-| *Tiago Bernardo* (Scrum Team) | *Beatriz Santos* (Scrum Team) | *Luiz Ricardo* (Scrum Team) |
-|:---------------------------------:|:----------------------------:|:------------------------------:|
- | ![Tiago Bernardo](/docs/assets-readme/tiago-bernardo.jpg) | ![Beatriz Santos](/docs/assets-readme/beatriz-santos.jpg) | ![Luiz Ricardo](/docs/assets-readme/luiz-ricardo.jpg) |
-| [<img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" width="20">](https://www.linkedin.com/in/thiago-diniz-29b82798/) | [<img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" width="20">](https://www.linkedin.com/in/tiagobernardosantos/) | [<img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" width="20">](https://www.linkedin.com/in/beatriz-santos-0b6773220/) | [<img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" width="20">](https://www.linkedin.com/in/luiz-Ricardo) |
+| *Tiago Bernardo* (Scrum Team) | *Beatriz Sthefanny* (Scrum Team) | *Luiz Silva* (Scrum Team) |
+|:-------------------------------:|:-------------------------------:|:----------------------------:|
+| ![Tiago Bernardo](/docs/assets-readme/tiago-bernardo.jpg) | ![Beatriz Sthefanny](/docs/assets-readme/beatriz-santos.jpg) | ![Luiz Silva](/docs/assets-readme/luiz-ricardo.jpg) |
+| [<img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" width="20">](https://www.linkedin.com/in/tiagobernardosantos/) | [<img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" width="20">](https://www.linkedin.com/in/beatriz-santos-0b6773220?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app) | [<img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" width="20">](https://www.linkedin.com/in/luiz-ricardo-mendes/) |

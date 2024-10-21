@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity"
+   minHeight="-Infinity" minWidth="-Infinity" prefHeight="832.0" prefWidth="1282.0"
+   style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/22"
+   xmlns:fx="http://javafx.com/fxml/1" fx:controller="pacer.aluno.AlunoHomeController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#004aad" height="832.0" stroke="BLACK"
+         strokeType="INSIDE" width="392.0" />
+      <ImageView fx:id="imgFoto" fitHeight="150.0" fitWidth="200.0" layoutX="125.0" layoutY="57.0"
+         pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/placeholder-user.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="nomeField" layoutX="101.0" layoutY="207.0" text="Nome: Pamela Silva"
+         textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="raField" layoutX="109.0" layoutY="236.0" text="RA:0278541230085" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="emailField" layoutX="40.0" layoutY="289.0" text="Email: Pamela.silva@fatec.sp.gov.br"
+         textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="106.0" layoutY="317.0" text="Grupo: Denarius Data" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="502.0" layoutY="10.0" prefHeight="58.0" prefWidth="748.0"
+         text="Bem - vindo ao sistema de avaliação!" textFill="#004aad">
+         <font>
+            <Font name="Arial Black" size="34.0" />
+         </font>
+      </Label>
+
+      <!-- Label para exibir o mês e ano -->
+      <Label fx:id="monthYearLabel" layoutX="584.0" layoutY="234.0" textAlignment="CENTER"
+         textFill="WHITE">
+         <font>
+            <Font name="Dubai Bold" size="20.0" />
+         </font>
+      </Label>
+
+      <!-- Labels para os dias da semana -->
+      <Label fx:id="domLabel" layoutX="614.0" layoutY="253.0" style="-fx-background-color: #004aad;"
+         text="Dom" textFill="WHITE">
+         <font>
+            <Font name="Arial Black" size="17.0" />
+         </font>
+      </Label>
+      <Label fx:id="segLabel" layoutX="712.0" layoutY="253.0" style="-fx-background-color: #004aad;"
+         text="Seg" textFill="WHITE">
+         <font>
+            <Font name="Arial Black" size="17.0" />
+         </font>
+      </Label>
+      <Label fx:id="terLabel" layoutX="807.0" layoutY="252.0" style="-fx-background-color: #004aad;"
+         text="Ter" textFill="WHITE">
+         <font>
+            <Font name="Arial Black" size="17.0" />
+         </font>
+      </Label>
+      <Label fx:id="quaLabel" layoutX="909.0" layoutY="252.0" style="-fx-background-color: #004aad;"
+         text="Qua" textFill="WHITE">
+         <font>
+            <Font name="Arial Black" size="17.0" />
+         </font>
+      </Label>
+      <Label fx:id="quiLabel" layoutX="1015.0" layoutY="253.0"
+         style="-fx-background-color: #004aad;" text="Qui" textFill="WHITE">
+         <font>
+            <Font name="Arial Black" size="17.0" />
+         </font>
+      </Label>
+      <Label fx:id="sexLabel" layoutX="1113.0" layoutY="253.0"
+         style="-fx-background-color: #004aad;" text="Sex" textFill="WHITE">
+         <font>
+            <Font name="Arial Black" size="17.0" />
+         </font>
+      </Label>
+      <Label fx:id="sabLabel" layoutX="1215.0" layoutY="252.0"
+         style="-fx-background-color: #004aad;" text="Sáb" textFill="WHITE">
+         <font>
+            <Font name="Arial Black" size="17.0" />
+         </font>
+      </Label>
+
+      <!-- Calendário GridPane -->
+      <GridPane fx:id="calendarGrid" layoutX="596.0" layoutY="279.0" maxHeight="-Infinity"
+         maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="470.0"
+         prefWidth="700.0">
+         <columnConstraints>
+            <ColumnConstraints minWidth="100.0" prefWidth="100.0" />
+            <ColumnConstraints minWidth="100.0" prefWidth="100.0" />
+            <ColumnConstraints minWidth="100.0" prefWidth="100.0" />
+            <ColumnConstraints minWidth="100.0" prefWidth="100.0" />
+            <ColumnConstraints maxWidth="100.0" minWidth="100.0" />
+            <ColumnConstraints maxWidth="100.0" minWidth="100.0" />
+            <ColumnConstraints maxWidth="100.0" minWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="66.0" minHeight="50.0" prefHeight="64.0" />
+            <RowConstraints maxHeight="73.0" minHeight="43.0" prefHeight="73.0" />
+            <RowConstraints maxHeight="100.0" minHeight="50.0" prefHeight="73.0" />
+            <RowConstraints maxHeight="100.0" minHeight="50.0" prefHeight="73.0" />
+            <RowConstraints maxHeight="92.0" minHeight="50.0" prefHeight="77.0" />
+            <RowConstraints minHeight="50.0" prefHeight="100.0" />
+         </rowConstraints>
+      </GridPane>
+
+      <Label layoutX="538.0" layoutY="72.0"
+         text="Você está na sprint 1, falta 4 dias para o início do período de avaliação">
+         <font>
+            <Font name="Arial Black" size="19.0" />
+         </font>
+      </Label>
+      <Button layoutX="50.0" layoutY="523.0" mnemonicParsing="false" onAction="#handleRealizarAval"
+         prefHeight="64.0" prefWidth="269.0" text="Realizar avaliação" textFill="#004aad">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <Text fill="#0c04a1" layoutX="775.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0"
+         style="-fx-background-color: black;" text="OUTUBRO DE 2024" textAlignment="RIGHT">
+         <font>
+            <Font name="Arial Black" size="27.0" />
+         </font>
+      </Text>
+      <Button fx:id="btnSair" onAction="#handleSair" layoutX="8.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0"
+         prefWidth="64.0" text="Sair" textFill="#044aad" />
+   </children>
+</AnchorPane>
