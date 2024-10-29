@@ -3,6 +3,7 @@ package pacer.aluno;
 import javafx.fxml.FXML;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Toggle;
+import pacer.utils.sceneSwitcher;
 import javafx.scene.control.ToggleGroup;
 
 public class AlunoRealizarAvalController {
