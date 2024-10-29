@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="426.0" prefWidth="584.0" style="-fx-background-radius: 15px; -fx-border-radius: 15px;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pacer.professor.ProfCriteriosController">
+<AnchorPane prefHeight="459.0" prefWidth="908.0" style="-fx-background-radius: 15px; -fx-border-radius: 15px;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pacer.professor.ProfCriteriosController">
    <children>
       <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#handleVoltar" prefHeight="25.0" prefWidth="53.0" style="-fx-background-color: #004aad;" text="Voltar" textFill="WHITE">
          <font>
@@ -24,10 +24,10 @@
                <!-- Tabela de Critérios -->
                <TableView fx:id="tableView" layoutX="51.0" layoutY="36.0" onMouseClicked="#handleRowClick" prefHeight="262.0" prefWidth="809.0" style="-fx-border-color: #004aad; -fx-background-color: white; -fx-border-radius: 10; -fx-background-radius: 10;">
                   <columns>
-                      <TableColumn fx:id="idColumn" editable="false" prefWidth="63.0" sortable="false" style="-fx-background-color: white; -fx-text-fill: black;" text="ID" />
-                      <TableColumn fx:id="nomeColumn" editable="false" prefWidth="324.0" sortable="false" style="-fx-background-color: white; -fx-text-fill: black;" text="Nome do Critério" />
-                      <TableColumn fx:id="descricaoColumn" editable="false" prefWidth="288.0" sortable="false" style="-fx-background-color: white; -fx-text-fill: black;" text="Descrição" />
-                      <TableColumn fx:id="ativoColumn" editable="false" prefWidth="134.0" sortable="false" style="-fx-background-color: white; -fx-text-fill: black;" text="Ativo" />
+                      <TableColumn fx:id="idColumn" editable="false" prefWidth="63.0" sortable="false" style="-fx-background-color: white; -fx-text-fill: black; -fx-font-family: 'Arial Black';" text="ID" />
+                      <TableColumn fx:id="nomeColumn" editable="false" prefWidth="324.0" sortable="false" style="-fx-background-color: white; -fx-text-fill: black; -fx-font-family: 'Arial Black';" text="Nome do Critério" />
+                      <TableColumn fx:id="descricaoColumn" editable="false" prefWidth="288.0" sortable="false" style="-fx-background-color: white; -fx-text-fill: black; -fx-font-family: 'Arial Black';" text="Descrição" />
+                      <TableColumn fx:id="ativoColumn" editable="false" prefWidth="134.0" sortable="false" style="-fx-background-color: white; -fx-text-fill: black; -fx-font-family: 'Arial Black';" text="Ativo" />
                   </columns>
               </TableView>
               
