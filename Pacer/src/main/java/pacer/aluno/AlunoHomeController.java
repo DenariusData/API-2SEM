@@ -38,7 +38,7 @@ public class AlunoHomeController implements Initializable {
 
     @FXML
     private Label monthYearLabel;  // Novo Label para exibir o mês e ano
-    
+
     @FXML
     private ImageView imgFoto;
     @FXML
@@ -47,7 +47,7 @@ public class AlunoHomeController implements Initializable {
     private Label raField;
     @FXML
     private Label emailField;
-    
+
     private Aluno logado;
 
     // Mapa para armazenar dias coloridos
@@ -56,7 +56,6 @@ public class AlunoHomeController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         CentralizarJanela(anchorPane);
-        
 
         // Configurar o calendário customizado
         setupColoredDays();
@@ -84,7 +83,7 @@ public class AlunoHomeController implements Initializable {
         calendarGrid.getChildren().clear();
 
         // Definir o texto do mês e ano
-        monthYearLabel.setText(yearMonth.getMonth().name() + "  " + yearMonth.getYear());
+        monthYearLabel.setText(yearMonth.getMonth().name() + " " + yearMonth.getYear());
 
         // Preencher os dias do mês no GridPane
         int dayCounter = 1;
@@ -107,7 +106,7 @@ public class AlunoHomeController implements Initializable {
         Label dayLabel = new Label(String.valueOf(day));
         dayLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: black;");
 
-        Rectangle background = new Rectangle(60, 60);  // Tamanho da célula aumentado
+        Rectangle background = new Rectangle(60, 60);  // Tamanho da célula
         background.setFill(Color.DODGERBLUE);  // Cor padrão para um fundo azul
         background.setArcWidth(10);  // Bordas arredondadas
         background.setArcHeight(10);
@@ -140,9 +139,7 @@ public class AlunoHomeController implements Initializable {
             coloredDays.put(date, Color.LIGHTBLUE);  // Azul claro para o período de avaliação
         }
 
-        coloredDays.put(LocalDate.now(), Color.BLUE); 
-
-
+        coloredDays.put(LocalDate.now(), Color.BLUE);  // Azul para o dia atual
     }
 
     @FXML
@@ -155,8 +152,7 @@ public class AlunoHomeController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/AlunoAvaliacaoView.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
-        Stage stage;
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
     }

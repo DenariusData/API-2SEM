@@ -33,6 +33,7 @@ public class LoginController implements Initializable {
         String email = emailField.getText();
         String senha = passwordField.getText();
         String fxmlPath;
+
         
         // verifica se é um aluno (se nao for se torna null)
         Aluno aluno = AlunoDAO.findByEmailAndSenha(email, senha);

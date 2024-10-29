@@ -45,7 +45,7 @@ public class ProfHomeController implements Initializable {
         pnlEmail.setText(logado.getEmail());
     }
     @FXML
-    private void handlepnlBotaocriteriosClick(ActionEvent event) throws IOException {
+    private void handleCriterios(ActionEvent event) throws IOException {
         // Carregar a nova tela (substitua o caminho pelo FXML correto)
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/ProfCriteriosView.fxml"));
         Parent root = loader.load();
