@@ -1,21 +1,16 @@
 package pacer.aluno;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
+import pacer.utils.sceneSwitcher;
 
 public class AlunoAvaliacaoController implements Initializable {
     
@@ -25,38 +20,16 @@ public class AlunoAvaliacaoController implements Initializable {
     private ImageView imgVoltar;
 
     @FXML
-    public void abrirRealizarAvaliacao(ActionEvent event) {
-        try {
-         
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/AlunoRealizarAvalView.fxml"));
-            Parent root = loader.load();
-
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Realizar Avaliação");
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void abrirRealizarAvaliacao(ActionEvent event) throws IOException {
+        // Alterna para a nova cena sem criar um novo Stage
+        sceneSwitcher.switchScene("/FXML/AlunoRealizarAvalView.fxml", event);
     }
 
     @FXML
-public void confirmarVoltar(ActionEvent event) {
-    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-    alert.setTitle("Confirmação");
-    alert.setHeaderText("Tem certeza que deseja voltar?");
-    alert.setContentText("Clique em 'OK' para confirmar ou 'Cancelar' para retornar.");
-
-    alert.showAndWait().ifPresent(response -> {
-        if (response == ButtonType.OK) {
-            System.out.println("Usuário confirmou voltar.");
-
-            // Obtenha o estágio a partir do evento ActionEvent
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.close();
-        }
-    });
-}
+    public void confirmarVoltar(ActionEvent event) throws IOException {
+        sceneSwitcher.switchScene("/FXML/AlunoHomeView.fxml", event);
+    }
+    
 
     public void setupTooltips() {
         Tooltip tooltipAutonomia = new Tooltip("Definição de autonomia.");
