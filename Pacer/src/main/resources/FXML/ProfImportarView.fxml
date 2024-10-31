@@ -6,24 +6,31 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" 
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" 
 xmlns="http://javafx.com/javafx/20.0.2" xmlns:fx="http://javafx/fxml" fx:controller="pacer.professor.ProfImportarController">
     <!-- Botão para importar o CSV -->
     <Button layoutX="20.0" layoutY="20.0" text="Importar CSV" onAction="#handleImportCSV"/>
     
     <!-- Tabela para exibir os dados do CSV -->
-    <TableView fx:id="csvTableView" layoutX="20.0" layoutY="60.0" prefHeight="300.0" prefWidth="560.0">
+    <TableView fx:id="csvTableView" layoutX="20.0" layoutY="60.0" prefHeight="300.0" prefWidth="760.0">
         <columns>
             <TableColumn fx:id="columnNome" prefWidth="180.0" text="Nome" onEditCommit="#handleEditNome"/>
             <TableColumn fx:id="columnEmail" prefWidth="180.0" text="Email" onEditCommit="#handleEditEmail"/>
             <TableColumn fx:id="columnGrupo" prefWidth="180.0" text="Grupo" onEditCommit="#handleEditGrupo"/>
         </columns>
     </TableView>
-
+    
     <!-- Campos para adicionar um novo aluno -->
     <TextField fx:id="nomeField" layoutX="20.0" layoutY="370.0" promptText="Nome"/>
-    <TextField fx:id="emailField" layoutX="220.0" layoutY="370.0" promptText="Email"/>
-    <TextField fx:id="grupoField" layoutX="420.0" layoutY="370.0" promptText="Grupo"/>
+    <TextField fx:id="emailField" layoutX="200.0" layoutY="370.0" promptText="Email"/>
+    <TextField fx:id="grupoField" layoutX="380.0" layoutY="370.0" promptText="Grupo"/>
+    <Button layoutX="560.0" layoutY="370.0" text="Adicionar Aluno" onAction="#handleAddAluno"/>
     
-    <Button layoutX="520.0" layoutY="370.0" text="Adicionar Aluno" onAction="#handleAddAluno"/>
+    <!-- Botões para limpar informações -->
+    <Button layoutX="20.0" layoutY="420.0" text="Limpar Nome" onAction="#handleClearNome"/>
+    <Button layoutX="120.0" layoutY="420.0" text="Limpar Email" onAction="#handleClearEmail"/>
+    <Button layoutX="220.0" layoutY="420.0" text="Limpar Grupo" onAction="#handleClearGrupo"/>
+    
+    <!-- Novo botão para desfazer a limpeza -->
+    <Button layoutX="320.0" layoutY="420.0" text="Desfazer Limpeza" onAction="#handleUndoClear"/>
 </AnchorPane>

@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
@@ -36,6 +38,9 @@ public class ProfImportarController {
 
     @FXML
     private TextField grupoField;
+
+    // Mapa para armazenar os valores antigos antes da limpeza
+    private Map<Aluno, Aluno> oldValuesMap = new HashMap<>();
 
     public class Aluno {
         private String nome;
@@ -139,5 +144,52 @@ public class ProfImportarController {
     public void handleEditGrupo(TableColumn.CellEditEvent<Aluno, String> event) {
         Aluno aluno = event.getRowValue();
         aluno.setGrupo(event.getNewValue());
+    }
+
+    @FXML
+    public void handleClearNome() {
+        Aluno selectedAluno = csvTableView.getSelectionModel().getSelectedItem();
+        if (selectedAluno != null) {
+            // Armazena os valores antigos antes de limpar
+            oldValuesMap.put(selectedAluno, new Aluno(selectedAluno.getNome(), selectedAluno.getEmail(), selectedAluno.getGrupo()));
+            selectedAluno.setNome(""); // Limpa o campo Nome da linha selecionada
+            csvTableView.refresh(); // Atualiza a tabela para refletir a mudança
+        }
+    }
+
+    @FXML
+    public void handleClearEmail() {
+        Aluno selectedAluno = csvTableView.getSelectionModel().getSelectedItem();
+        if (selectedAluno != null) {
+            // Armazena os valores antigos antes de limpar
+            oldValuesMap.put(selectedAluno, new Aluno(selectedAluno.getNome(), selectedAluno.getEmail(), selectedAluno.getGrupo()));
+            selectedAluno.setEmail(""); // Limpa o campo Email da linha selecionada
+            csvTableView.refresh(); // Atualiza a tabela para refletir a mudança
+        }
+    }
+
+    @FXML
+    public void handleClearGrupo() {
+        Aluno selectedAluno = csvTableView.getSelectionModel().getSelectedItem();
+        if (selectedAluno != null) {
+            // Armazena os valores antigos antes de limpar
+            oldValuesMap.put(selectedAluno, new Aluno(selectedAluno.getNome(), selectedAluno.getEmail(), selectedAluno.getGrupo()));
+            selectedAluno.setGrupo(""); // Limpa o campo Grupo da linha selecionada
+            csvTableView.refresh(); // Atualiza a tabela para refletir a mudança
+        }
+    }
+
+    @FXML
+    public void handleUndoClear() {
+        for (Aluno aluno : oldValuesMap.keySet()) {
+            Aluno oldAluno = oldValuesMap.get(aluno);
+            if (oldAluno != null) {
+                aluno.setNome(oldAluno.getNome());
+                aluno.setEmail(oldAluno.getEmail());
+                aluno.setGrupo(oldAluno.getGrupo());
+            }
+        }
+        oldValuesMap.clear(); // Limpa o mapa após desfazer
+        csvTableView.refresh(); // Atualiza a tabela para refletir as mudanças
     }
 }
