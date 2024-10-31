@@ -1,10 +1,13 @@
 package pacer.aluno;
 
+import java.io.IOException;
+
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Toggle;
-import pacer.utils.sceneSwitcher;
 import javafx.scene.control.ToggleGroup;
+import pacer.utils.sceneSwitcher;
 
 public class AlunoRealizarAvalController {
 
@@ -107,4 +110,9 @@ public class AlunoRealizarAvalController {
             System.out.println("Resultados: " + resultadosValue);
         }
     }
+    @FXML
+public void voltarTela(ActionEvent event) throws IOException {
+    sceneSwitcher.switchScene("/FXML/AlunoAvaliacaoView.fxml", event);
+}
+
 }

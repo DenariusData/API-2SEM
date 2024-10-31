@@ -76,12 +76,12 @@
                <font>
                   <Font name="Arial Black" size="10.0" />
                </font></Label>
-            <ToggleButton fx:id="pnlBotaocriterios" layoutX="53.0" layoutY="309.0" onAction="#handleCriterios" prefWidth="180" style="-fx-background-color: #004aad;" text="Administração de Critérios" textFill="WHITE">
+            <ToggleButton fx:id="pnlBotaocriterios" layoutX="45.0" layoutY="303.0" onAction="#handleCriterios" prefWidth="180" style="-fx-background-color: #004aad;" text="Administração de Critérios" textFill="WHITE">
                <font>
                   <Font name="Arial Black" size="11.0" />
                </font>
             </ToggleButton>
-            <Label fx:id="pnlOrientacaocriterios" layoutX="60.0" layoutY="355.0" prefWidth="200" text="Incluir ou alterar critérios de avaliação." wrapText="true">
+            <Label fx:id="pnlOrientacaocriterios" layoutX="43.0" layoutY="353.0" prefWidth="200" text="Incluir ou alterar critérios de avaliação." wrapText="true">
                <font>
                   <Font name="Arial Black" size="10.0" />
                </font></Label>
