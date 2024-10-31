@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane fx:id="pnlPrincipal" prefHeight="459.0" prefWidth="908.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pacer.professor.ProfHomeController">
+   <children>
+      <!-- Botão de Retorno -->
+      <ToggleButton fx:id="btnVoltar" layoutX="10.0" layoutY="10.0" prefHeight="25.0" prefWidth="75.0" style="-fx-background-color: #004aad;" text=" Voltar" textFill="WHITE">
+         <font>
+            <Font name="Arial Black" size="12.0" />
+         </font>
+      </ToggleButton>
+
+      <!-- Título e Tabelas de Grupos e Integrantes -->
+      <Label layoutX="50.0" layoutY="50.0" style="-fx-font-size: 16; -fx-font-family: 'Arial Rounded MT Bold';" text="Grupos" textFill="#004aad" />
+      <Label layoutX="480.0" layoutY="50.0" style="-fx-font-size: 16; -fx-font-family: 'Arial Rounded MT Bold';" text="Integrantes do Grupo Selecionado" textFill="#004aad">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font></Label>
+
+      <!-- Tabela de Grupos -->
+      <TableView fx:id="tblGrupos" layoutX="50.0" layoutY="80.0" prefHeight="300.0" prefWidth="350.0" style="-fx-border-color: #004aad;">
+         <columns>
+            <TableColumn fx:id="colNomeGrupo" prefWidth="175.0" style="-fx-text-fill: #FFFFFF; -fx-font-family: 'Arial Black'; -fx-font-size: 12;" text="Nome do Grupo">
+            </TableColumn>
+            <TableColumn fx:id="colDescricaoGrupo" prefWidth="175.0" style="-fx-text-fill: #FFFFFF; -fx-font-family: 'Arial Black'; -fx-font-size: 12;" text="Descrição">
+            </TableColumn>
+         </columns>
+      </TableView>
+
+      <!-- Tabela de Integrantes -->
+      <TableView fx:id="tblIntegrantes" layoutX="480.0" layoutY="80.0" prefHeight="300.0" prefWidth="350.0" style="-fx-border-color: #004aad;">
+         <columns>
+            <TableColumn fx:id="colNomeIntegrante" prefWidth="175.0" style="-fx-text-fill: #FFFFFF; -fx-font-family: 'Arial Black'; -fx-font-size: 12;" text="Nome do Integrante">
+            </TableColumn>
+            <TableColumn fx:id="colFuncaoIntegrante" prefWidth="175.0" style="-fx-text-fill: #FFFFFF; -fx-font-family: 'Arial Black'; -fx-font-size: 12;" text="Função">
+            </TableColumn>
+         </columns>
+      </TableView>
+
+      <!-- Botão para Adicionar Integrantes -->
+      <ToggleButton fx:id="btnAdicionarIntegrantes" layoutX="700.0" layoutY="400.0" prefHeight="25.0" prefWidth="160.0" style="-fx-background-color: #004aad;" text="Adicionar Integrantes" textFill="WHITE">
+         <font>
+            <Font name="Arial Black" size="12.0" />
+         </font>
+      </ToggleButton>
+   </children>
+</Pane>

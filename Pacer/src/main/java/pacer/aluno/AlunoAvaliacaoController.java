@@ -76,4 +76,5 @@ public void confirmarVoltar(ActionEvent event) {
     public void initialize(URL location, ResourceBundle resources) {
         setupTooltips();
     }
+    
 }
