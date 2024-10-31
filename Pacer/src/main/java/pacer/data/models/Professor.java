@@ -1,9 +1,5 @@
 package pacer.data.models;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-
 public class Professor {
 
     //region Atributos
@@ -26,11 +22,6 @@ public class Professor {
         // Método para obter a instância singleton
         public static ProfessorLogado getInstancia(int id, String nome, String email, String senha, byte[] foto) {
             if (instancia == null) {
-                if (foto == null || foto.length == 0) {
-                    foto = loadDefaultImage();
-                } else {
-                    foto = foto;
-                }
                 instancia = new ProfessorLogado(id, nome, email, senha, foto);
             }
             return instancia;
@@ -42,14 +33,6 @@ public class Professor {
         // Método para limpar a instância (logout)
         public static void logout() {
             instancia = null;
-        }
-        private static byte[] loadDefaultImage() {
-            try {
-                return Files.readAllBytes(Paths.get("src/main/resources/images/placeholder-user.png"));
-            } catch (IOException e) {
-                e.printStackTrace();
-                return new byte[0];
-            }
         }
     }
     //endregion

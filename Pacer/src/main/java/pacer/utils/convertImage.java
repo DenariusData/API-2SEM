@@ -1,9 +1,7 @@
 package pacer.utils;
 
 import java.io.ByteArrayInputStream;
-
 import java.io.InputStream;
-
 
 import javafx.scene.image.Image;
 
@@ -14,10 +12,8 @@ public class convertImage {
             ByteArrayInputStream inputStream = new ByteArrayInputStream(imageBytes);
             return new Image(inputStream);
         }
-        // Retorna uma imagem padrão ou uma imagem vazia
-        return new Image("src/main/resources/images/placeholder-user.png"); // Exemplo de imagem padrão
+        return null;
     }
-
     public static InputStream imageToInputStream(byte[] imageBytes) {
         if (imageBytes != null && imageBytes.length > 0) {
             return new ByteArrayInputStream(imageBytes);

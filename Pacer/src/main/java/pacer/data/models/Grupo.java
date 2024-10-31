@@ -5,14 +5,12 @@ public class Grupo {
     //region Atributos
     private int id;
     private String nome;
-    private String reposLink; // Link do repositório do grupo
     //endregion
 
     //region Construtor
-    public Grupo(int id, String nome, String reposLink) {
+    public Grupo(int id, String nome) {
         this.id = id;
         this.nome = nome;
-        this.reposLink = reposLink;
     }
     //endregion
 
@@ -31,14 +29,6 @@ public class Grupo {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public String getReposLink() {
-        return reposLink;
-    }
-
-    public void setReposLink(String reposLink) {
-        this.reposLink = reposLink;
     }
     //endregion
 }
