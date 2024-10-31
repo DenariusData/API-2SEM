@@ -7,14 +7,19 @@ import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -142,13 +147,31 @@ public class AlunoHomeController implements Initializable {
         coloredDays.put(LocalDate.now(), Color.BLUE);  // Azul para o dia atual
     }
 
-    @FXML
-    private void handleSair(javafx.event.ActionEvent event) throws IOException {
-        sceneSwitcher.switchScene("/FXML/LoginView.fxml", event);
+        @FXML
+        private void handleSair(javafx.event.ActionEvent event) throws IOException {
+            // Criação do alerta de confirmação
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmação de Logout");
+            alert.setHeaderText("Tem certeza de que deseja sair?");
+            alert.setContentText("Você será redirecionado para a tela de login.");
+        
+            ButtonType buttonSim = new ButtonType("Sim");
+            ButtonType buttonNao;
+        buttonNao = new ButtonType("Não", ButtonBar.ButtonData.CANCEL_CLOSE);
+            alert.getButtonTypes().setAll(buttonSim, buttonNao);
+        
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get() == buttonSim) {
+                
+                sceneSwitcher.switchScene("/FXML/LoginView.fxml", event);
+            } else {
+                
+                alert.close();
+            }
     }
 
     @FXML
-    private void handleRealizarAval(javafx.event.ActionEvent event) throws IOException {
+    private void handlerealAvaliacao(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/AlunoAvaliacaoView.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);

@@ -68,6 +68,11 @@
             <Font name="Arial Black" size="9.0" />
          </font>
       </Button>
-      <Button layoutY="-1.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="62.0" style="-fx-background-color: AC0E09;" text="❌ " textFill="WHITE" />
+      <Button fx:id="handleSair" layoutY="-1.0" mnemonicParsing="false" onAction="#fecharSistema" prefHeight="30.0" prefWidth="62.0" style="-fx-background-color: AC0E09;" text="❌ " textFill="WHITE" />
+      <Button accessibleRole="IMAGE_VIEW" contentDisplay="TEXT_ONLY" ellipsisString="👁" layoutX="736.0" layoutY="290.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="51.0" style="-fx-background-color: transparent; -fx-background-image: ..\images\Email.png;" text="👁">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Button>
    </children>
 </Pane>

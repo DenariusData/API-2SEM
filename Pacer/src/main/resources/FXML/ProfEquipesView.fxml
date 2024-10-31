@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane fx:id="pnlPrincipal" prefHeight="459.0" prefWidth="908.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pacer.professor.ProfEquipesController">
+   <children>
+      <!-- Botão de Retorno -->
+      <ToggleButton fx:id="btnVoltar" layoutY="2.0" onAction="#confirmarVoltar" prefHeight="25.0" prefWidth="75.0" style="-fx-background-color: #004aad;" text=" Voltar" textFill="WHITE">
+         <font>
+            <Font name="Arial Black" size="12.0" />
+         </font>
+      </ToggleButton>
+
+      <!-- Título e Tabelas de Grupos e Integrantes -->
+      <Label layoutX="50.0" layoutY="50.0" style="-fx-font-size: 16; -fx-font-family: 'Arial Rounded MT Bold';" text="Grupos" textFill="#004aad" />
+      <Label layoutX="480.0" layoutY="50.0" style="-fx-font-size: 16; -fx-font-family: 'Arial Rounded MT Bold';" text="Integrantes do Grupo Selecionado" textFill="#004aad">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font></Label>
+
+      <!-- Tabela de Grupos -->
+      <TableView fx:id="tblGrupos" layoutX="50.0" layoutY="80.0" prefHeight="300.0" prefWidth="350.0" style="-fx-border-color: #004aad; -fx-background-color: white;">
+         <columns>
+            <TableColumn fx:id="colNomeGrupo" prefWidth="175.0" style="-fx-font-family: 'Arial Black'; -fx-font-size: 12; -fx-background-color: white;" text="Nome do Grupo">
+            </TableColumn>
+            <TableColumn fx:id="colDescricaoGrupo" prefWidth="175.0" style="-fx-font-family: 'Arial Black'; -fx-font-size: 12; -fx-background-color: white;" text="Descrição">
+            </TableColumn>
+         </columns>
+      </TableView>
+
+      <!-- Tabela de Integrantes -->
+      <TableView fx:id="tblIntegrantes" layoutX="480.0" layoutY="80.0" prefHeight="300.0" prefWidth="350.0" style="-fx-border-color: #004aad;">
+         <columns>
+            <TableColumn fx:id="colNomeIntegrante" prefWidth="175.0" style="-fx-font-family: 'Arial Black'; -fx-font-size: 12; -fx-background-color: white;" text="Nome do Integrante">
+            </TableColumn>
+            <TableColumn fx:id="colFuncaoIntegrante" prefWidth="175.0" style="-fx-font-family: 'Arial Black'; -fx-font-size: 12; -fx-background-color: white;" text="Função">
+            </TableColumn>
+         </columns>
+      </TableView>
+
+      <!-- Botão para Adicionar Integrantes -->
+      <ToggleButton fx:id="btnAdicionarIntegrantes" layoutX="758.0" layoutY="2.0" onAction="#abrirImport" prefHeight="25.0" prefWidth="149.0" style="-fx-background-color: #004aad;" text="📤 Importar  arquivo" textFill="WHITE">
+         <font>
+            <Font name="Arial Black" size="12.0" />
+         </font>
+      </ToggleButton>
+      <Pane layoutX="20.0" layoutY="391.0" prefHeight="40.0" prefWidth="389.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-color: #004aad; -fx-border-radius: 10;">
+         <children>
+            <Button layoutX="24.0" layoutY="10.0" onAction="#editarCriterio" prefHeight="21.0" prefWidth="58.0" style="-fx-background-color: blue;" text="🔎 Editar" textFill="WHITE">
+               <font>
+                  <Font name="Arial Black" size="9.0" />
+               </font>
+            </Button>
+            <Button layoutX="99.0" layoutY="11.0" onAction="#adicionarCriterio" style="-fx-background-color: green;" text="✔ Adicionar" textFill="WHITE">
+               <font>
+                  <Font name="Arial Black" size="9.0" />
+               </font>
+            </Button>
+            <Button layoutX="207.0" layoutY="10.0" onAction="#limparCampos" prefHeight="20.0" prefWidth="73.0" style="-fx-background-color: grey;" text="🔁 Limpar" textFill="WHITE">
+               <font>
+                  <Font name="Arial Black" size="10.0" />
+               </font>
+            </Button>
+            <Button layoutX="303.0" layoutY="11.0" onAction="#deletarCriterio" prefWidth="65.0" style="-fx-background-color: #ff2b2b;" text="❌ Deletar" textFill="WHITE">
+               <font>
+                  <Font name="Arial Black" size="9.0" />
+               </font>
+            </Button>
+            <Separator layoutX="185.0" layoutY="3.0" orientation="VERTICAL" prefHeight="36.0" prefWidth="22.0" />
+         </children>
+      </Pane>
+      <Pane layoutX="480.0" layoutY="391.0" prefHeight="40.0" prefWidth="389.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-color: #004aad; -fx-border-radius: 10;">
+         <children>
+            <Button layoutX="24.0" layoutY="10.0" onAction="#editarCriterio" prefHeight="21.0" prefWidth="58.0" style="-fx-background-color: blue;" text="🔎 Editar" textFill="WHITE">
+               <font>
+                  <Font name="Arial Black" size="9.0" />
+               </font>
+            </Button>
+            <Button layoutX="99.0" layoutY="11.0" onAction="#adicionarCriterio" style="-fx-background-color: green;" text="✔ Adicionar" textFill="WHITE">
+               <font>
+                  <Font name="Arial Black" size="9.0" />
+               </font>
+            </Button>
+            <Button layoutX="207.0" layoutY="10.0" onAction="#limparCampos" prefHeight="20.0" prefWidth="73.0" style="-fx-background-color: grey;" text="🔁 Limpar" textFill="WHITE">
+               <font>
+                  <Font name="Arial Black" size="10.0" />
+               </font>
+            </Button>
+            <Button layoutX="303.0" layoutY="11.0" onAction="#deletarCriterio" prefWidth="65.0" style="-fx-background-color: #ff2b2b;" text="❌ Deletar" textFill="WHITE">
+               <font>
+                  <Font name="Arial Black" size="9.0" />
+               </font>
+            </Button>
+            <Separator layoutX="185.0" layoutY="3.0" orientation="VERTICAL" prefHeight="36.0" prefWidth="22.0" />
+         </children>
+      </Pane>
+      <Button fx:id="baixarRelacao" layoutX="129.0" layoutY="48.0" mnemonicParsing="false" onAction="#baixarRelatorio" style="-fx-background-color: #004aad;" text="📥 Baixar relatório" textFill="WHITE">
+         <font>
+            <Font name="Arial Black" size="11.0" />
+         </font>
+      </Button>
+   </children>
+</Pane>
