@@ -10,7 +10,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -171,7 +170,7 @@ public class AlunoHomeController implements Initializable {
     }
 
     @FXML
-    private void handlerealAvaliacao(ActionEvent event) throws IOException {
+    private void handleAvaliacao(javafx.event.ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/AlunoAvaliacaoView.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);

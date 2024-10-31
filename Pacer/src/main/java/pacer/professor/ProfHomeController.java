@@ -97,7 +97,20 @@ public class ProfHomeController implements Initializable {
     
     @FXML
     private void handleEquipes(ActionEvent event) throws IOException {
-        sceneSwitcher.switchScene("/FXML/ProfEquipesView.fxml", event);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/ProfEquipesView.fxml"));
+        Parent root = loader.load();
+
+      
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        
+       
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        
+    
+        stage.show();
+
+        
     }
 
 }
