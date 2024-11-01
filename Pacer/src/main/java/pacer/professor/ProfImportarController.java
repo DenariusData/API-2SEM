@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javafx.fxml.FXML;
@@ -79,20 +80,23 @@ public class ProfImportarController {
 
     @FXML
     public void handleImportCSV() {
-        // Criando um FileChooser para abrir o arquivo CSV
+        // Criando um FileChooser para abrir os arquivos CSV
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
-        File file = fileChooser.showOpenDialog(new Stage());
 
-        if (file != null) {
-            loadCSV(file);
+        // Permitir a seleção de múltiplos arquivos
+        List<File> files = fileChooser.showOpenMultipleDialog(new Stage());
+
+        if (files != null) {
+            for (File file : files) {
+                loadCSV(file);
+            }
         }
     }
 
     private void loadCSV(File file) {
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
-            csvTableView.getItems().clear();  // Limpa a tabela
 
             // Ignora a primeira linha (cabeçalho)
             br.readLine();
@@ -150,10 +154,9 @@ public class ProfImportarController {
     public void handleClearNome() {
         Aluno selectedAluno = csvTableView.getSelectionModel().getSelectedItem();
         if (selectedAluno != null) {
-            // Armazena os valores antigos antes de limpar
             oldValuesMap.put(selectedAluno, new Aluno(selectedAluno.getNome(), selectedAluno.getEmail(), selectedAluno.getGrupo()));
-            selectedAluno.setNome(""); // Limpa o campo Nome da linha selecionada
-            csvTableView.refresh(); // Atualiza a tabela para refletir a mudança
+            selectedAluno.setNome("");
+            csvTableView.refresh();
         }
     }
 
@@ -161,10 +164,9 @@ public class ProfImportarController {
     public void handleClearEmail() {
         Aluno selectedAluno = csvTableView.getSelectionModel().getSelectedItem();
         if (selectedAluno != null) {
-            // Armazena os valores antigos antes de limpar
             oldValuesMap.put(selectedAluno, new Aluno(selectedAluno.getNome(), selectedAluno.getEmail(), selectedAluno.getGrupo()));
-            selectedAluno.setEmail(""); // Limpa o campo Email da linha selecionada
-            csvTableView.refresh(); // Atualiza a tabela para refletir a mudança
+            selectedAluno.setEmail("");
+            csvTableView.refresh();
         }
     }
 
@@ -172,10 +174,9 @@ public class ProfImportarController {
     public void handleClearGrupo() {
         Aluno selectedAluno = csvTableView.getSelectionModel().getSelectedItem();
         if (selectedAluno != null) {
-            // Armazena os valores antigos antes de limpar
             oldValuesMap.put(selectedAluno, new Aluno(selectedAluno.getNome(), selectedAluno.getEmail(), selectedAluno.getGrupo()));
-            selectedAluno.setGrupo(""); // Limpa o campo Grupo da linha selecionada
-            csvTableView.refresh(); // Atualiza a tabela para refletir a mudança
+            selectedAluno.setGrupo("");
+            csvTableView.refresh();
         }
     }
 
@@ -189,7 +190,7 @@ public class ProfImportarController {
                 aluno.setGrupo(oldAluno.getGrupo());
             }
         }
-        oldValuesMap.clear(); // Limpa o mapa após desfazer
-        csvTableView.refresh(); // Atualiza a tabela para refletir as mudanças
+        oldValuesMap.clear();
+        csvTableView.refresh();
     }
 }
