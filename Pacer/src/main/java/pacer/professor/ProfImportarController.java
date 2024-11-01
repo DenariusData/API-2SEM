@@ -157,6 +157,7 @@ public class ProfImportarController {
         }
     }
 
+
     @FXML
     public void handleClearEmail() {
         Aluno selectedAluno = csvTableView.getSelectionModel().getSelectedItem();
@@ -168,6 +169,7 @@ public class ProfImportarController {
         }
     }
 
+    
     @FXML
     public void handleClearGrupo() {
         Aluno selectedAluno = csvTableView.getSelectionModel().getSelectedItem();
