@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -11,16 +10,13 @@ xmlns="http://javafx.com/javafx/20.0.2" xmlns:fx="http://javafx/fxml" fx:control
     <!-- Botão para importar o CSV -->
     <Button layoutX="20.0" layoutY="20.0" text="Importar CSV" onAction="#handleImportCSV"/>
     
-
     <!-- Tabela para exibir os dados do CSV -->
     <TableView fx:id="csvTableView" layoutX="20.0" layoutY="60.0" prefHeight="300.0" prefWidth="760.0">
-    
         <columns>
             <TableColumn fx:id="columnNome" prefWidth="180.0" text="Nome" onEditCommit="#handleEditNome"/>
             <TableColumn fx:id="columnEmail" prefWidth="180.0" text="Email" onEditCommit="#handleEditEmail"/>
             <TableColumn fx:id="columnGrupo" prefWidth="180.0" text="Grupo" onEditCommit="#handleEditGrupo"/>
         </columns>
-
     </TableView>
     
     <!-- Campos para adicionar um novo aluno -->
