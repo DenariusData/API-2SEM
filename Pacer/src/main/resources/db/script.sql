@@ -1,23 +1,36 @@
+DROP DATABASE API;
+
 CREATE DATABASE API;
 
 USE API;
+
+CREATE TABLE CURSO (
+	CURSO_ID INT AUTO_INCREMENT,
+    CURSO_NOME VARCHAR(50) NOT NULL,
+    CURSO_SEMESTRE VARCHAR(1) NOT NULL,
+    CURSO_SIGLA VARCHAR(5) UNIQUE NOT NULL,
+    PRIMARY KEY(CURSO_ID)
+);
 
 CREATE TABLE GRUPO (
     GRUPO_ID INT AUTO_INCREMENT,
     GRUPO_NOME VARCHAR(20) NOT NULL UNIQUE,
     REPOS_LINK VARCHAR(255) NOT NULL,
-    GRUPO_SEMESTRE INT,
-    PRIMARY KEY (GRUPO_ID)
+    CURSO_SIGLA VARCHAR(5) NOT NULL,
+    PRIMARY KEY (GRUPO_ID),
+    FOREIGN KEY (CURSO_SIGLA) REFERENCES CURSO(CURSO_SIGLA)
 );
 
 CREATE TABLE ALUNO (
     ALUNO_RA BIGINT NOT NULL,                 
     ALUNO_EMAIL VARCHAR(30) NOT NULL UNIQUE,   
     ALUNO_NOME VARCHAR(100) NOT NULL,
-    ALUNO_SENHA VARCHAR(30) NOT NULL,
+    ALUNO_SENHA VARCHAR(30),
     FOTO LONGBLOB,
     GRUPO_ID INT,
+    CURSO_SIGLA VARCHAR(5) NOT NULL,
     PRIMARY KEY (ALUNO_RA),
+    FOREIGN KEY (CURSO_SIGLA) REFERENCES CURSO(CURSO_SIGLA),
     FOREIGN KEY (GRUPO_ID) REFERENCES GRUPO(GRUPO_ID)
 );
 
@@ -79,52 +92,55 @@ CREATE TABLE CALENDARIO (
 );
 
 
--- Tabela GRUPO
-INSERT INTO GRUPO (GRUPO_NOME, REPOS_LINK,  GRUPO_SEMESTRE) VALUES 
-('Grupo Alpha', 'https://github.com/grupo-alpha', '1'),
-('Grupo Beta', 'https://github.com/grupo-beta', '5'),
-('Grupo Gama', 'https://github.com/grupo-gama', '3');
+-- Inserindo dados na tabela CURSO
+INSERT INTO CURSO (CURSO_NOME, CURSO_SEMESTRE, CURSO_SIGLA) VALUES
+('Ciência da Computação', '1', 'CC01'),
+('Engenharia de Software', '1', 'ES02'),
+('Sistemas de Informação', '2', 'SI03');
 
--- Tabela ALUNO
-INSERT INTO ALUNO (ALUNO_RA, ALUNO_EMAIL, ALUNO_NOME, ALUNO_SENHA, FOTO, GRUPO_ID) VALUES 
-(12345678901, 'aluno1@email.com', 'Alice Silva', 'senha123', NULL, 1),
-(12345678902, 'aluno2@email.com', 'Bruno Santos', 'senha456', NULL, 2),
-(12345678903, 'aluno3@email.com', 'Carla Costa', 'senha789', NULL, 3);
+-- Inserindo dados na tabela GRUPO
+INSERT INTO GRUPO (GRUPO_NOME, REPOS_LINK, CURSO_SIGLA) VALUES
+('Grupo A', 'https://github.com/GrupoA', 'CC01'),
+('Grupo B', 'https://github.com/GrupoB', 'ES02'),
+('Grupo C', 'https://github.com/GrupoC', 'SI03');
 
--- Tabela PROFESSOR
-INSERT INTO PROFESSOR (PROF_NOME, PROF_EMAIL, PROF_SENHA, FOTO) VALUES 
-('Professor Xavier', 'xavier@email.com', 'prof123', NULL),
-('Dra. Grey', 'grey@email.com', 'prof456', NULL),
-('Logan Wolverine', 'logan@email.com', 'prof789', NULL);
+-- Inserindo dados na tabela ALUNO
+INSERT INTO ALUNO (ALUNO_RA, ALUNO_EMAIL, ALUNO_NOME, ALUNO_SENHA, FOTO, GRUPO_ID, CURSO_SIGLA) VALUES
+(12345678901, 'aluno1@example.com', 'João Silva', 'senha123', NULL, 1, 'CC01'),
+(12345678902, 'aluno2@example.com', 'Maria Oliveira', 'senha456', NULL, 2, 'ES02'),
+(12345678903, 'aluno3@example.com', 'Carlos Pereira', 'senha789', NULL, 3, 'SI03');
 
--- Tabela MATERIA
-INSERT INTO MATERIA (MATERIA_NOME, MATERIA_SEMESTRE) VALUES 
-('Matemática', 1),
-('Física', 2),
-('Programação', 3);
+-- Inserindo dados na tabela PROFESSOR
+INSERT INTO PROFESSOR (PROF_NOME, PROF_EMAIL, PROF_SENHA, FOTO) VALUES
+('Prof. Ana Costa', 'ana.costa@example.com', 'senhaAna', NULL),
+('Prof. Bruno Almeida', 'bruno.almeida@example.com', 'senhaBruno', NULL),
+('Prof. Carla Lima', 'carla.lima@example.com', 'senhaCarla', NULL);
 
--- Tabela CRITERIOS
-INSERT INTO CRITERIOS (CRITERIO_NOME, CRITERIO_DESCRICAO, CRITERIO_ATIVO) VALUES 
-('Pontualidade', 'Avaliação sobre a pontualidade do aluno nas entregas', TRUE),
-('Trabalho em equipe', 'Capacidade de trabalhar bem em equipe', TRUE),
-('Qualidade do código', 'Avaliação da qualidade do código produzido', TRUE);
+-- Inserindo dados na tabela MATERIA
+INSERT INTO MATERIA (MATERIA_NOME, MATERIA_SEMESTRE) VALUES
+('Programação I', 1),
+('Estruturas de Dados', 2),
+('Banco de Dados', 2);
 
--- Tabela AVALIACAO
-INSERT INTO AVALIACAO (AVALIADO_ALUNO_RA, AVALIADOR_ALUNO_RA, CRITERIO_ID, NOTA, AVALIACAO_DATA) VALUES 
-(12345678901, 12345678902, 1, 9.5, '2024-10-01 10:00:00'),
-(12345678902, 12345678903, 2, 8.0, '2024-10-02 12:30:00'),
-(12345678903, 12345678901, 3, 7.5, '2024-10-03 14:15:00');
+-- Inserindo dados na tabela CRITERIOS
+INSERT INTO CRITERIOS (CRITERIO_NOME, CRITERIO_DESCRICAO, CRITERIO_ATIVO) VALUES
+('Entregas', 'Avaliação de todas as entregas feitas pelo aluno.', TRUE),
+('Participação', 'Avaliação da participação em sala de aula.', TRUE);
 
--- Tabela SPRINT
-INSERT INTO SPRINT (SPRINT_NUM, SPRINT_SEMESTRE, SPRINT_DATA_INICIO, SPRINT_DATA_FIM) VALUES 
-(1, 2024, '2024-02-01', '2024-02-28'),
-(2, 2024, '2024-03-01', '2024-03-31'),
-(3, 2024, '2024-04-01', '2024-04-30');
+-- Inserindo dados na tabela AVALIACAO
+INSERT INTO AVALIACAO (AVALIADO_ALUNO_RA, AVALIADOR_ALUNO_RA, CRITERIO_ID, NOTA, AVALIACAO_DATA) VALUES
+(12345678901, 12345678902, 1, 8.5, '2024-11-01 10:00:00'),
+(12345678902, 12345678903, 2, 7.0, '2024-11-01 11:00:00'),
+(12345678903, 12345678901, 1, 9.0, '2024-11-01 12:00:00');
 
+-- Inserindo dados na tabela SPRINT
+INSERT INTO SPRINT (SPRINT_NUM, SPRINT_SEMESTRE, SPRINT_DATA_INICIO, SPRINT_DATA_FIM) VALUES
+(1, 1, '2024-11-01', '2024-11-14'),
+(2, 1, '2024-11-15', '2024-11-30'),
+(3, 2, '2024-12-01', '2024-12-14');
 
--- Tabela CALENDARIO
-INSERT INTO CALENDARIO (SEMESTRE, SPRINT_ID, DATA_INICIO, DATA_FIM) VALUES 
-('2024-1', 1, '2024-02-01', '2024-02-28'),
-('2024-1', 2, '2024-03-01', '2024-03-31'),
-('2024-1', 3, '2024-04-01', '2024-04-30');
-
+-- Inserindo dados na tabela CALENDARIO
+INSERT INTO CALENDARIO (SEMESTRE, SPRINT_ID, DATA_INICIO, DATA_FIM) VALUES
+('2024-1', 1, '2024-11-01', '2024-11-14'),
+('2024-1', 2, '2024-11-15', '2024-11-30'),
+('2024-2', 3, '2024-12-01', '2024-12-14');
