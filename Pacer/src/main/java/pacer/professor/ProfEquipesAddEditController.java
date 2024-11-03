@@ -19,7 +19,9 @@ public class ProfEquipesAddEditController {
     @FXML
     private TextField txtSemestre;
     @FXML
-    private Button btnSalvar;
+    private TextField txtCursoSigla; // Campo para cursoSigla
+    @FXML
+    private Button btnSalvar; // Mantido para manter a lógica atual
 
     private Grupo grupoAtual; // Grupo atual a ser editado
 
@@ -34,24 +36,25 @@ public class ProfEquipesAddEditController {
         txtNomeGrupo.setText(grupo.getNome());
         txtReposLink.setText(grupo.getReposLink());
         txtSemestre.setText(String.valueOf(grupo.getSemestre()));
-        btnSalvar.setText("Atualizar Grupo"); // Muda o texto do botão para "Atualizar"
+        txtCursoSigla.setText(grupo.getCursoSigla()); // Definindo o cursoSigla
+        btnSalvar.setText("Atualizar Grupo");
     }
 
     @FXML
     public void salvarGrupo(ActionEvent event) throws IOException {
         String nome = txtNomeGrupo.getText();
         String reposLink = txtReposLink.getText();
-        int semestre = Integer.parseInt(txtSemestre.getText());
+        String semestre = txtSemestre.getText();
+        String cursoSigla = txtCursoSigla.getText(); // Obtendo o cursoSigla
 
         if (grupoAtual == null) {
-            // Se grupoAtual for nulo, estamos adicionando um novo grupo
-            Grupo novoGrupo = new Grupo(nome, reposLink, semestre);
+            Grupo novoGrupo = new Grupo(nome, reposLink, cursoSigla, semestre);
             GrupoDAO.addGrupo(novoGrupo);
         } else {
-            // Se grupoAtual não for nulo, estamos editando um grupo existente
             grupoAtual.setNome(nome);
             grupoAtual.setReposLink(reposLink);
             grupoAtual.setSemestre(semestre);
+            grupoAtual.setCursoSigla(cursoSigla);
             GrupoDAO.updateGrupo(grupoAtual);
         }
 

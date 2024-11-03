@@ -13,7 +13,6 @@
    xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
    fx:controller="pacer.professor.ProfEquipesController">
    <children>
-      <!-- Botão de Retorno -->
       <ToggleButton fx:id="btnVoltar" layoutY="2.0" onAction="#confirmarVoltar" prefHeight="25.0"
          prefWidth="75.0" style="-fx-background-color: #004aad;" text=" Voltar" textFill="WHITE">
          <font>
@@ -21,7 +20,6 @@
          </font>
       </ToggleButton>
 
-      <!-- Título e Tabelas de Grupos e Integrantes -->
       <Label layoutX="50.0" layoutY="50.0"
          style="-fx-font-size: 16; -fx-font-family: 'Arial Rounded MT Bold';" text="Grupos"
          textFill="#004aad" />
@@ -33,25 +31,25 @@
          </font>
       </Label>
 
-      <!-- Tabela de Grupos -->
       <TableView fx:id="tblGrupos" layoutX="50.0" layoutY="80.0" onMouseClicked="#handleRowClickGrupos"
          prefHeight="300.0" prefWidth="350.0"
          style="-fx-border-color: #004aad; -fx-background-color: white; -fx-border-radius: 10; -fx-background-radius: 10;">
          <columns>
             <TableColumn fx:id="colNomeGrupo" editable="false" prefWidth="175.0" sortable="false"
                style="-fx-background-color: white; -fx-text-fill: black; -fx-font-family: 'Arial Black';"
-               text="Nome do Grupo" />
+               text="Nome do Grupo"/>
             <TableColumn fx:id="colReposLink" editable="false" prefWidth="175.0" sortable="false"
                style="-fx-background-color: white; -fx-text-fill: black; -fx-font-family: 'Arial Black';"
-               text="Link do Repositório" />
+               text="Link do Repositório"/>
             <TableColumn fx:id="colSemestre" editable="false" prefWidth="100.0" sortable="false"
                style="-fx-background-color: white; -fx-text-fill: black; -fx-font-family: 'Arial Black';"
-               text="Semestre" />
+               text="Semestre"/>
+            <TableColumn fx:id="colCurso" editable="false" prefWidth="100.0" sortable="false"
+               style="-fx-background-color: white; -fx-text-fill: black; -fx-font-family: 'Arial Black';"
+               text="Curso"/>
          </columns>
       </TableView>
 
-
-      <!-- Tabela de Integrantes -->
       <TableView fx:id="tblIntegrantes" layoutX="480.0" layoutY="80.0" prefHeight="300.0"
          prefWidth="350.0" style="-fx-border-color: #004aad;">
          <columns>
@@ -66,14 +64,14 @@
          </columns>
       </TableView>
 
-      <!-- Botão para Adicionar Integrantes -->
       <ToggleButton fx:id="btnAdicionarIntegrantes" layoutX="758.0" layoutY="2.0"
          onAction="#abrirImport" prefHeight="25.0" prefWidth="149.0"
-         style="-fx-background-color: #004aad;" text="📤 Importar  arquivo" textFill="WHITE">
+         style="-fx-background-color: #004aad;" text="📤 Importar arquivo" textFill="WHITE">
          <font>
             <Font name="Arial Black" size="12.0" />
          </font>
       </ToggleButton>
+
       <Pane layoutX="20.0" layoutY="391.0" prefHeight="40.0" prefWidth="389.0"
          style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-color: #004aad; -fx-border-radius: 10;">
          <children>
@@ -107,6 +105,7 @@
                prefWidth="22.0" />
          </children>
       </Pane>
+
       <Pane layoutX="480.0" layoutY="391.0" prefHeight="40.0" prefWidth="389.0"
          style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-color: #004aad; -fx-border-radius: 10;">
          <children>
@@ -117,15 +116,14 @@
                   <Font name="Arial Black" size="9.0" />
                </font>
             </Button>
-            <Button layoutX="99.0" layoutY="11.0" onAction="#adicionarIntegrante"
-               style="-fx-background-color: green;" text="✔ Adicionar" textFill="WHITE">
+            <Button layoutX="99.0" layoutY="11.0" onAction="#adicionarIntegrante" style="-fx-background-color: green;"
+               text="✔ Adicionar" textFill="WHITE">
                <font>
                   <Font name="Arial Black" size="9.0" />
                </font>
             </Button>
-            <Button layoutX="207.0" layoutY="10.0" onAction="#limparCamposIntegrante"
-               prefHeight="20.0" prefWidth="73.0" style="-fx-background-color: grey;"
-               text="🔁 Limpar" textFill="WHITE">
+            <Button layoutX="207.0" layoutY="10.0" onAction="#limparCamposIntegrante" prefHeight="20.0"
+               prefWidth="73.0" style="-fx-background-color: grey;" text="🔁 Limpar" textFill="WHITE">
                <font>
                   <Font name="Arial Black" size="10.0" />
                </font>
@@ -140,12 +138,5 @@
                prefWidth="22.0" />
          </children>
       </Pane>
-      <Button fx:id="baixarRelacao" layoutX="129.0" layoutY="48.0" mnemonicParsing="false"
-         onAction="#baixarRelatorio" style="-fx-background-color: #004aad;"
-         text="📥 Baixar relatório" textFill="WHITE">
-         <font>
-            <Font name="Arial Black" size="11.0" />
-         </font>
-      </Button>
    </children>
 </Pane>

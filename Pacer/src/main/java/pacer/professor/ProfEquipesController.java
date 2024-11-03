@@ -2,7 +2,6 @@ package pacer.professor;
 
 import java.io.IOException;
 
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -24,14 +23,15 @@ public class ProfEquipesController {
     @FXML
     private TableColumn<Grupo, String> colReposLink;
     @FXML
-    private TableColumn<Grupo, Integer> colSemestre;
+    private TableColumn<Grupo, String> colSemestre;
     private Grupo grupoSelecionado;
 
     @FXML
     public void initialize() {
         colNomeGrupo.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNome()));
         colReposLink.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getReposLink()));
-        colSemestre.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getSemestre()).asObject());
+        colSemestre.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSemestre()));
+        colSemestre.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCursoSigla()));
 
         carregarGrupos();
     }

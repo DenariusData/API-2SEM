@@ -22,10 +22,14 @@
                 <Label text="Semestre:"/>
                 <TextField fx:id="txtSemestre" prefWidth="200.0"/>
             </HBox>
+            <HBox spacing="10">
+                <Label text="Curso:"/>
+                <TextField fx:id="txtCursoSigla" prefWidth="200.0"/>
+            </HBox>
         </VBox>
 
         <HBox spacing="10" layoutX="14.0" layoutY="210.0">
-            <Button fx:id="btnSalvar" text="Salvar" onAction="#salvarGrupo" 
+            <Button text="Salvar" onAction="#salvarGrupo" 
                     style="-fx-background-color: #004aad; -fx-text-fill: white;"/>
             <Button text="Cancelar" onAction="#cancelar" 
                     style="-fx-background-color: grey; -fx-text-fill: white;"/>
