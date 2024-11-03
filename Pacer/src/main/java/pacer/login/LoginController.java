@@ -16,14 +16,13 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import pacer.data.dao.AlunoDAO;
 import pacer.data.dao.ProfessorDAO;
-import pacer.data.models.Aluno;
 import pacer.data.models.Professor;
 import pacer.utils.mbox;
 import pacer.utils.sceneSwitcher;
 
 public class LoginController implements Initializable {
 
-     @FXML
+    @FXML
     private TextField emailField;
 
     @FXML
@@ -39,17 +38,16 @@ public class LoginController implements Initializable {
         String senha = passwordField.getText();
         String fxmlPath;
 
-        
-        // verifica se é um aluno (se nao for se torna null)
-        Aluno aluno = AlunoDAO.findByEmailAndSenha(email, senha);
-        // verifica se é um professor (se nao for se torna null)
-        Professor professor = ProfessorDAO.findByEmailAndSenha(email, senha);
+        if (AlunoDAO.findByEmailWithNullSenha(email) != null) {
+            mbox.ShowMessageBox(AlertType.WARNING, "Erro ao efetuar login.", "Usuário sem senha definida.");
+            return;
+        }
 
         // se aluno nao é nulo, portanto o email e senha digitados correspondem a um aluno (o mesmo vale pro professor)
-        if (aluno != null ) {
+        if (AlunoDAO.findByEmailAndSenha(email, senha) != null ) {
             fxmlPath = "/FXML/AlunoHomeView.fxml";
         }
-        else if (professor != null) {
+        else if (ProfessorDAO.findByEmailAndSenha(email, senha) != null) {
             fxmlPath = "/FXML/ProfHomeView.fxml";
         }
         // se nao é nenhum dos dois emite uma mensagem de credenciais invalidas
