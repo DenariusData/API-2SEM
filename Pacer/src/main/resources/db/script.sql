@@ -7,7 +7,6 @@ USE API;
 CREATE TABLE CURSO (
 	CURSO_ID INT AUTO_INCREMENT,
     CURSO_NOME VARCHAR(50) NOT NULL,
-    CURSO_SEMESTRE VARCHAR(1) NOT NULL,
     CURSO_SIGLA VARCHAR(5) UNIQUE NOT NULL,
     PRIMARY KEY(CURSO_ID)
 );
@@ -17,6 +16,7 @@ CREATE TABLE GRUPO (
     GRUPO_NOME VARCHAR(20) NOT NULL UNIQUE,
     REPOS_LINK VARCHAR(255) NOT NULL,
     CURSO_SIGLA VARCHAR(5) NOT NULL,
+    SEMESTRE VARCHAR(10) NOT NULL,
     PRIMARY KEY (GRUPO_ID),
     FOREIGN KEY (CURSO_SIGLA) REFERENCES CURSO(CURSO_SIGLA)
 );
@@ -29,6 +29,7 @@ CREATE TABLE ALUNO (
     FOTO LONGBLOB,
     GRUPO_ID INT,
     CURSO_SIGLA VARCHAR(5) NOT NULL,
+    SEMESTRE VARCHAR(10) NOT NULL,
     PRIMARY KEY (ALUNO_RA),
     FOREIGN KEY (CURSO_SIGLA) REFERENCES CURSO(CURSO_SIGLA),
     FOREIGN KEY (GRUPO_ID) REFERENCES GRUPO(GRUPO_ID)
@@ -91,24 +92,23 @@ CREATE TABLE CALENDARIO (
     FOREIGN KEY (SPRINT_ID) REFERENCES SPRINT(SPRINT_ID)
 );
 
-
 -- Inserindo dados na tabela CURSO
-INSERT INTO CURSO (CURSO_NOME, CURSO_SEMESTRE, CURSO_SIGLA) VALUES
-('Ciência da Computação', '1', 'CC01'),
-('Engenharia de Software', '1', 'ES02'),
-('Sistemas de Informação', '2', 'SI03');
+INSERT INTO CURSO (CURSO_NOME, CURSO_SIGLA) VALUES
+('Ciência da Computação', 'CC'),
+('Engenharia de Software', 'ES'),
+('Sistemas de Informação', 'SI');
 
 -- Inserindo dados na tabela GRUPO
-INSERT INTO GRUPO (GRUPO_NOME, REPOS_LINK, CURSO_SIGLA) VALUES
-('Grupo A', 'https://github.com/GrupoA', 'CC01'),
-('Grupo B', 'https://github.com/GrupoB', 'ES02'),
-('Grupo C', 'https://github.com/GrupoC', 'SI03');
+INSERT INTO GRUPO (GRUPO_NOME, REPOS_LINK, CURSO_SIGLA, SEMESTRE) VALUES
+('Grupo A', 'https://github.com/GrupoA', 'CC', '2024-1'),
+('Grupo B', 'https://github.com/GrupoB', 'ES', '2024-1'),
+('Grupo C', 'https://github.com/GrupoC', 'SI', '2024-2');
 
 -- Inserindo dados na tabela ALUNO
-INSERT INTO ALUNO (ALUNO_RA, ALUNO_EMAIL, ALUNO_NOME, ALUNO_SENHA, FOTO, GRUPO_ID, CURSO_SIGLA) VALUES
-(12345678901, 'aluno1@example.com', 'João Silva', 'senha123', NULL, 1, 'CC01'),
-(12345678902, 'aluno2@example.com', 'Maria Oliveira', 'senha456', NULL, 2, 'ES02'),
-(12345678903, 'aluno3@example.com', 'Carlos Pereira', 'senha789', NULL, 3, 'SI03');
+INSERT INTO ALUNO (ALUNO_RA, ALUNO_EMAIL, ALUNO_NOME, ALUNO_SENHA, FOTO, GRUPO_ID, CURSO_SIGLA, SEMESTRE) VALUES
+(12345678901, 'aluno1@example.com', 'João Silva', 'senha123', NULL, 1, 'CC', '2024-1'),
+(12345678902, 'aluno2@example.com', 'Maria Oliveira', 'senha456', NULL, 2, 'ES', '2024-1'),
+(12345678903, 'aluno3@example.com', 'Carlos Pereira', 'senha789', NULL, 3, 'SI', '2024-2');
 
 -- Inserindo dados na tabela PROFESSOR
 INSERT INTO PROFESSOR (PROF_NOME, PROF_EMAIL, PROF_SENHA, FOTO) VALUES
@@ -144,3 +144,8 @@ INSERT INTO CALENDARIO (SEMESTRE, SPRINT_ID, DATA_INICIO, DATA_FIM) VALUES
 ('2024-1', 1, '2024-11-01', '2024-11-14'),
 ('2024-1', 2, '2024-11-15', '2024-11-30'),
 ('2024-2', 3, '2024-12-01', '2024-12-14');
+
+SELECT * FROM ALUNO;
+SELECT * FROM PROFESSOR;
+SELECT * FROM GRUPO;
+SELECT * FROM SEMESTRE;
