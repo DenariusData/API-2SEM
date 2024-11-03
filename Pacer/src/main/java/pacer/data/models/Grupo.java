@@ -1,44 +1,46 @@
 package pacer.data.models;
 
 public class Grupo {
-
     //region Atributos
-    private int id;
-    private String nome;
-    private String reposLink; // Link do repositório do grupo
-    private int semestre; // Semestre do grupo
+    private int grupoId;
+    private String grupoNome;
+    private String reposLink; 
+    private String cursoSigla;
+    private String semestre;
     //endregion
 
-    //region Construtores
-    public Grupo(String nome, String reposLink, int semestre) {
-        this.nome = nome;
+    //region Construtor
+    public Grupo(String grupoNome, String reposLink, String cursoSigla, String semestre) {
+        this.grupoNome = grupoNome;
         this.reposLink = reposLink;
+        this.cursoSigla = cursoSigla;
         this.semestre = semestre;
     }
 
-    public Grupo(int id, String nome, String reposLink, int semestre) {
-        this.id = id;
-        this.nome = nome;
+    public Grupo(int grupoId, String grupoNome, String reposLink, String cursoSigla, String semestre) {
+        this.grupoId = grupoId;
+        this.grupoNome = grupoNome;
         this.reposLink = reposLink;
+        this.cursoSigla = cursoSigla;
         this.semestre = semestre;
     }
     //endregion
 
     //region Getters e Setters
     public int getId() {
-        return id;
+        return grupoId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(int grupoId) {
+        this.grupoId = grupoId;
     }
 
     public String getNome() {
-        return nome;
+        return grupoNome;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNome(String grupoNome) {
+        this.grupoNome = grupoNome;
     }
 
     public String getReposLink() {
@@ -49,11 +51,19 @@ public class Grupo {
         this.reposLink = reposLink;
     }
 
-    public int getSemestre() {
+    public String getCursoSigla() {
+        return cursoSigla;
+    }
+
+    public void setCursoSigla(String cursoSigla) {
+        this.cursoSigla = cursoSigla;
+    }
+
+    public String getSemestre() {
         return semestre;
     }
 
-    public void setSemestre(int semestre) {
+    public void setSemestre(String semestre) {
         this.semestre = semestre;
     }
     //endregion

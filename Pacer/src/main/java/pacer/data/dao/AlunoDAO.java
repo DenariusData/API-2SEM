@@ -16,7 +16,7 @@ public class AlunoDAO {
     private static Connection connection = DatabaseConnection.getConnection();
 
     public static void addAluno(Aluno aluno) {
-        String sql = "INSERT INTO ALUNO (ALUNO_RA, ALUNO_EMAIL, ALUNO_NOME, ALUNO_SENHA, FOTO, GRUPO_ID) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO ALUNO (ALUNO_RA, ALUNO_EMAIL, ALUNO_NOME, ALUNO_SENHA, FOTO, GRUPO_ID, CURSO_SIGLA, SEMESTRE) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setLong(1, aluno.getRa());
             stmt.setString(2, aluno.getEmail());
@@ -24,6 +24,8 @@ public class AlunoDAO {
             stmt.setString(4, aluno.getSenha());
             stmt.setBlob(5, new ByteArrayInputStream(aluno.getFoto()));
             stmt.setInt(6, aluno.getGrupoId());
+            stmt.setString(7, aluno.getCursoSigla());
+            stmt.setString(8, aluno.getSemestre());
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -43,8 +45,11 @@ public class AlunoDAO {
                     rs.getString("ALUNO_NOME"), 
                     rs.getString("ALUNO_SENHA"), 
                     rs.getBytes("FOTO"),
-                    rs.getInt("GRUPO_ID")
+                    rs.getInt("GRUPO_ID"),
+                    rs.getString("CURSO_SIGLA"),
+                    rs.getString("SEMESTRE")
                 );
+
                 return alunoLogado;
             }
         } catch (SQLException e) {
@@ -64,7 +69,9 @@ public class AlunoDAO {
                     rs.getString("ALUNO_NOME"), 
                     rs.getString("ALUNO_SENHA"), 
                     rs.getBytes("FOTO"), 
-                    rs.getInt("GRUPO_ID")
+                    rs.getInt("GRUPO_ID"),
+                    rs.getString("CURSO_SIGLA"),
+                    rs.getString("SEMESTRE")
                 ));
             }
         } catch (SQLException e) {
@@ -74,14 +81,16 @@ public class AlunoDAO {
     }
 
     public static void updateAluno(Aluno aluno) {
-        String sql = "UPDATE ALUNO SET ALUNO_EMAIL = ?, ALUNO_NOME = ?, ALUNO_SENHA = ?, FOTO = ?, GRUPO_ID = ? WHERE ALUNO_RA = ?";
+        String sql = "UPDATE ALUNO SET ALUNO_EMAIL = ?, ALUNO_NOME = ?, ALUNO_SENHA = ?, FOTO = ?, GRUPO_ID = ?, CURSO_SIGLA = ?, SEMESTRE = ? WHERE ALUNO_RA = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, aluno.getEmail());
             stmt.setString(2, aluno.getNome());
             stmt.setString(3, aluno.getSenha());
             stmt.setBlob(4, new ByteArrayInputStream(aluno.getFoto()));
             stmt.setInt(5, aluno.getGrupoId());
-            stmt.setLong(6, aluno.getRa());
+            stmt.setString(6, aluno.getCursoSigla());
+            stmt.setString(7, aluno.getSemestre());
+            stmt.setLong(8, aluno.getRa());
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -96,5 +105,28 @@ public class AlunoDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public static Aluno findByEmailWithNullSenha(String email) {
+        String sql = "SELECT * FROM ALUNO WHERE ALUNO_EMAIL = ? AND ALUNO_SENHA IS NULL";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return new Aluno(
+                        rs.getLong("ALUNO_RA"),
+                        rs.getString("ALUNO_EMAIL"),
+                        rs.getString("ALUNO_NOME"),
+                        rs.getString("ALUNO_SENHA"),
+                        rs.getBytes("FOTO"),
+                        rs.getInt("GRUPO_ID"),
+                        rs.getString("CURSO_SIGLA"), 
+                        rs.getString("SEMESTRE")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

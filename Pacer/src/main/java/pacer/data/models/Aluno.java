@@ -11,27 +11,26 @@ public class Aluno {
     private String nome;
     private String senha;
     private byte[] foto;
-    private int grupoId; // ID do grupo ao qual o aluno pertence
+    private int grupoId;
+    private String cursoSigla;
+    private String semestre;
     //endregion
 
-    //region Aluno logado (Singleton)
+    //region Aluno logado ()
     public static class AlunoLogado extends Aluno {
         private static AlunoLogado instancia;
 
         // Construtor privado
-        private AlunoLogado(long ra, String email, String nome, String senha, byte[] foto, int grupoId) {
-            super(ra, email, nome, senha, foto, grupoId);
+        private AlunoLogado(long ra, String email, String nome, String senha, byte[] foto, int grupoId, String cursoSigla, String semestre) {
+            super(ra, email, nome, senha, foto, grupoId, cursoSigla, semestre);
         }
 
-        // Método para obter a instância singleton
-        public static AlunoLogado getInstancia(long ra, String email, String nome, String senha, byte[] foto, int grupoId) {
+        public static AlunoLogado getInstancia(long ra, String email, String nome, String senha, byte[] foto, int grupoId, String cursoSigla, String semestre) {
             if (instancia == null) {
                 if (foto == null || foto.length == 0) {
                     foto = loadDefaultImage();
-                } else {
-                    foto = foto;
                 }
-                instancia = new AlunoLogado(ra, email, nome, senha, foto, grupoId);
+                instancia = new AlunoLogado(ra, email, nome, senha, foto, grupoId, cursoSigla, semestre);
             }
             return instancia;
         }
@@ -57,13 +56,15 @@ public class Aluno {
     //endregion
 
     //region Construtor
-    public Aluno(long ra, String email, String nome, String senha, byte[] foto, int grupoId) {
+    public Aluno(long ra, String email, String nome, String senha, byte[] foto, int grupoId, String cursoSigla, String semestre) {
         this.ra = ra;
         this.email = email;
         this.nome = nome;
         this.senha = senha;
         this.foto = foto;
         this.grupoId = grupoId;
+        this.cursoSigla = cursoSigla;
+        this.semestre = semestre;
     }
     //endregion
 
@@ -114,6 +115,22 @@ public class Aluno {
 
     public void setGrupoId(int grupoId) {
         this.grupoId = grupoId;
+    }
+
+    public String getCursoSigla() {
+        return cursoSigla;
+    }
+
+    public void setCursoSigla(String cursoSigla) {
+        this.cursoSigla = cursoSigla;
+    }
+
+    public String getSemestre() {
+        return semestre;
+    }
+
+    public void setSemestre(String semestre) {
+        this.semestre = semestre;
     }
     //endregion
 }
