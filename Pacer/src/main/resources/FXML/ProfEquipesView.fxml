@@ -138,5 +138,10 @@
                prefWidth="22.0" />
          </children>
       </Pane>
+      <Button fx:id="btnRelatorio" layoutX="129.0" layoutY="48.0" mnemonicParsing="false" onAction="#handleRelatorio" style="-fx-background-color: #004aad;" text="📥 Baixar relatório" textFill="WHITE">
+         <font>
+            <Font name="Arial Black" size="11.0" />
+         </font>
+      </Button>
    </children>
 </Pane>
