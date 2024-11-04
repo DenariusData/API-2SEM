@@ -55,7 +55,7 @@ public class Aluno {
     }
     //endregion
 
-    //region Construtor
+    //region Construtores
     public Aluno(long ra, String email, String nome, String senha, byte[] foto, int grupoId, String cursoSigla, String semestre) {
         this.ra = ra;
         this.email = email;
@@ -65,6 +65,13 @@ public class Aluno {
         this.grupoId = grupoId;
         this.cursoSigla = cursoSigla;
         this.semestre = semestre;
+    }
+
+    public Aluno(long ra, String email, String nome, int grupoId) {
+        this.ra = ra;
+        this.email = email;
+        this.nome = nome;
+        this.grupoId = grupoId;
     }
     //endregion
 
