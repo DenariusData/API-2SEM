@@ -5,9 +5,11 @@ import java.io.IOException;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import pacer.data.dao.GrupoDAO;
 import pacer.data.models.Grupo;
 import pacer.utils.sceneSwitcher;
@@ -25,6 +27,9 @@ public class ProfEquipesController {
     @FXML
     private TableColumn<Grupo, String> colSemestre;
     private Grupo grupoSelecionado;
+    
+    @FXML
+    private Button btnRelatorio;
 
     @FXML
     public void initialize() {
@@ -101,6 +106,7 @@ public class ProfEquipesController {
     }
 
     @FXML
-    public void baixarRelatorio(ActionEvent event) throws IOException {
+    public void handleRelatorio(ActionEvent event) throws IOException {
+        grupoSelecionado.getRelatorio((Stage) btnRelatorio.getScene().getWindow());
     }
 }
