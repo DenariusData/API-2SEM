@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="pnlInicial" prefHeight="459.0" prefWidth="908.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pacer.professor.ProfHomeController">
+<Pane fx:id="pnlInicial" prefHeight="459.0" prefWidth="975.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pacer.professor.ProfHomeController">
    <children>
       <!-- Painel de Perfil -->
       <Pane layoutX="10.0" layoutY="10.0" prefHeight="426.0" prefWidth="242.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #004aad;">

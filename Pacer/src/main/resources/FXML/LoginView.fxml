@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane prefHeight="459.0" prefWidth="908.0" style="-fx-background-position: fix;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pacer.login.LoginController">
+<Pane prefHeight="459.0" prefWidth="975.0" style="-fx-background-position: fix;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pacer.login.LoginController">
    <children>
       <TextField fx:id="emailField" layoutX="493.0" layoutY="242.0" prefHeight="30.0" prefWidth="296.0" promptText="  Digite seu email..." style="-fx-border-radius: 50; -fx-border-color: black;">
          <font>
