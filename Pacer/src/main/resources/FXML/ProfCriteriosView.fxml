@@ -22,7 +22,7 @@
          </font></Button>
 
                <!-- Tabela de Critérios -->
-               <TableView fx:id="tableView" layoutX="51.0" layoutY="36.0" onMouseClicked="#handleRowClick" prefHeight="262.0" prefWidth="809.0" style="-fx-border-color: #004aad; -fx-background-color: white; -fx-border-radius: 10; -fx-background-radius: 10;">
+               <TableView fx:id="tableView" layoutX="107.0" layoutY="35.0" onMouseClicked="#handleRowClick" prefHeight="262.0" prefWidth="809.0" style="-fx-border-color: #004aad; -fx-background-color: white; -fx-border-radius: 10; -fx-background-radius: 10;">
                   <columns>
                       <TableColumn fx:id="idColumn" editable="false" prefWidth="63.0" sortable="false" style="-fx-background-color: white; -fx-text-fill: black; -fx-font-family: 'Arial Black';" text="ID" />
                       <TableColumn fx:id="nomeColumn" editable="false" prefWidth="324.0" sortable="false" style="-fx-background-color: white; -fx-text-fill: black; -fx-font-family: 'Arial Black';" text="Nome do Critério" />
@@ -31,7 +31,7 @@
                   </columns>
               </TableView>
               
-         <HBox alignment="CENTER" layoutX="2.0" layoutY="304.0" prefHeight="70.0" prefWidth="908.0" spacing="10">
+         <HBox alignment="CENTER" layoutX="42.0" layoutY="309.0" prefHeight="70.0" prefWidth="908.0" spacing="10">
              <Label text="ID:">
             <font>
                <Font name="Arial Black" size="10.0" />
@@ -58,7 +58,7 @@
              <CheckBox fx:id="ativoField" mnemonicParsing="false" />
          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="          " />
          </HBox>
-      <Pane layoutX="210.0" layoutY="383.0" prefHeight="40.0" prefWidth="429.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-color: #004aad; -fx-border-radius: 10;">
+      <Pane layoutX="250.0" layoutY="388.0" prefHeight="40.0" prefWidth="429.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-color: #004aad; -fx-border-radius: 10;">
          <children>
                 <Button layoutX="14.0" layoutY="8.0" onAction="#editarCriterio" prefHeight="25.0" prefWidth="79.0" style="-fx-background-color: blue;" text="🔎 Editar" textFill="WHITE">
                <font>
