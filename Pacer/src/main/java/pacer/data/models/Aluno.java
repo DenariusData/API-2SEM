@@ -43,15 +43,6 @@ public class Aluno {
         public static void logout() {
             instancia = null;
         }
-
-        private static byte[] loadDefaultImage() {
-            try {
-                return Files.readAllBytes(Paths.get("src/main/resources/images/placeholder-user.png"));
-            } catch (IOException e) {
-                e.printStackTrace();
-                return new byte[0];
-            }
-        }
     }
     //endregion
 
@@ -62,6 +53,15 @@ public class Aluno {
         this.nome = nome;
         this.senha = senha;
         this.foto = foto;
+        this.grupoId = grupoId;
+        this.cursoSigla = cursoSigla;
+        this.semestre = semestre;
+    }
+    // Construtor para criação de aluno via professor
+    public Aluno(long ra, String email, String nome, int grupoId, String cursoSigla, String semestre) {
+        this.ra = ra;
+        this.email = email;
+        this.nome = nome;
         this.grupoId = grupoId;
         this.cursoSigla = cursoSigla;
         this.semestre = semestre;
@@ -109,6 +109,7 @@ public class Aluno {
     }
 
     public byte[] getFoto() {
+        if (foto == null) return loadDefaultImage();
         return foto;
     }
 
@@ -140,4 +141,13 @@ public class Aluno {
         this.semestre = semestre;
     }
     //endregion
+
+    private static byte[] loadDefaultImage() {
+        try {
+            return Files.readAllBytes(Paths.get("src/main/resources/images/placeholder-user.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new byte[0];
+        }
+    }
 }
