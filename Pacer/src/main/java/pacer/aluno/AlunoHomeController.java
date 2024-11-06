@@ -1,8 +1,10 @@
 package pacer.aluno;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.nio.file.Files;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.HashMap;
@@ -28,6 +30,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import pacer.data.models.Aluno;
 import pacer.utils.convertImage;
@@ -45,7 +48,7 @@ public class AlunoHomeController implements Initializable {
     private Label monthYearLabel;  // Novo Label para exibir o mês e ano
 
     @FXML
-    private ImageView imgFoto;
+    ImageView pnlFoto;
     @FXML
     private Label nomeField;
     @FXML
@@ -71,7 +74,7 @@ public class AlunoHomeController implements Initializable {
         InputStream fotoStream = convertImage.imageToInputStream(logado.getFoto());
         if (fotoStream != null) {
             Image fotoAluno = new Image(fotoStream);
-            imgFoto.setImage(fotoAluno);
+            pnlFoto.setImage(fotoAluno);
         }
         nomeField.setText(logado.getNome());
         emailField.setText(logado.getEmail());
@@ -189,4 +192,26 @@ public class AlunoHomeController implements Initializable {
             }
         });
     }
+    @FXML
+    private void handleEditarFoto(ActionEvent event) throws IOException {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().addAll(
+            new FileChooser.ExtensionFilter("Imagens", "*.png", "*.jpg", "*.jpeg")
+        );
+    
+        // Abrindo a janela de seleção de arquivos
+        File selectedFile = fileChooser.showOpenDialog(pnlFoto.getScene().getWindow());
+        if (selectedFile != null) {
+            // Carregando a nova imagem
+            Image image = new Image(selectedFile.toURI().toString());
+            pnlFoto.setImage(image);
+            // Lendo a imagem em bytes
+            byte[] imageBytes = Files.readAllBytes(selectedFile.toPath());
+    
+            // Define a foto usando o array de bytes
+            logado.setFoto(imageBytes);
+        } else {
+            System.out.println("Nenhum arquivo selecionado.");
+        }
+    } 
 }
