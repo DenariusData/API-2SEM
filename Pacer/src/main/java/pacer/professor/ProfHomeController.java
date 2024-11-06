@@ -1,7 +1,6 @@
 package pacer.professor;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -17,17 +16,18 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import pacer.data.models.Professor;
-import pacer.utils.convertImage;
 import pacer.utils.sceneSwitcher;
 
 public class ProfHomeController implements Initializable {
 
     @FXML
     ImageView pnlFoto;
+    @FXML
+    ToggleButton btnEditarFoto; 
     @FXML
     Label pnlNome;
     @FXML
@@ -40,12 +40,6 @@ public class ProfHomeController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         logado = Professor.ProfessorLogado.getProfessor();
-        InputStream fotoStream = convertImage.imageToInputStream(logado.getFoto());
-        if (fotoStream != null) {
-            Image fotoAluno = new Image(fotoStream);
-            pnlFoto.setImage(fotoAluno);
-        }
-        pnlNome.setText(logado.getNome());
         pnlEmail.setText(logado.getEmail());
     }
     @FXML
@@ -53,25 +47,24 @@ public class ProfHomeController implements Initializable {
     
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/ProfCriteriosView.fxml"));
         Parent root = loader.load();
-
         
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         
-       
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        
-        
         stage.show();
-
-        
     }
 
     @FXML
-    private void handleEditarFoto(ActionEvent event) throws IOException {
-        // TODO EDITAR FOTO
+    private void handleEquipes(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/ProfEquipesView.fxml"));
+        Parent root = loader.load();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();        
     }
-
     @FXML
     private void handleSair(javafx.event.ActionEvent event) throws IOException {
         // Criação do alerta de confirmação
@@ -93,24 +86,6 @@ public class ProfHomeController implements Initializable {
             alert.close();
         }
     
-    }
-    
-    @FXML
-    private void handleEquipes(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/ProfEquipesView.fxml"));
-        Parent root = loader.load();
-
-        
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        
-       
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        
-        
-        stage.show();
-
-        
     }
 
 }
