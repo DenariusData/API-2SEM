@@ -12,14 +12,10 @@
     <children>
         
         <!-- Tabela de Avaliação -->
-        <TableView fx:id="tableView" layoutX="50.0" layoutY="139.0" prefHeight="311.0" prefWidth="875.0" style="-fx-background-color: white; -fx-border-color: #004aad; -fx-border-radius: 10px; -fx-background-radius: 10px;">
+        <TableView onMouseClicked="#handleRowClickIntegrantes" fx:id="tableView" layoutX="50.0" layoutY="139.0" prefHeight="311.0" prefWidth="875.0" style="-fx-background-color: white; -fx-border-color: #004aad; -fx-border-radius: 10px; -fx-background-radius: 10px;">
             <columns>
-                <TableColumn fx:id="colName" prefWidth="213.0" style="-fx-background-color: white; -fx-text-fill: black; -fx-font-family: 'Arial Black';" text="INTEGRANTES" />
-                <TableColumn fx:id="colAutonomia" prefWidth="139.0" style="-fx-background-color: white; -fx-text-fill: black; -fx-font-family: 'Arial Black';" text="AUTONOMIA" />
-                <TableColumn fx:id="colColaboracao" prefWidth="146.0" style="-fx-background-color: white; -fx-text-fill: black; -fx-font-family: 'Arial Black';" text="COLABORAÇÃO" />
-                <TableColumn fx:id="colEntrega" prefWidth="112.0" style="-fx-background-color: white; -fx-text-fill: black; -fx-font-family: 'Arial Black';" text="ENTREGA" />
-                <TableColumn fx:id="colResultados" prefWidth="112.0" style="-fx-background-color: white; -fx-text-fill: black; -fx-font-family: 'Arial Black';" text="RESULTADOS" />
-                <TableColumn fx:id="colStatus" prefWidth="149.0" style="-fx-background-color: white; -fx-text-fill: black; -fx-font-family: 'Arial Black';" text="STATUS" />
+                <TableColumn fx:id="colNome" prefWidth="213.0" style="-fx-background-color: white; -fx-text-fill: black; -fx-font-family: 'Arial Black';" text="INTEGRANTES" />
+                <TableColumn fx:id="colEmail" prefWidth="139.0" style="-fx-background-color: white; -fx-text-fill: black; -fx-font-family: 'Arial Black';" text="EMAIL" />
             </columns>
             <columnResizePolicy>
                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -45,7 +41,7 @@
             <Font name="Arial Black" size="24.0" />
          </font>
       </Text>
-      <Label fx:id="grupoField" alignment="CENTER" layoutX="353.0" layoutY="86.0" prefHeight="18.0" prefWidth="204.0" style="-fx-border-color: #004AAD;" text="Denarius Data">
+      <Label fx:id="grupoField" alignment="CENTER" layoutX="353.0" layoutY="86.0" prefHeight="18.0" prefWidth="204.0" style="-fx-border-color: #004AAD;" text="GROUP NAME">
          <font>
             <Font name="Arial Black" size="10.0" />
          </font>
