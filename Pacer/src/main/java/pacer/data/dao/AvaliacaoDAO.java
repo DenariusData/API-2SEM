@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 
 import pacer.data.DatabaseConnection;
 import pacer.data.models.Avaliacao;
@@ -67,4 +68,37 @@ public class AvaliacaoDAO {
             e.printStackTrace();
         }
     }
+    public static Avaliacao getAvaliacaoPorAlunoECriterio(Long avaliadorRa, Long avaliadoRa, int criterioId) {
+        Avaliacao avaliacao = null;
+        String sql = "SELECT * FROM AVALIACAO WHERE AVALIADOR_ALUNO_RA = ? AND AVALIADO_ALUNO_RA = ? AND CRITERIO_ID = ?";
+    
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+    
+            stmt.setLong(1, avaliadorRa); // Aluno que está fazendo a avaliação
+            stmt.setLong(2, avaliadoRa); // Aluno que está sendo avaliado
+            stmt.setLong(3, criterioId); // Critério específico
+    
+            ResultSet rs = stmt.executeQuery();
+            
+            
+            if (rs.next()) {
+                LocalDateTime data = rs.getTimestamp("AVALIACAO_DATA").toLocalDateTime();
+                
+                avaliacao = new Avaliacao();
+                avaliacao.setAvaliacaoId(rs.getInt("AVALIACAO_ID"));
+                avaliacao.setAvaliadorAlunoRa(rs.getLong("AVALIADOR_ALUNO_RA"));
+                avaliacao.setAvaliadoAlunoRa(rs.getLong("AVALIADO_ALUNO_RA"));
+                avaliacao.setCriterioId(rs.getInt("CRITERIO_ID"));
+                avaliacao.setNota(rs.getDouble("NOTA"));
+                avaliacao.setData(data);
+            }
+    
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    
+        return avaliacao;
+    }
+    
 }
