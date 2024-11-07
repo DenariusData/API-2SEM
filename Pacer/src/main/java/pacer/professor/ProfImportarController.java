@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -16,6 +17,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import pacer.utils.sceneSwitcher;
 
 public class ProfImportarController {
 
@@ -92,6 +94,11 @@ public class ProfImportarController {
                 loadCSV(file);
             }
         }
+    }
+
+    @FXML
+    public void handleVoltar(ActionEvent event) throws IOException {
+        sceneSwitcher.switchScene("/FXML/ProfHomeView.fxml", event);
     }
 
     private void loadCSV(File file) {
