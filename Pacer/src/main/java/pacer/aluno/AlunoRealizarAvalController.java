@@ -1,118 +1,90 @@
 package pacer.aluno;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.List;
+import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.Toggle;
-import javafx.scene.control.ToggleGroup;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import pacer.data.models.Aluno;
+import pacer.data.models.Criterios;
+import pacer.utils.convertImage;
 import pacer.utils.sceneSwitcher;
 
-public class AlunoRealizarAvalController {
+public class AlunoRealizarAvalController implements Initializable {
 
     @FXML
-    private RadioButton autonomia0;
+    private Label nomeField;
     @FXML
-    private RadioButton autonomia1;
+    private Label grupoField;
     @FXML
-    private RadioButton autonomia2;
+    private ImageView fotoAlunoImageView;
     @FXML
-    private RadioButton autonomia3;
+    private VBox criteriosContainer;
+    @FXML
+    private Button enviarAvaliacaoBtn;
+    @FXML
+    private Button voltar;
 
-    @FXML
-    private RadioButton colaboracao0;
-    @FXML
-    private RadioButton colaboracao1;
-    @FXML
-    private RadioButton colaboracao2;
-    @FXML
-    private RadioButton colaboracao3;
+    private Aluno alunoAvaliado;
+    private String nomeGrupo;
+    private List<Criterios> criterios;
 
-    @FXML
-    private RadioButton entrega0;
-    @FXML
-    private RadioButton entrega1;
-    @FXML
-    private RadioButton entrega2;
-    @FXML
-    private RadioButton entrega3;
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+    }
 
-    @FXML
-    private RadioButton resultados0;
-    @FXML
-    private RadioButton resultados1;
-    @FXML
-    private RadioButton resultados2;
-    @FXML
-    private RadioButton resultados3;
+    public void carregarDadosAluno(String nomeAluno, String nomeGrupo, byte[] foto) {
+        nomeField.setText(nomeAluno);
+        grupoField.setText(nomeGrupo);
+        Image imgFoto = new Image(convertImage.imageToInputStream(foto));
+        fotoAlunoImageView.setImage(imgFoto);
+    }
 
-    // Declare ToggleGroups
-    private ToggleGroup autonomiaGroup = new ToggleGroup();
-    private ToggleGroup colaboracaoGroup = new ToggleGroup();
-    private ToggleGroup entregaGroup = new ToggleGroup();
-    private ToggleGroup resultadosGroup = new ToggleGroup();
+    public void carregarCriterios(List<Criterios> criterios) {
+        this.criterios = criterios;
+        criteriosContainer.getChildren().clear();
 
-    @FXML
-    public void initialize() {
-        // Set ToggleGroups for Autonomia
-        autonomia0.setToggleGroup(autonomiaGroup);
-        autonomia1.setToggleGroup(autonomiaGroup);
-        autonomia2.setToggleGroup(autonomiaGroup);
-        autonomia3.setToggleGroup(autonomiaGroup);
+        for (Criterios criterio : criterios) {
+            VBox vBoxCriterio = new VBox(5);
+            vBoxCriterio.getStyleClass().add("criterio-container");
 
-        // Set ToggleGroups for Colaboração
-        colaboracao0.setToggleGroup(colaboracaoGroup);
-        colaboracao1.setToggleGroup(colaboracaoGroup);
-        colaboracao2.setToggleGroup(colaboracaoGroup);
-        colaboracao3.setToggleGroup(colaboracaoGroup);
+            Text criterioText = new Text(criterio.getNome());
+            criterioText.setStyle("-fx-font-size: 12px; -fx-font-weight: bold;");
 
-        // Set ToggleGroups for Entrega
-        entrega0.setToggleGroup(entregaGroup);
-        entrega1.setToggleGroup(entregaGroup);
-        entrega2.setToggleGroup(entregaGroup);
-        entrega3.setToggleGroup(entregaGroup);
+            TextField notaField = new TextField();
+            notaField.setPromptText("Insira a nota");
 
-        // Set ToggleGroups for Resultados
-        resultados0.setToggleGroup(resultadosGroup);
-        resultados1.setToggleGroup(resultadosGroup);
-        resultados2.setToggleGroup(resultadosGroup);
-        resultados3.setToggleGroup(resultadosGroup);
+            vBoxCriterio.getChildren().addAll(criterioText, notaField);
+
+            criteriosContainer.getChildren().add(vBoxCriterio);
+        }
     }
 
     @FXML
-    public void enviarAvaliacao() {
-        // Captura o valor do grupo 'Autonomia'
-        Toggle selectedAutonomia = autonomiaGroup.getSelectedToggle();
-        if (selectedAutonomia != null) {
-            String autonomiaValue = ((RadioButton) selectedAutonomia).getText();
-            System.out.println("Autonomia: " + autonomiaValue);
-        }
-    
-        // Captura o valor do grupo 'Colaboração'
-        Toggle selectedColaboracao = colaboracaoGroup.getSelectedToggle();
-        if (selectedColaboracao != null) {
-            String colaboracaoValue = ((RadioButton) selectedColaboracao).getText();
-            System.out.println("Colaboração: " + colaboracaoValue);
-        }
-    
-        // Captura o valor do grupo 'Entrega'
-        Toggle selectedEntrega = entregaGroup.getSelectedToggle();
-        if (selectedEntrega != null) {
-            String entregaValue = ((RadioButton) selectedEntrega).getText();
-            System.out.println("Entrega: " + entregaValue);
-        }
-    
-        // Captura o valor do grupo 'Resultados'
-        Toggle selectedResultados = resultadosGroup.getSelectedToggle();
-        if (selectedResultados != null) {
-            String resultadosValue = ((RadioButton) selectedResultados).getText();
-            System.out.println("Resultados: " + resultadosValue);
-        }
-    }
-    @FXML
-public void voltarTela(ActionEvent event) throws IOException {
-    sceneSwitcher.switchScene("/FXML/AlunoAvaliacaoView.fxml", event);
-}
+    private void enviarAvaliacao() {
+        // Lógica para coletar as notas e enviar a avaliação
+        for (int i = 0; i < criteriosContainer.getChildren().size(); i++) {
+            VBox vBox = (VBox) criteriosContainer.getChildren().get(i);
+            TextField notaField = (TextField) vBox.getChildren().get(1);
 
+            // Aqui você pode salvar as notas ou fazer outras operações necessárias
+            System.out.println("Nota do critério " + criterios.get(i).getNome() + ": " + notaField.getText());
+        }
+        System.out.println("Avaliação enviada para o aluno: " + nomeField.getText());
+    }
+
+    @FXML
+    private void voltarTela(ActionEvent event) throws IOException {
+        sceneSwitcher.switchScene("/FXML/AlunoAvaliacaoView.fxml", event);
+    }
 }
