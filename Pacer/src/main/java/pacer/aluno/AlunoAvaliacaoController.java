@@ -60,7 +60,6 @@ public class AlunoAvaliacaoController implements Initializable {
     @FXML
     public void handleRowClickIntegrantes(MouseEvent event) {
         alunoSelecionado = tableView.getSelectionModel().getSelectedItem();
-        System.out.println(alunoSelecionado.getNome());
     }
     private void configurarTableView() {
         colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
@@ -77,24 +76,28 @@ public class AlunoAvaliacaoController implements Initializable {
         List<Criterios> criteriosList = CriteriosDAO.getAll();
     
         for (Criterios criterio : criteriosList) {
-            TableColumn<Aluno, Double> colNota = new TableColumn<>(criterio.getNome());
+            if (criterio.isAtivo()) {
+                TableColumn<Aluno, Double> colNota = new TableColumn<>(criterio.getNome());
     
-            colNota.setCellValueFactory(param -> {
-                Avaliacao avaliacao = AvaliacaoDAO.getAvaliacaoPorAlunoECriterio(Aluno.AlunoLogado.getAluno().getRa(), param.getValue().getRa(), criterio.getId());
-                return new javafx.beans.property.SimpleDoubleProperty(avaliacao != null ? avaliacao.getNota() : 0.0).asObject();
-            });
-    
-            colNota.setStyle("-fx-background-color: white; -fx-text-fill: black; -fx-font-family: 'Arial Black';");
-    
-            tableView.getColumns().add(colNota);
+                colNota.setCellValueFactory(param -> {
+                    Avaliacao avaliacao = AvaliacaoDAO.getAvaliacaoPorAlunoECriterio(Aluno.AlunoLogado.getAluno().getRa(), param.getValue().getRa(), criterio.getId());
+                    return new javafx.beans.property.SimpleDoubleProperty(avaliacao != null ? avaliacao.getNota() : 0.0).asObject();
+                });
+        
+                colNota.setStyle("-fx-background-color: white; -fx-text-fill: black; -fx-font-family: 'Arial Black';");
+        
+                tableView.getColumns().add(colNota);
+            }
         }
     }
     @FXML
     public void abrirRealizarAvaliacao(ActionEvent event) throws IOException {
-        if (alunoSelecionado != null) {
-            AlunoRealizarAvalController controller = sceneSwitcher.switchSceneRetController("/FXML/AlunoRealizarAvalView.fxml", event);
-            controller.carregarDadosAluno(alunoSelecionado.getNome(), GrupoDAO.getGrupoComAlunos(Aluno.AlunoLogado.getAluno().getGrupoId()).getNome(), alunoSelecionado.getFoto()); 
+        if (alunoSelecionado == null) {
+            mbox.ShowMessageBox(AlertType.WARNING, "Erro", "Selecione um integrante do grupo para avaliar");
+            return;
         }
+        AlunoRealizarAvalController controller = sceneSwitcher.switchSceneRetController("/FXML/AlunoRealizarAvalView.fxml", event);
+        controller.carregarDadosAluno(alunoSelecionado); 
         
     }
 
