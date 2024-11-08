@@ -92,46 +92,86 @@ CREATE TABLE CALENDARIO (
     FOREIGN KEY (SPRINT_ID) REFERENCES SPRINT(SPRINT_ID)
 );
 
--- Inserindo dados na tabela CURSO
+-- Inserir cursos
 INSERT INTO CURSO (CURSO_NOME, CURSO_SIGLA) VALUES
-('Ciência da Computação', 'CC'),
 ('Engenharia de Software', 'ES'),
-('Sistemas de Informação', 'SI');
+('Sistemas de Informação', 'SI'),
+('Ciência da Computação', 'CC'),
+('Design de Sistemas', 'DS');
 
--- Inserindo dados na tabela GRUPO
+-- Inserir grupos
 INSERT INTO GRUPO (GRUPO_NOME, REPOS_LINK, CURSO_SIGLA, SEMESTRE) VALUES
-('Grupo A', 'https://github.com/GrupoA', 'CC', '2024-1'),
-('Grupo B', 'https://github.com/GrupoB', 'ES', '2024-1'),
-('Grupo C', 'https://github.com/GrupoC', 'SI', '2024-2');
+('Grupo A', 'https://github.com/grupoA', 'ES', '2024.1'),
+('Grupo B', 'https://github.com/grupoB', 'SI', '2024.1'),
+('Grupo C', 'https://github.com/grupoC', 'CC', '2024.1'),
+('Grupo D', 'https://github.com/grupoD', 'DS', '2024.1');
 
--- Inserindo dados na tabela ALUNO
-INSERT INTO ALUNO (ALUNO_RA, ALUNO_EMAIL, ALUNO_NOME, ALUNO_SENHA, FOTO, GRUPO_ID, CURSO_SIGLA, SEMESTRE) VALUES
-(12345678901, 'aluno1@example.com', 'João Silva', 'senha123', NULL, 1, 'CC', '2024-1'),
-(12345678902, 'aluno2@example.com', 'Maria Oliveira', 'senha456', NULL, 2, 'ES', '2024-1'),
-(12345678903, 'aluno3@example.com', 'Carlos Pereira', 'senha789', NULL, 3, 'SI', '2024-2');
+-- Inserindo professores
+INSERT INTO PROFESSOR (PROF_NOME, PROF_EMAIL, PROF_SENHA) VALUES
+('Carlos Silva', 'carlos.silva@exemplo.com', 'senha123'),
+('Ana Souza', 'ana.souza@exemplo.com', 'senha456'),
+('Roberto Oliveira', 'roberto.oliveira@exemplo.com', 'senha789'),
+('Mariana Costa', 'mariana.costa@exemplo.com', 'senha012'),
+('Paulo Almeida', 'paulo.almeida@exemplo.com', 'senha345');
 
--- Inserindo dados na tabela PROFESSOR
-INSERT INTO PROFESSOR (PROF_NOME, PROF_EMAIL, PROF_SENHA, FOTO) VALUES
-('Prof. Ana Costa', 'ana.costa@example.com', 'senhaAna', NULL),
-('Prof. Bruno Almeida', 'bruno.almeida@example.com', 'senhaBruno', NULL),
-('Prof. Carla Lima', 'carla.lima@example.com', 'senhaCarla', NULL);
 
--- Inserindo dados na tabela MATERIA
-INSERT INTO MATERIA (MATERIA_NOME, MATERIA_SEMESTRE) VALUES
-('Programação I', 1),
-('Estruturas de Dados', 2),
-('Banco de Dados', 2);
+-- Inserir alunos
+INSERT INTO ALUNO (ALUNO_RA, ALUNO_EMAIL, ALUNO_NOME, ALUNO_SENHA, GRUPO_ID, CURSO_SIGLA, SEMESTRE) VALUES
+(1234567890123, 'joao@exemplo.com', 'João Silva', 'senha123', 1, 'ES', '2024.1'),
+(1234567890124, 'maria@exemplo.com', 'Maria Oliveira', 'senha123', 1, 'ES', '2024.1'),
+(1234567890125, 'pedro@exemplo.com', 'Pedro Santos', 'senha123', 1, 'ES', '2024.1'),
+(1234567890126, 'lucas@exemplo.com', 'Lucas Pereira', 'senha123', 2, 'SI', '2024.1'),
+(1234567890127, 'juliana@exemplo.com', 'Juliana Costa', 'senha123', 2, 'SI', '2024.1'),
+(1234567890128, 'ana@exemplo.com', 'Ana Souza', 'senha123', 2, 'SI', '2024.1'),
+(1234567890129, 'gustavo@exemplo.com', 'Gustavo Lima', 'senha123', 3, 'CC', '2024.1'),
+(1234567890130, 'carla@exemplo.com', 'Carla Rocha', 'senha123', 3, 'CC', '2024.1'),
+(1234567890131, 'marcio@exemplo.com', 'Márcio Almeida', 'senha123', 3, 'CC', '2024.1'),
+(1234567890132, 'beatriz@exemplo.com', 'Beatriz Silva', 'senha123', 4, 'DS', '2024.1'),
+(1234567890133, 'patricia@exemplo.com', 'Patrícia Souza', 'senha123', 4, 'DS', '2024.1'),
+(1234567890134, 'ricardo@exemplo.com', 'Ricardo Almeida', 'senha123', 4, 'DS', '2024.1');
 
--- Inserindo dados na tabela CRITERIOS
-INSERT INTO CRITERIOS (CRITERIO_NOME, CRITERIO_DESCRICAO, CRITERIO_ATIVO) VALUES
-('Entregas', 'Avaliação de todas as entregas feitas pelo aluno.', TRUE),
-('Participação', 'Avaliação da participação em sala de aula.', TRUE);
+-- Inserir critérios na tabela CRITERIOS
+INSERT INTO CRITERIOS (CRITERIO_NOME, CRITERIO_DESCRICAO) VALUES
+('Critério 1', 'Descrição do critério 1'),
+('Critério 2', 'Descrição do critério 2'),
+('Critério 3', 'Descrição do critério 3'),
+('Critério 4', 'Descrição do critério 4');
 
--- Inserindo dados na tabela AVALIACAO
+-- Avaliações entre alunos do Grupo A
 INSERT INTO AVALIACAO (AVALIADO_ALUNO_RA, AVALIADOR_ALUNO_RA, CRITERIO_ID, NOTA, AVALIACAO_DATA) VALUES
-(12345678901, 12345678902, 1, 8.5, '2024-11-01 10:00:00'),
-(12345678902, 12345678903, 2, 7.0, '2024-11-01 11:00:00'),
-(12345678903, 12345678901, 1, 9.0, '2024-11-01 12:00:00');
+(1234567890124, 1234567890123, 1, 2.5, '2024-10-10 10:00:00'),
+(1234567890125, 1234567890123, 1, 1.5, '2024-10-10 10:00:00'),
+(1234567890123, 1234567890124, 1, 2.8, '2024-10-10 11:00:00'),
+(1234567890125, 1234567890124, 1, 2.0, '2024-10-10 11:00:00'),
+(1234567890123, 1234567890125, 1, 2.2, '2024-10-10 12:00:00'),
+(1234567890124, 1234567890125, 1, 2.9, '2024-10-10 12:00:00');
+
+-- Avaliações entre alunos do Grupo B
+INSERT INTO AVALIACAO (AVALIADO_ALUNO_RA, AVALIADOR_ALUNO_RA, CRITERIO_ID, NOTA, AVALIACAO_DATA) VALUES
+(1234567890126, 1234567890127, 2, 2.0, '2024-10-11 10:00:00'),
+(1234567890128, 1234567890127, 2, 2.5, '2024-10-11 10:00:00'),
+(1234567890127, 1234567890126, 2, 1.8, '2024-10-11 11:00:00'),
+(1234567890128, 1234567890126, 2, 2.2, '2024-10-11 11:00:00'),
+(1234567890127, 1234567890128, 2, 2.9, '2024-10-11 12:00:00'),
+(1234567890126, 1234567890128, 2, 2.7, '2024-10-11 12:00:00');
+
+-- Avaliações entre alunos do Grupo C
+INSERT INTO AVALIACAO (AVALIADO_ALUNO_RA, AVALIADOR_ALUNO_RA, CRITERIO_ID, NOTA, AVALIACAO_DATA) VALUES
+(1234567890129, 1234567890130, 3, 1.5, '2024-10-12 10:00:00'),
+(1234567890131, 1234567890130, 3, 2.0, '2024-10-12 10:00:00'),
+(1234567890130, 1234567890129, 3, 2.5, '2024-10-12 11:00:00'),
+(1234567890131, 1234567890129, 3, 1.7, '2024-10-12 11:00:00'),
+(1234567890129, 1234567890131, 3, 2.2, '2024-10-12 12:00:00'),
+(1234567890130, 1234567890131, 3, 2.8, '2024-10-12 12:00:00');
+
+-- Avaliações entre alunos do Grupo D
+INSERT INTO AVALIACAO (AVALIADO_ALUNO_RA, AVALIADOR_ALUNO_RA, CRITERIO_ID, NOTA, AVALIACAO_DATA) VALUES
+(1234567890132, 1234567890133, 4, 2.5, '2024-10-13 10:00:00'),
+(1234567890134, 1234567890133, 4, 2.8, '2024-10-13 10:00:00'),
+(1234567890133, 1234567890132, 4, 2.2, '2024-10-13 11:00:00'),
+(1234567890134, 1234567890132, 4, 2.6, '2024-10-13 11:00:00'),
+(1234567890132, 1234567890134, 4, 3.0, '2024-10-13 12:00:00'),
+(1234567890133, 1234567890134, 4, 2.4, '2024-10-13 12:00:00');
 
 -- Inserindo dados na tabela SPRINT
 INSERT INTO SPRINT (SPRINT_NUM, SPRINT_SEMESTRE, SPRINT_DATA_INICIO, SPRINT_DATA_FIM) VALUES
@@ -150,4 +190,4 @@ USE API;
 SELECT * FROM ALUNO;
 SELECT * FROM PROFESSOR;
 SELECT * FROM GRUPO;
-SELECT * FROM SEMESTRE;
+SELECT * FROM CRITERIOS;
