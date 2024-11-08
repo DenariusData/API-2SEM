@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import pacer.data.dao.GrupoDAO;
+
 public class Aluno {
     //region Atributos
     private long ra;
@@ -123,6 +125,10 @@ public class Aluno {
 
     public void setGrupoId(int grupoId) {
         this.grupoId = grupoId;
+    }
+
+    public String getGrupoNome() {
+        return GrupoDAO.getGrupoComAlunos(this.grupoId).getNome();
     }
 
     public String getCursoSigla() {
