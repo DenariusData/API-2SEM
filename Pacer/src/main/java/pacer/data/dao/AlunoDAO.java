@@ -141,8 +141,8 @@ public class AlunoDAO {
             while (rs.next()) {
                 Aluno aluno = new Aluno(
                     rs.getLong("ALUNO_RA"),
-                    rs.getString("ALUNO_NOME"),
                     rs.getString("ALUNO_EMAIL"),
+                    rs.getString("ALUNO_NOME"),
                     rs.getInt("GRUPO_ID"),
                     rs.getString("CURSO_SIGLA"),
                     rs.getString("SEMESTRE")
