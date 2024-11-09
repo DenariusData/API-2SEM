@@ -5,12 +5,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import pacer.data.DatabaseConnection;
 import pacer.data.models.Aluno;
+import pacer.utils.mbox;
 
 public class AlunoDAO {
     private static Connection connection = DatabaseConnection.getConnection();
@@ -102,7 +104,10 @@ public class AlunoDAO {
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setLong(1, ra);
             stmt.executeUpdate();
-        } catch (SQLException e) {
+        } catch (SQLIntegrityConstraintViolationException e) {
+            mbox.ShowError("Não é possivel deletar o aluno pois existem avaliações pendentes relacionados ao aluno.");
+        } 
+        catch (SQLException e) {
             e.printStackTrace();
         }
     }
