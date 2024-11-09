@@ -10,7 +10,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import pacer.data.dao.AlunoDAO;
@@ -53,9 +52,6 @@ public class ProfEquipesController {
     private Button btnRelatorio;
 
     @FXML
-    private Button btnEditarIntegrante;
-
-    @FXML
     private Button btnDeletarIntegrante;
 
     @FXML
@@ -82,31 +78,11 @@ public class ProfEquipesController {
         });
 
         tblIntegrantes.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            if (newSelection != null) {
-                membroSelecionado = newSelection; // Atualiza o membro selecionado
-                btnEditarIntegrante.setDisable(false); // Habilita o botão de edição
-                btnDeletarIntegrante.setDisable(false); // Habilita o botão de exclusão
-            } else {
-                membroSelecionado = null; // Nenhum membro selecionado
-                btnEditarIntegrante.setDisable(true); // Desabilita o botão de edição
-                btnDeletarIntegrante.setDisable(true); // Desabilita o botão de exclusão
-            }
         });
         
     }
 
     private void configurarTabelas() {
-        // Configurar colunas da tabela de grupos
-        TableColumn<Grupo, String> colNomeGrupo = new TableColumn<>("Nome do Grupo");
-        colNomeGrupo.setCellValueFactory(new PropertyValueFactory<>("nome"));
-        tblGrupos.getColumns().add(colNomeGrupo);
-
-        // Configurar colunas da tabela de membros
-        TableColumn<Aluno, String> colNomeIntegrante = new TableColumn<>("Nome do Integrante");
-        colNomeIntegrante.setCellValueFactory(new PropertyValueFactory<>("nome"));
-        tblIntegrantes.getColumns().add(colNomeIntegrante);
-
-        // Associar as listas de observáveis às tabelas
         tblGrupos.setItems(grupos);
         tblIntegrantes.setItems(membros);
     }
@@ -178,7 +154,7 @@ public class ProfEquipesController {
     public void editarIntegrante(ActionEvent event) throws IOException {
         if (membroSelecionado != null) {
             ProfIntegrantesAddEditController controller = sceneSwitcher.switchSceneRetController("/FXML/ProfIntegrantesAddEditView.fxml", event);
-            controller.setAluno(membroSelecionado); 
+            controller.setAluno(membroSelecionado, grupoSelecionado); 
     }
 }
 
@@ -200,6 +176,8 @@ public class ProfEquipesController {
     public void handleRelatorio(ActionEvent event) throws IOException {
         grupoSelecionado.getRelatorio((Stage) btnRelatorio.getScene().getWindow());
     }
+    @FXML
+    private void handleRelatorio() {
 
-
+    }
 }
