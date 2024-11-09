@@ -2,12 +2,17 @@ package pacer.professor;
 
 import java.io.IOException;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import pacer.data.dao.AlunoDAO;
+import pacer.data.dao.GrupoDAO;
 import pacer.data.models.Aluno;
+import pacer.data.models.Grupo;
 import pacer.utils.sceneSwitcher;
 
 public class ProfIntegrantesAddEditController {
@@ -21,7 +26,7 @@ public class ProfIntegrantesAddEditController {
     @FXML
     private TextField txtEmail;
     @FXML
-    private TextField txtGrupoId;
+    private ComboBox<Grupo> cmbGrupo;
     @FXML
     private TextField txtCursoSigla; // Campo para cursoSigla
     @FXML
@@ -29,19 +34,32 @@ public class ProfIntegrantesAddEditController {
 
     private Aluno alunoAtual; // Aluno atual a ser editado
 
+    private int grupoId;
+
     @FXML
     public void initialize() {
-        // Configuração inicial, se necessário
+        ObservableList<Grupo> grupos = FXCollections.observableArrayList(GrupoDAO.getAllGrupos());
+        cmbGrupo.setItems(grupos);
     }
 
     // Método para definir o grupo a ser editado
-    public void setAluno(Aluno aluno) {
+    public void setAluno(Aluno aluno, Grupo grupo) {
         this.alunoAtual = aluno;
         txtNomeAluno.setText(aluno.getNome());
+        txtEmail.setText(aluno.getEmail());
         txtRa.setText(String.valueOf(aluno.getRa()));
+        cmbGrupo.setValue(grupo);
         txtSemestre.setText(String.valueOf(aluno.getSemestre()));
         txtCursoSigla.setText(aluno.getCursoSigla()); // Definindo o cursoSigla
         btnSalvar.setText("Atualizar Aluno");
+    }
+
+    @FXML
+    private void selectGrupo() {
+        Grupo grupoSelecionado = cmbGrupo.getSelectionModel().getSelectedItem();
+        if (grupoSelecionado != null) {
+            grupoId = grupoSelecionado.getId();
+        }
     }
 
     @FXML
@@ -49,7 +67,6 @@ public class ProfIntegrantesAddEditController {
         long ra = Long.parseLong(txtRa.getText());
         String email = txtEmail.getText();
         String nome = txtNomeAluno.getText();
-        int grupoId = Integer.parseInt(txtGrupoId.getText());
         String cursoSigla = txtCursoSigla.getText(); 
         String semestre = txtSemestre.getText();
 
