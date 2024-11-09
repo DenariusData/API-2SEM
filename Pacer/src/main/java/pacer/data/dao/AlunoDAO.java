@@ -155,5 +155,30 @@ public class AlunoDAO {
     
         return alunos;
     }
+
+    public static List<Aluno> getAlunosByGrupo(int grupoId) {
+        List<Aluno> alunos = new ArrayList<>();
+        String sql = "SELECT * FROM ALUNO WHERE GRUPO_ID = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, grupoId);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                alunos.add(new Aluno(
+                    rs.getLong("ALUNO_RA"), 
+                    rs.getString("ALUNO_EMAIL"), 
+                    rs.getString("ALUNO_NOME"), 
+                    rs.getString("ALUNO_SENHA"), 
+                    rs.getBytes("FOTO"), 
+                    rs.getInt("GRUPO_ID"),
+                    rs.getString("CURSO_SIGLA"), 
+                    rs.getString("SEMESTRE")
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return alunos;
+    }
+    
     
 }
