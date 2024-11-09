@@ -3,14 +3,19 @@ package pacer.professor;
 import java.io.IOException;
 
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import pacer.data.dao.AlunoDAO;
 import pacer.data.dao.GrupoDAO;
+import pacer.data.models.Aluno;
 import pacer.data.models.Grupo;
 import pacer.utils.sceneSwitcher;
 
@@ -18,28 +23,98 @@ public class ProfEquipesController {
     
     @FXML
     private TableView<Grupo> tblGrupos;
+    @FXML
+    private TableView<Aluno> tblIntegrantes; // Tabela de membros
+
+    private ObservableList<Grupo> grupos = FXCollections.observableArrayList();
+    private ObservableList<Aluno> membros = FXCollections.observableArrayList();
 
     @FXML
     private TableColumn<Grupo, String> colNomeGrupo;
 
     @FXML
+    private TableColumn<Aluno, String> colNomeIntegrante;
+
+    @FXML
+    private TableColumn<Aluno, String> colFuncaoIntegrante;
+
+    @FXML
     private TableColumn<Grupo, String> colReposLink;
     @FXML
     private TableColumn<Grupo, String> colSemestre;
+
     private Grupo grupoSelecionado;
+    private Aluno membroSelecionado;
+
+    @FXML
+    private TableColumn<Grupo, String> colCurso;
     
     @FXML
     private Button btnRelatorio;
+
+    @FXML
+    private Button btnEditarIntegrante;
+
+    @FXML
+    private Button btnDeletarIntegrante;
+
+    @FXML
+    private Button btnSalvarIntegrante;
+
 
     @FXML
     public void initialize() {
         colNomeGrupo.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNome()));
         colReposLink.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getReposLink()));
         colSemestre.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSemestre()));
-        colSemestre.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCursoSigla()));
+        colCurso.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCursoSigla()));
+        colNomeIntegrante.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNome()));
 
         carregarGrupos();
+        configurarTabelas();
+        
+
+        // Listener para detecção de seleção de grupo
+        tblGrupos.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                carregarMembros(newSelection.getId());
+            }
+        });
+
+        tblIntegrantes.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                membroSelecionado = newSelection; // Atualiza o membro selecionado
+                btnEditarIntegrante.setDisable(false); // Habilita o botão de edição
+                btnDeletarIntegrante.setDisable(false); // Habilita o botão de exclusão
+            } else {
+                membroSelecionado = null; // Nenhum membro selecionado
+                btnEditarIntegrante.setDisable(true); // Desabilita o botão de edição
+                btnDeletarIntegrante.setDisable(true); // Desabilita o botão de exclusão
+            }
+        });
+        
     }
+
+    private void configurarTabelas() {
+        // Configurar colunas da tabela de grupos
+        TableColumn<Grupo, String> colNomeGrupo = new TableColumn<>("Nome do Grupo");
+        colNomeGrupo.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        tblGrupos.getColumns().add(colNomeGrupo);
+
+        // Configurar colunas da tabela de membros
+        TableColumn<Aluno, String> colNomeIntegrante = new TableColumn<>("Nome do Integrante");
+        colNomeIntegrante.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        tblIntegrantes.getColumns().add(colNomeIntegrante);
+
+        // Associar as listas de observáveis às tabelas
+        tblGrupos.setItems(grupos);
+        tblIntegrantes.setItems(membros);
+    }
+
+    private void carregarMembros(int grupoId) {
+        membros.setAll(AlunoDAO.getAlunosByGrupo(grupoId));
+    }
+
 
     @FXML
     public void handleRowClickGrupos(MouseEvent event) {
@@ -87,26 +162,44 @@ public class ProfEquipesController {
         
         tblGrupos.getItems().clear();
         tblGrupos.getItems().addAll(GrupoDAO.getAllGrupos());
+        grupos.setAll(GrupoDAO.getAllGrupos());
     }
-
+    
     @FXML
     public void adicionarIntegrante(ActionEvent event) throws IOException {
+        sceneSwitcher.switchScene("/FXML/ProfIntegrantesAddEditView.fxml", event);
+    }
+    @FXML
+    public void handleRowClickIntegrantes(MouseEvent event) {
+        membroSelecionado = tblIntegrantes.getSelectionModel().getSelectedItem();
     }
 
     @FXML
     public void editarIntegrante(ActionEvent event) throws IOException {
+        if (membroSelecionado != null) {
+            ProfIntegrantesAddEditController controller = sceneSwitcher.switchSceneRetController("/FXML/ProfIntegrantesAddEditView.fxml", event);
+            controller.setAluno(membroSelecionado); 
     }
+}
 
     @FXML
     public void deletarIntegrante(ActionEvent event) throws IOException {
+        if (membroSelecionado != null) {
+            AlunoDAO.deleteAluno(membroSelecionado.getRa());
+            carregarMembros(grupoSelecionado.getId()); // Atualiza a tabela após a exclusão
+
+                }
     }
 
     @FXML
     public void limparCamposIntegrante(ActionEvent event) throws IOException {
+        tblIntegrantes.getSelectionModel().clearSelection();
     }
 
     @FXML
     public void handleRelatorio(ActionEvent event) throws IOException {
         grupoSelecionado.getRelatorio((Stage) btnRelatorio.getScene().getWindow());
     }
+
+
 }
