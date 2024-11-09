@@ -72,12 +72,13 @@ public class GrupoDAO {
     }
     public static Grupo getGrupoComAlunos(int grupoId) {
         Grupo grupo = null;
-        String sql = 
-         "SELECT G.GRUPO_ID, G.GRUPO_NOME, G.REPOS_LINK, G.CURSO_SIGLA, G.SEMESTRE,"+
-         "A.ALUNO_RA, A.ALUNO_EMAIL, A.ALUNO_NOME"+
-         " FROM GRUPO G"+
-         "LEFT JOIN ALUNO A ON G.GRUPO_ID = A.GRUPO_ID"+
-         "WHERE G.GRUPO_ID = ?";
+        String sql = """
+            SELECT G.GRUPO_ID, G.GRUPO_NOME, G.REPOS_LINK, G.CURSO_SIGLA, G.SEMESTRE,
+                    A.ALUNO_RA, A.ALUNO_EMAIL, A.ALUNO_NOME
+                FROM GRUPO G
+                LEFT JOIN ALUNO A ON G.GRUPO_ID = A.GRUPO_ID
+            WHERE G.GRUPO_ID = ?
+        """;
     
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, grupoId);

@@ -21,7 +21,6 @@ import javafx.scene.input.MouseEvent;
 import pacer.data.dao.AlunoDAO;
 import pacer.data.dao.AvaliacaoDAO;
 import pacer.data.dao.CriteriosDAO;
-import pacer.data.dao.GrupoDAO;
 import pacer.data.models.Aluno;
 import pacer.data.models.Avaliacao;
 import pacer.data.models.Criterios;
@@ -45,12 +44,14 @@ public class AlunoAvaliacaoController implements Initializable {
     @FXML
     private TableView<Aluno> tableViewAlunos;
     private Aluno alunoSelecionado;
+    private Aluno alunoLogado; 
     
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        alunoLogado = Aluno.AlunoLogado.getAluno();
         try {
-            grupoField.setText(GrupoDAO.getGrupoComAlunos(Aluno.AlunoLogado.getAluno().getGrupoId()).getNome());
+            grupoField.setText(alunoLogado.getGrupoNome());
         } catch (Exception e) {
             mbox.ShowMessageBox(AlertType.ERROR, "Erro ao carregar grupo", "Erro ao carregar o grupo do usuário.");
         } finally {
@@ -68,8 +69,8 @@ public class AlunoAvaliacaoController implements Initializable {
         colNome.setStyle("-fx-background-color: white; -fx-text-fill: black; -fx-font-family: 'Arial Black';");
         colEmail.setStyle("-fx-background-color: white; -fx-text-fill: black; -fx-font-family: 'Arial Black';");
     
-        List<Aluno> alunosDoGrupo = AlunoDAO.getAlunosDoGrupo(Aluno.AlunoLogado.getAluno().getGrupoId());
-        alunosDoGrupo.removeIf(aluno -> aluno.getRa() == Aluno.AlunoLogado.getAluno().getRa());
+        List<Aluno> alunosDoGrupo = AlunoDAO.getAlunosDoGrupo(alunoLogado.getGrupoId());
+        alunosDoGrupo.removeIf(aluno -> aluno.getRa() == alunoLogado.getRa());
         ObservableList<Aluno> alunosList = FXCollections.observableArrayList(alunosDoGrupo);
         tableView.setItems(alunosList);
 
@@ -80,7 +81,7 @@ public class AlunoAvaliacaoController implements Initializable {
                 TableColumn<Aluno, Double> colNota = new TableColumn<>(criterio.getNome());
     
                 colNota.setCellValueFactory(param -> {
-                    Avaliacao avaliacao = AvaliacaoDAO.getAvaliacaoPorAlunoECriterio(Aluno.AlunoLogado.getAluno().getRa(), param.getValue().getRa(), criterio.getId());
+                    Avaliacao avaliacao = AvaliacaoDAO.getAvaliacaoPorAlunoECriterio(alunoLogado.getRa(), param.getValue().getRa(), criterio.getId());
                     return new javafx.beans.property.SimpleDoubleProperty(avaliacao != null ? avaliacao.getNota() : 0.0).asObject();
                 });
         
