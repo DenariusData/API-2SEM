@@ -122,10 +122,10 @@ public class ProfEquipesController {
     }
 
     @FXML
-    public void deletarGrupo(ActionEvent event) throws IOException {
+    public void deletarGrupo(ActionEvent event) {
         if (grupoSelecionado != null) {
             GrupoDAO.deleteGrupo(grupoSelecionado.getId());
-            carregarGrupos();
+            carregarGrupos();            
         }
     }
 
@@ -143,7 +143,8 @@ public class ProfEquipesController {
     
     @FXML
     public void adicionarIntegrante(ActionEvent event) throws IOException {
-        sceneSwitcher.switchScene("/FXML/ProfIntegrantesAddEditView.fxml", event);
+        ProfIntegrantesAddEditController controller = sceneSwitcher.switchSceneRetController("/FXML/ProfIntegrantesAddEditView.fxml", event);
+            controller.addAluno(grupoSelecionado); 
     }
     @FXML
     public void handleRowClickIntegrantes(MouseEvent event) {
@@ -163,8 +164,7 @@ public class ProfEquipesController {
         if (membroSelecionado != null) {
             AlunoDAO.deleteAluno(membroSelecionado.getRa());
             carregarMembros(grupoSelecionado.getId()); // Atualiza a tabela após a exclusão
-
-                }
+        }
     }
 
     @FXML

@@ -41,7 +41,10 @@ public class ProfIntegrantesAddEditController {
         ObservableList<Grupo> grupos = FXCollections.observableArrayList(GrupoDAO.getAllGrupos());
         cmbGrupo.setItems(grupos);
     }
-
+    
+    public void addAluno(Grupo grupo) {
+        cmbGrupo.setValue(grupo);
+    }
     // Método para definir o grupo a ser editado
     public void setAluno(Aluno aluno, Grupo grupo) {
         this.alunoAtual = aluno;
