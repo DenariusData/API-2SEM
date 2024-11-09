@@ -84,5 +84,10 @@ public class Grupo {
     public void getRelatorio(Stage stage) {
         GrupoGerarRelatorio.GenRelatorio(this, stage);
     }
+
+    @Override
+    public String toString() {
+        return grupoNome;
+    }
     // endregion
 }
