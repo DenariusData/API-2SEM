@@ -28,4 +28,11 @@ public class mbox {
         
         return dialog.showAndWait();
     }
+    public static void ShowError(String message) {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Erro");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
 }
