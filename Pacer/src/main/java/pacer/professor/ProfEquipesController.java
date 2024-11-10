@@ -177,7 +177,7 @@ public class ProfEquipesController {
         grupoSelecionado.getRelatorio((Stage) btnRelatorio.getScene().getWindow());
     }
     @FXML
-    private void handleRelatorio() {
+    private void handlePontos() {
 
     }
 }
