@@ -45,7 +45,7 @@ public class Professor {
         }
         private static byte[] loadDefaultImage() {
             try {
-                return Files.readAllBytes(Paths.get("src/main/resources/images/placeholder-user.png"));
+                return Files.readAllBytes(Paths.get("@../images/placeholder-user.png"));
             } catch (IOException e) {
                 e.printStackTrace();
                 return new byte[0];

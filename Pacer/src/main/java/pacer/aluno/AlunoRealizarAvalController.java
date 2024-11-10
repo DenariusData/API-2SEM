@@ -1,6 +1,7 @@
 package pacer.aluno;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ import javafx.scene.text.Text;
 import pacer.data.dao.AvaliacaoDAO;
 import pacer.data.dao.CriteriosDAO;
 import pacer.data.models.Aluno;
+import pacer.data.models.AlunosParaAvaliacao;
 import pacer.data.models.Avaliacao;
 import pacer.data.models.Criterios;
 import pacer.utils.convertImage;
@@ -47,23 +49,37 @@ public class AlunoRealizarAvalController implements Initializable {
 
     private List<Criterios> criterios;
     
-    private Long avaliadorRa;
-    private Long avaliadoRa;
+    private long avaliadorRa;
+    private long avaliadoRa;
     private List<ToggleGroup> toggleGroups;
 
+    private Aluno alunoAvaliado;
+
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        toggleGroups = new ArrayList<>();
-        carregarCriterios();
+    public void initialize(URL location, ResourceBundle resources) {
+        
+        
+            toggleGroups = new ArrayList<>();
+            avaliadorRa = Aluno.AlunoLogado.getAluno().getRa();
+
+            alunoAvaliado = AlunosParaAvaliacao.getAvaliado();
+            
+            nomeField.setText(alunoAvaliado.getNome());
+            grupoField.setText(alunoAvaliado.getGrupoNome());
+            InputStream fotoStream = convertImage.imageToInputStream(alunoAvaliado.getFoto());
+            if (fotoStream != null) {
+            Image fotoAluno = new Image(fotoStream);
+            fotoAlunoImageView.setImage(fotoAluno);
+            }
+            avaliadoRa = alunoAvaliado.getRa();
+
+            carregarCriterios();
+        
+
     }
 
-    public void carregarDadosAluno(Aluno alunoAvaliado) {
-        nomeField.setText(alunoAvaliado.getNome());
-        grupoField.setText(alunoAvaliado.getGrupoNome());
-        Image imgFoto = new Image(convertImage.imageToInputStream(alunoAvaliado.getFoto()));
-        fotoAlunoImageView.setImage(imgFoto);
-        
-        avaliadorRa = Aluno.AlunoLogado.getAluno().getRa();
+    private void carregaAlunoAvaliado(Aluno alunoAvaliado) {
+        this.alunoAvaliado = alunoAvaliado;
         avaliadoRa = alunoAvaliado.getRa();
     }
 
@@ -99,36 +115,43 @@ public class AlunoRealizarAvalController implements Initializable {
     
     @FXML
     public void enviarAvaliacao(ActionEvent event) throws IOException {
-        for (int i = 0; i < toggleGroups.size(); i++) {
-            ToggleGroup group = toggleGroups.get(i);
-            int criterioId = criterios.get(i).getId();
-
-            ToggleButton selectedToggle = (ToggleButton) group.getSelectedToggle();
-        
-            if (selectedToggle != null) {
-                double nota = Double.parseDouble(selectedToggle.getText());
-
-                Avaliacao avaliacaoExistente = AvaliacaoDAO.getAvaliacaoPorAlunoECriterio(avaliadorRa, avaliadoRa, criterioId);
-
-                if (avaliacaoExistente != null) {
-                    avaliacaoExistente.setNota(nota);
-                    avaliacaoExistente.setData(LocalDateTime.now());
-                    AvaliacaoDAO.update(avaliacaoExistente);
-                } 
-                else {
-                    Avaliacao avaliacao = new Avaliacao();
-                    avaliacao.setAvaliadorAlunoRa(avaliadorRa);
-                    avaliacao.setAvaliadoAlunoRa(avaliadoRa);
-                    avaliacao.setCriterioId(criterioId);
-                    avaliacao.setNota(nota);
-                    avaliacao.setData(LocalDateTime.now());
-
-                    AvaliacaoDAO.create(avaliacao);
+        try {
+            for (int i = 0; i < toggleGroups.size(); i++) {
+                ToggleGroup group = toggleGroups.get(i);
+                int criterioId = criterios.get(i).getId();
+    
+                ToggleButton selectedToggle = (ToggleButton) group.getSelectedToggle();
+            
+                if (selectedToggle != null) {
+                    double nota = Double.parseDouble(selectedToggle.getText());
+    
+                    Avaliacao avaliacaoExistente = AvaliacaoDAO.getAvaliacaoPorAlunoECriterio(avaliadorRa, avaliadoRa, criterioId);
+    
+                    if (avaliacaoExistente != null) {
+                        avaliacaoExistente.setNota(nota);
+                        avaliacaoExistente.setData(LocalDateTime.now());
+                        AvaliacaoDAO.update(avaliacaoExistente);
+                    } 
+                    else {
+                        Avaliacao avaliacao = new Avaliacao();
+                        avaliacao.setAvaliadorAlunoRa(avaliadorRa);
+                        avaliacao.setAvaliadoAlunoRa(avaliadoRa);
+                        avaliacao.setCriterioId(criterioId);
+                        avaliacao.setNota(nota);
+                        avaliacao.setData(LocalDateTime.now());
+    
+                        AvaliacaoDAO.create(avaliacao);
+                    }
                 }
             }
+            mbox.ShowMessageBox(AlertType.INFORMATION, "Avaliação", "Avaliação realizada com sucesso");
+        } catch (Exception e) {
+            e.printStackTrace();
+            mbox.ShowMessageBox(AlertType.ERROR, "Erro", "Erro ao enviar a avaliação: " + e.getMessage());
         }
-        mbox.ShowMessageBox(AlertType.INFORMATION, "Avaliação", "Avaliação realizada com sucesso");
-        voltarTela(event);
+        finally{
+            voltarTela(event);
+        }
     }
 
     @FXML

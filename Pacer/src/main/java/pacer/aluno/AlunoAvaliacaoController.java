@@ -22,6 +22,7 @@ import pacer.data.dao.AlunoDAO;
 import pacer.data.dao.AvaliacaoDAO;
 import pacer.data.dao.CriteriosDAO;
 import pacer.data.models.Aluno;
+import pacer.data.models.AlunosParaAvaliacao;
 import pacer.data.models.Avaliacao;
 import pacer.data.models.Criterios;
 import pacer.utils.mbox;
@@ -97,8 +98,10 @@ public class AlunoAvaliacaoController implements Initializable {
             mbox.ShowMessageBox(AlertType.WARNING, "Erro", "Selecione um integrante do grupo para avaliar");
             return;
         }
-        AlunoRealizarAvalController controller = sceneSwitcher.switchSceneRetController("/FXML/AlunoRealizarAvalView.fxml", event);
-        controller.carregarDadosAluno(alunoSelecionado); 
+        AlunosParaAvaliacao.setAvaliado(alunoSelecionado);
+        AlunosParaAvaliacao.setAvaliador(alunoLogado);
+
+        sceneSwitcher.switchSceneRetController("/FXML/AlunoRealizarAvalView.fxml", event);
         
     }
 
