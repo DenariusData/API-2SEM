@@ -3,10 +3,11 @@ package pacer.grupo;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -14,13 +15,16 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import javafx.scene.control.Alert.AlertType;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import pacer.data.dao.AlunoDAO;
+import pacer.data.dao.AvaliacaoDAO;
+import pacer.data.dao.CriteriosDAO;
 import pacer.data.dao.GrupoDAO;
 import pacer.data.models.Aluno;
+import pacer.data.models.Avaliacao;
+import pacer.data.models.Criterios;
 import pacer.data.models.Grupo;
-import pacer.utils.mbox;
 
 public class GrupoGerarRelatorio {
     
@@ -30,7 +34,6 @@ public class GrupoGerarRelatorio {
         fileChooser.setTitle("Salvar Relatório");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Excel Files", "*.xlsx"));
     
-        // Definindo um nome padrão para o arquivo
         fileChooser.setInitialFileName("Relatorio - " + grupoSelecionado.getNome() + ".xlsx");
         File arquivo = fileChooser.showSaveDialog(stage);
     
@@ -38,89 +41,93 @@ public class GrupoGerarRelatorio {
             try (Workbook workbook = new XSSFWorkbook()) {
                 Sheet sheet = workbook.createSheet("Relatório de Grupo");
     
-                var rowNum = 0;
+                int rowNum = 0;
     
-                // Add informações do grupo
                 if (grupo != null) {
-                    //#region Inf. grupo
                     sheet.createRow(rowNum++).createCell(0).setCellValue("Grupo: " + grupo.getNome());
                     sheet.createRow(rowNum++).createCell(0).setCellValue("Repositório: " + grupo.getReposLink());
                     sheet.createRow(rowNum++).createCell(0).setCellValue("Curso: " + grupo.getCursoSigla());
                     sheet.createRow(rowNum++).createCell(0).setCellValue("Semestre: " + grupo.getSemestre());
                     sheet.createRow(rowNum++).createCell(0).setCellValue("");
-                    //#endregion 
-
-                    //#region Inf. integrantes
-                    // Adicionar título para a seção de alunos
+    
                     Row alunosTitleRow = sheet.createRow(rowNum++);
                     Cell alunosTitleCell = alunosTitleRow.createCell(0);
                     alunosTitleCell.setCellValue("Alunos integrantes do grupo");
-                    // Mesclar celulas
-                    sheet.addMergedRegion(new CellRangeAddress(rowNum - 1, rowNum - 1, 0, 2));
-                    // Estilo centralizado e negrito
+    
                     CellStyle titleStyle = workbook.createCellStyle();
                     titleStyle.setAlignment(HorizontalAlignment.CENTER);
-                    Font titleFont = workbook.createFont();
-                    titleFont.setBold(true);
-                    titleStyle.setFont(titleFont);
                     alunosTitleCell.setCellStyle(titleStyle);
     
-                    // Add cabeçalho da tabela
                     Row headerRow = sheet.createRow(rowNum++);
-                    headerRow.createCell(0).setCellValue("RA");
-                    headerRow.createCell(1).setCellValue("Nome");
-                    headerRow.createCell(2).setCellValue("Email");
-    
-                    // Definir estilo para as células do cabeçalho
                     CellStyle headerStyle = workbook.createCellStyle();
                     headerStyle.setAlignment(HorizontalAlignment.CENTER);
-                    for (Cell cell : headerRow) {
-                        cell.setCellStyle(headerStyle);
+    
+                    Cell raHeader = headerRow.createCell(0);
+                    raHeader.setCellValue("RA");
+                    raHeader.setCellStyle(headerStyle);
+    
+                    Cell nomeHeader = headerRow.createCell(1);
+                    nomeHeader.setCellValue("Nome");
+                    nomeHeader.setCellStyle(headerStyle);
+    
+                    Cell emailHeader = headerRow.createCell(2);
+                    emailHeader.setCellValue("Email");
+                    emailHeader.setCellStyle(headerStyle);
+    
+                    List<Criterios> criteriosList = CriteriosDAO.getAll().stream()
+                            .filter(Criterios::isAtivo)
+                            .collect(Collectors.toList());
+    
+                    int numColunas = 3;
+                    for (Criterios criterio : criteriosList) {
+                        Cell criterioHeader = headerRow.createCell(numColunas++);
+                        criterioHeader.setCellValue(criterio.getNome());
+                        criterioHeader.setCellStyle(headerStyle);
                     }
     
-                    // Add informações dos alunos
-                    CellStyle leftAlignStyle = workbook.createCellStyle();
-                    leftAlignStyle.setAlignment(HorizontalAlignment.LEFT);
+                    sheet.addMergedRegion(new CellRangeAddress(rowNum - 2, rowNum - 2, 0, numColunas - 1));
     
-                    if (grupo.getAlunos() != null && !grupo.getAlunos().isEmpty()) {
-                        for (Aluno aluno : grupo.getAlunos()) {
-                            Row alunoRow = sheet.createRow(rowNum++);
-                            Cell raCell = alunoRow.createCell(0);
-                            raCell.setCellValue(aluno.getRa());
-                            raCell.setCellStyle(leftAlignStyle);
+                    List<Aluno> alunos = AlunoDAO.getAlunosDoGrupo(grupoSelecionado.getId());
+                    for (Aluno aluno : alunos) {
+                        Row row = sheet.createRow(rowNum++);
+                        Cell raCell = row.createCell(0);
+                        raCell.setCellValue(aluno.getRa());
     
-                            Cell nomeCell = alunoRow.createCell(1);
-                            nomeCell.setCellValue(aluno.getNome());
-                            nomeCell.setCellStyle(leftAlignStyle);
+                        CellStyle leftAlignStyle = workbook.createCellStyle();
+                        leftAlignStyle.setAlignment(HorizontalAlignment.LEFT);
+                        raCell.setCellStyle(leftAlignStyle);
     
-                            Cell emailCell = alunoRow.createCell(2);
-                            emailCell.setCellValue(aluno.getEmail());
-                            emailCell.setCellStyle(leftAlignStyle);
+                        row.createCell(1).setCellValue(aluno.getNome());
+                        row.createCell(2).setCellValue(aluno.getEmail());
+    
+                        int colIndex = 3;
+                        for (Criterios criterio : criteriosList) {
+                            double somaNotas = 0;
+                            int totalAvaliacoes = 0;
+    
+                            List<Aluno> alunosDoGrupo = AlunoDAO.getAlunosDoGrupo(grupoSelecionado.getId());
+                            for (Aluno avaliador : alunosDoGrupo) {
+                                if (avaliador.getRa() != aluno.getRa()) {
+                                    Avaliacao avaliacao = AvaliacaoDAO.getAvaliacaoPorAlunoECriterio(avaliador.getRa(), aluno.getRa(), criterio.getId());
+                                    if (avaliacao != null) {
+                                        somaNotas += avaliacao.getNota();
+                                        totalAvaliacoes++;
+                                    }
+                                }
+                            }
+                            double mediaNota = (totalAvaliacoes > 0) ? somaNotas / totalAvaliacoes : 0;
+                            row.createCell(colIndex++).setCellValue(mediaNota);
                         }
-                    } else {
-                        Row alunoRow = sheet.createRow(rowNum++);
-                        alunoRow.createCell(0).setCellValue("Nenhum aluno associado ao grupo.");
                     }
-                } else {
-                    Row errorRow = sheet.createRow(1);
-                    errorRow.createCell(0).setCellValue("Grupo não encontrado.");
+                    for (int i = 0; i < numColunas; i++) {
+                        sheet.autoSizeColumn(i);
+                    }
                 }
-                //#endregion
-    
-                // Tamanho das colunas
-                for (int i = 0; i < 3; i++) {
-                    sheet.autoSizeColumn(i);
-                }
-    
-                // Salvar arquivo
                 try (FileOutputStream fileOut = new FileOutputStream(arquivo)) {
                     workbook.write(fileOut);
-                    mbox.ShowMessageBox(AlertType.INFORMATION, "Relatório", "Relatório do grupo " + grupoSelecionado.getNome() + " salvo com sucesso!");
-                } catch (IOException e) {
-                    mbox.ShowMessageBox(AlertType.ERROR, "Relatório", "Ocorreu um erro ao salvar o relatório do grupo " + grupoSelecionado.getNome() + ".");
-                    e.printStackTrace();
                 }
             } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }
