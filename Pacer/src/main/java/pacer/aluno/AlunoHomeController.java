@@ -32,6 +32,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import pacer.data.dao.AlunoDAO;
 import pacer.data.models.Aluno;
 import pacer.utils.convertImage;
 import pacer.utils.sceneSwitcher;
@@ -165,7 +166,7 @@ public class AlunoHomeController implements Initializable {
         
             Optional<ButtonType> result = alert.showAndWait();
             if (result.isPresent() && result.get() == buttonSim) {
-                
+                Aluno.AlunoLogado.logout();
                 sceneSwitcher.switchScene("/FXML/LoginView.fxml", event);
             } else {
                 
@@ -210,6 +211,7 @@ public class AlunoHomeController implements Initializable {
     
             // Define a foto usando o array de bytes
             logado.setFoto(imageBytes);
+            AlunoDAO.updateAluno(logado);
         } else {
             System.out.println("Nenhum arquivo selecionado.");
         }

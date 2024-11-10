@@ -79,7 +79,7 @@ public class ProfHomeController implements Initializable {
     
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == buttonSim) {
-            
+            Professor.ProfessorLogado.logout();
             sceneSwitcher.switchScene("/FXML/LoginView.fxml", event);
         } else {
             
