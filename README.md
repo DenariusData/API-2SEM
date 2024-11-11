@@ -67,7 +67,7 @@ Principais Funcionalidades:
 
 ## ✅ Modelagem do banco de dados
 
-![Modelo atualizado](docs/Modelagem-atualizada-na-s3.jpeg)
+![Modelo atualizado](docs/Modelagems3.jpeg)
 
 
 ## Contribuições
