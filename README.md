@@ -55,15 +55,7 @@ Principais Funcionalidades:
   
 ## ✅ Backolog do produto
 
-[Clique aqui visualizar o backlog do produto](docs/backlog.pdf)
- 
-## ✅ Epics   
-
-[Clique aqui visualizar as histórias principais](docs/Epics.pdf)
-
-## ✅ Validações com o cliente
-
-[Clique aqui para visualizar as validações feitas com o cliente](docs/Validacoes.pdf)
+![DoR,_UserStory_e_DoD](docs/userstory.xlsx)
 
 ## ✅ Modelagem do banco de dados
 
