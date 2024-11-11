@@ -1,20 +1,27 @@
 package pacer.aluno;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.nio.file.Files;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -23,7 +30,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import pacer.data.dao.AlunoDAO;
 import pacer.data.models.Aluno;
 import pacer.utils.convertImage;
 import pacer.utils.sceneSwitcher;
@@ -38,16 +47,16 @@ public class AlunoHomeController implements Initializable {
 
     @FXML
     private Label monthYearLabel;  // Novo Label para exibir o mês e ano
-    
+
     @FXML
-    private ImageView imgFoto;
+    ImageView pnlFoto;
     @FXML
     private Label nomeField;
     @FXML
     private Label raField;
     @FXML
     private Label emailField;
-    
+
     private Aluno logado;
 
     // Mapa para armazenar dias coloridos
@@ -56,7 +65,6 @@ public class AlunoHomeController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         CentralizarJanela(anchorPane);
-        
 
         // Configurar o calendário customizado
         setupColoredDays();
@@ -67,7 +75,7 @@ public class AlunoHomeController implements Initializable {
         InputStream fotoStream = convertImage.imageToInputStream(logado.getFoto());
         if (fotoStream != null) {
             Image fotoAluno = new Image(fotoStream);
-            imgFoto.setImage(fotoAluno);
+            pnlFoto.setImage(fotoAluno);
         }
         nomeField.setText(logado.getNome());
         emailField.setText(logado.getEmail());
@@ -84,7 +92,7 @@ public class AlunoHomeController implements Initializable {
         calendarGrid.getChildren().clear();
 
         // Definir o texto do mês e ano
-        monthYearLabel.setText(yearMonth.getMonth().name() + "  " + yearMonth.getYear());
+        monthYearLabel.setText(yearMonth.getMonth().name() + " " + yearMonth.getYear());
 
         // Preencher os dias do mês no GridPane
         int dayCounter = 1;
@@ -107,7 +115,7 @@ public class AlunoHomeController implements Initializable {
         Label dayLabel = new Label(String.valueOf(day));
         dayLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: black;");
 
-        Rectangle background = new Rectangle(60, 60);  // Tamanho da célula aumentado
+        Rectangle background = new Rectangle(60, 60);  // Tamanho da célula
         background.setFill(Color.DODGERBLUE);  // Cor padrão para um fundo azul
         background.setArcWidth(10);  // Bordas arredondadas
         background.setArcHeight(10);
@@ -140,23 +148,38 @@ public class AlunoHomeController implements Initializable {
             coloredDays.put(date, Color.LIGHTBLUE);  // Azul claro para o período de avaliação
         }
 
-        coloredDays.put(LocalDate.now(), Color.BLUE); 
+        coloredDays.put(LocalDate.now(), Color.BLUE);  // Azul para o dia atual
+    }
 
-
+        @FXML
+        private void handleSair(javafx.event.ActionEvent event) throws IOException {
+            // Criação do alerta de confirmação
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmação de Logout");
+            alert.setHeaderText("Tem certeza de que deseja sair?");
+            alert.setContentText("Você será redirecionado para a tela de login.");
+        
+            ButtonType buttonSim = new ButtonType("Sim");
+            ButtonType buttonNao;
+        buttonNao = new ButtonType("Não", ButtonBar.ButtonData.CANCEL_CLOSE);
+            alert.getButtonTypes().setAll(buttonSim, buttonNao);
+        
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get() == buttonSim) {
+                Aluno.AlunoLogado.logout();
+                sceneSwitcher.switchScene("/FXML/LoginView.fxml", event);
+            } else {
+                
+                alert.close();
+            }
     }
 
     @FXML
-    private void handleSair(javafx.event.ActionEvent event) throws IOException {
-        sceneSwitcher.switchScene("/FXML/LoginView.fxml", event);
-    }
-
-    @FXML
-    private void handleRealizarAval(javafx.event.ActionEvent event) throws IOException {
+    private void handlerealAvaliacao(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/AlunoAvaliacaoView.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
-        Stage stage;
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
     }
@@ -170,4 +193,27 @@ public class AlunoHomeController implements Initializable {
             }
         });
     }
+    @FXML
+    private void handleEditarFoto(ActionEvent event) throws IOException {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().addAll(
+            new FileChooser.ExtensionFilter("Imagens", "*.png", "*.jpg", "*.jpeg")
+        );
+    
+        // Abrindo a janela de seleção de arquivos
+        File selectedFile = fileChooser.showOpenDialog(pnlFoto.getScene().getWindow());
+        if (selectedFile != null) {
+            // Carregando a nova imagem
+            Image image = new Image(selectedFile.toURI().toString());
+            pnlFoto.setImage(image);
+            // Lendo a imagem em bytes
+            byte[] imageBytes = Files.readAllBytes(selectedFile.toPath());
+    
+            // Define a foto usando o array de bytes
+            logado.setFoto(imageBytes);
+            AlunoDAO.updateAluno(logado);
+        } else {
+            System.out.println("Nenhum arquivo selecionado.");
+        }
+    } 
 }

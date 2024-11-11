@@ -10,25 +10,28 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane prefHeight="597.0" prefWidth="846.0" style="-fx-background-position: fix;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pacer.login.LoginController">
+<Pane prefHeight="459.0" prefWidth="975.0" style="-fx-background-position: fix;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pacer.login.LoginController">
    <children>
-      <TextField fx:id="emailField" layoutX="469.0" layoutY="310.0" prefHeight="30.0" prefWidth="296.0" promptText="  Digite seu email..." style="-fx-border-radius: 50; -fx-border-color: black;" />
-      <Label layoutX="450.0" layoutY="213.0" prefHeight="30.0" prefWidth="279.0" text="SISTEMA DE GERENCIAMENTO">
+      <TextField fx:id="emailField" layoutX="528.0" layoutY="242.0" prefHeight="30.0" prefWidth="296.0" promptText="  Digite seu email..." style="-fx-border-radius: 50; -fx-border-color: black;">
          <font>
-            <Font size="20.0" />
+            <Font name="Arial Black" size="10.0" />
+         </font></TextField>
+      <Label layoutX="517.0" layoutY="170.0" prefHeight="30.0" prefWidth="279.0" text="SISTEMA DE GERENCIAMENTO">
+         <font>
+            <Font name="Arial Black" size="16.0" />
          </font>
       </Label>
-      <Label contentDisplay="RIGHT" layoutX="422.0" layoutY="91.0" prefHeight="141.0" prefWidth="390.0" text="PACER+" textAlignment="JUSTIFY" textFill="#004aad">
+      <Label contentDisplay="RIGHT" layoutX="491.0" layoutY="59.0" prefHeight="141.0" prefWidth="353.0" text="PACER+" textAlignment="JUSTIFY" textFill="#004aad">
          <font>
-            <Font name="Britannic Bold" size="96.0" />
+            <Font name="Arial Black" size="78.0" />
          </font>
       </Label>
-      <Button layoutX="501.0" layoutY="447.0" mnemonicParsing="false" onAction="#handleLogin" prefHeight="49.0" prefWidth="192.0" style="-fx-background-color: #004aad; -fx-background-radius: 10;" text="LOGIN" textFill="WHITE">
+      <Button layoutX="598.0" layoutY="400.0" mnemonicParsing="false" onAction="#handleLogin" prefHeight="34.0" prefWidth="156.0" style="-fx-background-color: #004aad; -fx-background-radius: 10;" text="LOGIN" textFill="WHITE">
          <font>
-            <Font name="Britannic Bold" size="21.0" />
+            <Font name="Britannic Bold" size="18.0" />
          </font>
       </Button>
-      <ImageView fitHeight="617.0" fitWidth="458.0" layoutX="-122.0" layoutY="-7.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="471.0" fitWidth="421.0" layoutX="-40.0" layoutY="-6.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/login-background.jpeg" />
          </image>
@@ -36,26 +39,40 @@
             <Rectangle2D height="800.0" minX="900.0" minY="900.0" />
          </viewport>
       </ImageView>
-      <ImageView fitHeight="68.0" fitWidth="105.0" layoutX="343.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="68.0" fitWidth="105.0" layoutX="327.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/cps.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="96.0" fitWidth="142.0" layoutX="690.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="96.0" fitWidth="142.0" layoutX="818.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/fatec.png" />
          </image>
       </ImageView>
-      <PasswordField fx:id = "passwordField" layoutX="469.0" layoutY="386.0" prefHeight="30.0" prefWidth="302.0" promptText="   Digite sua senha..." style="-fx-border-radius: 50; -fx-border-color: black;" />
-      <ImageView fitHeight="49.0" fitWidth="43.0" layoutX="423.0" layoutY="298.0" pickOnBounds="true" preserveRatio="true">
+      <PasswordField fx:id="passwordField" layoutX="526.0" layoutY="303.0" prefHeight="30.0" prefWidth="302.0" promptText="   Digite sua senha..." style="-fx-border-radius: 50; -fx-border-color: black;">
+         <font>
+            <Font name="Arial Black" size="10.0" />
+         </font></PasswordField>
+      <ImageView fitHeight="49.0" fitWidth="43.0" layoutX="482.0" layoutY="230.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/Email.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="49.0" fitWidth="43.0" layoutX="423.0" layoutY="384.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="49.0" fitWidth="43.0" layoutX="482.0" layoutY="301.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/Password.png" />
          </image>
       </ImageView>
+      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="613.0" layoutY="343.0" mnemonicParsing="false" opacity="0.6" style="-fx-background-color: transparent;" text="Esqueceu a senha?" textAlignment="JUSTIFY" underline="true" wrapText="true">
+         <font>
+            <Font name="Arial Black" size="9.0" />
+         </font>
+      </Button>
+      <Button fx:id="handleSair" layoutY="-1.0" mnemonicParsing="false" onAction="#fecharSistema" prefHeight="30.0" prefWidth="62.0" style="-fx-background-color: AC0E09;" text="❌ " textFill="WHITE" />
+      <Button accessibleRole="IMAGE_VIEW" contentDisplay="TEXT_ONLY" ellipsisString="👁" layoutX="771.0" layoutY="290.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="51.0" style="-fx-background-color: transparent; -fx-background-image: ..\images\Email.png;" text="👁">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Button>
    </children>
 </Pane>

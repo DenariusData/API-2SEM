@@ -16,6 +16,12 @@ public class Criterios {
         this.descricao = descricao;
         this.ativo = ativo;
     }
+    //region Construtor
+    public Criterios(String nome, String descricao, boolean ativo) {
+        this.nome = nome;
+        this.descricao = descricao;
+        this.ativo = ativo;
+    }
     //endregion
 
     //region Getters e Setters

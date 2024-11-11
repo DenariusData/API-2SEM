@@ -3,9 +3,11 @@ package pacer.professor;
 import java.io.IOException;
 
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -42,6 +44,8 @@ public class ProfCriteriosController {
     @FXML
     private Button deletarButton;
 
+    private Criterios criterioSelecionado;
+
     @FXML
     public void initialize() {
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -49,81 +53,52 @@ public class ProfCriteriosController {
         descricaoColumn.setCellValueFactory(new PropertyValueFactory<>("descricao"));
         ativoColumn.setCellValueFactory(new PropertyValueFactory<>("ativo"));
 
+        ativoColumn.setCellFactory(column -> new TableCell<Criterios, Boolean>() {
+            @Override
+            protected void updateItem(Boolean item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item ? "Sim" : "Não");
+                }
+            }
+        });
+
         carregarDados();
-    }
-
-    @FXML
-    private void handleVoltar(javafx.event.ActionEvent event) throws IOException {
-        sceneSwitcher.switchScene("/FXML/ProfHomeView.fxml", event);
-    }
-
-    @FXML
-    private void adicionarCriterio() {
-        String nome = nomeField.getText();
-        String descricao = descricaoField.getText();
-        boolean ativo = ativoField.isSelected();
-        if (!nome.isEmpty() && !descricao.isEmpty()) {
-            Criterios novoCriterio = new Criterios(0, nome, descricao, ativo);
-            CriteriosDAO.create(novoCriterio);
-            carregarDados();
-            limparCampos();
-        }
-    }
-    @FXML
-    private void editarCriterio() {
-        Criterios selecionado = selectRow();
-        if (selecionado != null) {
-            int id = selecionado.getId();
-            String nome = nomeField.getText();
-            String descricao = descricaoField.getText();
-            boolean ativo = ativoField.isSelected();
-            Criterios criterioEditado = new Criterios(id, nome, descricao, ativo);
-            CriteriosDAO.update(criterioEditado);
-            carregarDados();
-            limparCampos();
-        }
-    }
-
-
-    @FXML
-    private void deletarCriterio() {
-        
-        if (selectRow() != null) {
-            CriteriosDAO.delete(selectRow().getId());
-            carregarDados(); 
-            limparCampos();
-        }
-    }
-
-    @FXML
-    private void handleRowClick() {
-        Criterios selecionado = selectRow();
-        if (selecionado != null) {
-            preencherCampos(selecionado); 
-        }
-    }
-
-
-    private Criterios selectRow() {
-        return tableView.getSelectionModel().getSelectedItem();
     }
 
     private void carregarDados() {
         tableView.setItems(FXCollections.observableArrayList(CriteriosDAO.getAll()));
     }
-
+    @FXML
+    private void handleRowClick() {
+        criterioSelecionado = tableView.getSelectionModel().getSelectedItem();
+    }
+    @FXML
+    private void handleVoltar(javafx.event.ActionEvent event) throws IOException {
+        sceneSwitcher.switchScene("/FXML/ProfHomeView.fxml", event);
+    }
+    @FXML
+    private void adicionarCriterio(ActionEvent event) throws IOException {
+        sceneSwitcher.switchScene("/FXML/ProfCriteriosAddEditView.fxml", event);
+    }
+    @FXML
+    private void editarCriterio(ActionEvent event) throws IOException {
+        if (criterioSelecionado != null) {
+            ProfCriteriosAddEditController controller = sceneSwitcher.switchSceneRetController("/FXML/ProfCriteriosAddEditView.fxml", event);
+            controller.setCriterio(criterioSelecionado);
+        }
+    }
+    @FXML
+    private void deletarCriterio() {
+        if (criterioSelecionado != null) {
+            CriteriosDAO.delete(criterioSelecionado.getId());
+            carregarDados();
+        }
+    }
     @FXML
     private void limparCampos() {
-        idField.clear();
-        nomeField.clear();
-        descricaoField.clear();
-        ativoField.setSelected(false);
-    }
-
-    private void preencherCampos(Criterios criterio) {
-        idField.setText(Integer.toString(criterio.getId()));
-        nomeField.setText(criterio.getNome());
-        descricaoField.setText(criterio.getDescricao());
-        ativoField.setSelected(criterio.isAtivo());
+        tableView.getSelectionModel().clearSelection();
     }
 }

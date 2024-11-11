@@ -1,79 +1,112 @@
 package pacer.aluno;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
+import javafx.scene.input.MouseEvent;
+import pacer.data.dao.AlunoDAO;
+import pacer.data.dao.AvaliacaoDAO;
+import pacer.data.dao.CriteriosDAO;
+import pacer.data.models.Aluno;
+import pacer.data.models.AlunosParaAvaliacao;
+import pacer.data.models.Avaliacao;
+import pacer.data.models.Criterios;
+import pacer.utils.mbox;
+import pacer.utils.sceneSwitcher;
 
 public class AlunoAvaliacaoController implements Initializable {
-    
+
     @FXML
-    public Button realizarAvaliacaoBtn;
+    private Button realizarAvaliacaoBtn;
     @FXML
     private ImageView imgVoltar;
-
     @FXML
-    public void abrirRealizarAvaliacao(ActionEvent event) {
-        try {
-         
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/AlunoRealizarAvalView.fxml"));
-            Parent root = loader.load();
-
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Realizar Avaliação");
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
+    private Label grupoField;
     @FXML
-public void confirmarVoltar(ActionEvent event) {
-    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-    alert.setTitle("Confirmação");
-    alert.setHeaderText("Tem certeza que deseja voltar?");
-    alert.setContentText("Clique em 'OK' para confirmar ou 'Cancelar' para retornar.");
-
-    alert.showAndWait().ifPresent(response -> {
-        if (response == ButtonType.OK) {
-            System.out.println("Usuário confirmou voltar.");
-
-            // Obtenha o estágio a partir do evento ActionEvent
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.close();
-        }
-    });
-}
-
-    public void setupTooltips() {
-        Tooltip tooltipAutonomia = new Tooltip("Definição de autonomia.");
-        Tooltip tooltipColaboracao = new Tooltip("Definição de colaboração.");
-        Tooltip tooltipEntrega = new Tooltip("Definição de entrega.");
-        Tooltip tooltipResultados = new Tooltip("Definição de resultados.");
-        Tooltip tooltipStatus = new Tooltip("Definição de status.");
-
-        // colAutonomia.setTooltip(tooltipAutonomia);  // precisa declarar essas variaveis col
-        // colColaboracao.setTooltip(tooltipColaboracao);  // precisa declarar essas variaveis col
-        // colEntrega.setTooltip(tooltipEntrega);  // precisa declarar essas variaveis col
-        // colResultados.setTooltip(tooltipResultados);  // precisa declarar essas variaveis col
-        // colStatus.setTooltip(tooltipStatus);  // precisa declarar essas variaveis col
-    }
+    private TableView<Aluno> tableView;
+    @FXML
+    private TableColumn<Aluno, String> colNome;
+    @FXML
+    private TableColumn<Aluno, String> colEmail;
+    @FXML
+    private TableView<Aluno> tableViewAlunos;
+    private Aluno alunoSelecionado;
+    private Aluno alunoLogado; 
+    
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        setupTooltips();
+        alunoLogado = Aluno.AlunoLogado.getAluno();
+        try {
+            grupoField.setText(alunoLogado.getGrupoNome());
+        } catch (Exception e) {
+            mbox.ShowMessageBox(AlertType.ERROR, "Erro ao carregar grupo", "Erro ao carregar o grupo do usuário.");
+        } finally {
+            configurarTableView();
+        } 
+    }
+    @FXML
+    public void handleRowClickIntegrantes(MouseEvent event) {
+        alunoSelecionado = tableView.getSelectionModel().getSelectedItem();
+    }
+    private void configurarTableView() {
+        colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+
+        colNome.setStyle("-fx-background-color: white; -fx-text-fill: black; -fx-font-family: 'Arial Black';");
+        colEmail.setStyle("-fx-background-color: white; -fx-text-fill: black; -fx-font-family: 'Arial Black';");
+    
+        List<Aluno> alunosDoGrupo = AlunoDAO.getAlunosDoGrupo(alunoLogado.getGrupoId());
+        alunosDoGrupo.removeIf(aluno -> aluno.getRa() == alunoLogado.getRa());
+        ObservableList<Aluno> alunosList = FXCollections.observableArrayList(alunosDoGrupo);
+        tableView.setItems(alunosList);
+
+        List<Criterios> criteriosList = CriteriosDAO.getAll();
+    
+        for (Criterios criterio : criteriosList) {
+            if (criterio.isAtivo()) {
+                TableColumn<Aluno, Double> colNota = new TableColumn<>(criterio.getNome());
+    
+                colNota.setCellValueFactory(param -> {
+                    Avaliacao avaliacao = AvaliacaoDAO.getAvaliacaoPorAlunoECriterio(alunoLogado.getRa(), param.getValue().getRa(), criterio.getId());
+                    return new javafx.beans.property.SimpleDoubleProperty(avaliacao != null ? avaliacao.getNota() : 0.0).asObject();
+                });
+        
+                colNota.setStyle("-fx-background-color: white; -fx-text-fill: black; -fx-font-family: 'Arial Black';");
+        
+                tableView.getColumns().add(colNota);
+            }
+        }
+    }
+    @FXML
+    public void abrirRealizarAvaliacao(ActionEvent event) throws IOException {
+        if (alunoSelecionado == null) {
+            mbox.ShowMessageBox(AlertType.WARNING, "Erro", "Selecione um integrante do grupo para avaliar");
+            return;
+        }
+        AlunosParaAvaliacao.setAvaliado(alunoSelecionado);
+        AlunosParaAvaliacao.setAvaliador(alunoLogado);
+
+        sceneSwitcher.switchSceneRetController("/FXML/AlunoRealizarAvalView.fxml", event);
+        
+    }
+
+    @FXML
+    public void confirmarVoltar(ActionEvent event) throws IOException {
+        sceneSwitcher.switchScene("/FXML/AlunoHomeView.fxml", event);
     }
 }

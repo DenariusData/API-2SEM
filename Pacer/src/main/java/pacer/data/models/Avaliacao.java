@@ -22,6 +22,9 @@ public class Avaliacao {
         this.nota = nota;
         this.data = data;
     }
+    public Avaliacao() {
+        
+    }
     //endregion
 
     //region Getters e Setters

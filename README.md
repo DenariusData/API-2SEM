@@ -7,7 +7,7 @@
 * [📘 Tema e Descrição do Produto](#tema-e-descrição-do-produto)
 * [✅ Requisitos Funcionais](#requisitos-funcionais)
 * [✅ Backlog do produto](#backolog-do-produto)
-* [✅ User story](#user-story)
+* [✅ Modelagem do banco de dados](#modelagem-do-banco-de-dados)
 * [🎯 Missão](#missão)
 * [🔭 Visão](#visão)
 * [💡 Valores](#valores)
@@ -56,18 +56,17 @@ Principais Funcionalidades:
 ## ✅ Backolog do produto
 
 [Clique aqui visualizar o backlog do produto](docs/backlog.pdf)
- 
-## ✅ Epics   
 
-[Clique aqui visualizar as histórias principais](docs/Epics.pdf)
-
-## ✅ Validações com o cliente
+Devido a quantidade de informações, será necessário baixar o arquivo para visualizar, clique no link a seguir [DoR,_UserStory_e_DoD](docs/userstory.xlsx)
 
 [Clique aqui para visualizar as validações feitas com o cliente](docs/Validacoes.pdf)
 
+[Clique aqui visualizar a sprint backlog com o que está previsto para a sprint 4](docs/sprintbacklog.pdf)
+
 ## ✅ Modelagem do banco de dados
 
-[Clique aqui visualizar a modelagem do banco de dados](docs/Modelagem.png)
+![Modelo atualizado](docs/Modelagems3.jpeg)
+
 
 ## Contribuições
 
