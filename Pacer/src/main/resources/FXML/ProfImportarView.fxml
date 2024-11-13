@@ -23,8 +23,8 @@
          <TableColumn fx:id="columnNome" onEditStart="#handleEditNome" prefWidth="105.0" text="Nome" />
             <TableColumn fx:id="columnGrupo" onEditStart="#handleEditGrupo" prefWidth="169.0" text="Grupo" />
             <TableColumn fx:id="columnEmail" onEditStart="#handleEditEmail" prefWidth="174.0" text="Email" />
-         <TableColumn fx:id="columnLink" onEditStart="#handleEditGit" prefWidth="127.0" text="Link GitHub" />
-         <TableColumn fx:id="columnGrupo" onEditStart="#handleEditCurso" prefWidth="127.0" text="Curso" />
+         <TableColumn fx:id="columnLink" onEditStart="#handleEditLink" prefWidth="127.0" text="Link GitHub" />
+         <TableColumn fx:id="columnCurso" onEditStart="#handleEditCurso" prefWidth="127.0" text="Curso" />
          <TableColumn fx:id="columnSemestre" onEditStart="#handleEditSemestre" prefWidth="180.0" text="Semestre" />
         </columns>
     </TableView>
