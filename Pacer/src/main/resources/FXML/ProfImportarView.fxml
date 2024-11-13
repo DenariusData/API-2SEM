@@ -39,6 +39,7 @@
       <children>
           
                             <!-- Botões para limpar informações -->
+         
           <Button layoutX="20.0" layoutY="6.0" onAction="#handleClearRa" style="-fx-background-color: grey;" text="🔁 Limpar RA" textFill="WHITE">
             <font>
                <Font name="Arial Black" size="11.0" />
