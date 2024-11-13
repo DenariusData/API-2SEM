@@ -2,8 +2,10 @@ package pacer.professor;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +18,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import pacer.utils.sceneSwitcher;
 
 
 
@@ -25,7 +28,7 @@ public class ProfImportarController {
     private TableView<Aluno> csvTableView;
 
     @FXML
-    private TableColumn<Aluno, String> columnRA;
+    private TableColumn<Aluno, String> columnRa;
     @FXML
     private TableColumn<Aluno, String> columnNome;
     @FXML
@@ -76,8 +79,8 @@ public class ProfImportarController {
             this.semestre = semestre;
         }
 
-        public String getRA() { return ra; }
-        public void setRA(String ra) { this.ra = ra; }
+        public String getRa() { return ra; }
+        public void setRa(String ra) { this.ra = ra; }
 
         public String getNome() { return nome; }
         public void setNome(String nome) { this.nome = nome; }
@@ -101,7 +104,7 @@ public class ProfImportarController {
     @FXML
     private void initialize() {
         // Configura as colunas para exibir dados
-        columnRA.setCellValueFactory(new PropertyValueFactory<>("ra"));
+        columnRa.setCellValueFactory(new PropertyValueFactory<>("ra"));
         columnNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
         columnEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
         columnGrupo.setCellValueFactory(new PropertyValueFactory<>("grupo"));
@@ -111,7 +114,7 @@ public class ProfImportarController {
 
         // Permite edição nas células
         csvTableView.setEditable(true);
-        columnRA.setCellFactory(TextFieldTableCell.forTableColumn());
+        columnRa.setCellFactory(TextFieldTableCell.forTableColumn());
         columnNome.setCellFactory(TextFieldTableCell.forTableColumn());
         columnEmail.setCellFactory(TextFieldTableCell.forTableColumn());
         columnGrupo.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -133,20 +136,36 @@ public class ProfImportarController {
         }
     }
 
-    private void loadCSV(File file) {
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            String line;
-            br.readLine(); // Ignora o cabeçalho
+  private void loadCSV(File file) {
+    try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8))) {
+        String line;
+        br.readLine(); // Ignora o cabeçalho
 
-            while ((line = br.readLine()) != null) {
-                String[] fields = line.split(",");
-                Aluno aluno = new Aluno(fields[0], fields[1], fields[2], fields[3], fields[4], fields[5], fields[6]);
+        while ((line = br.readLine()) != null) {
+            String[] fields = line.split(";"); // Usando tabulação para separar os campos
+
+            // Verifique se o número de campos é suficiente
+            if (fields.length >= 7) {
+                Aluno aluno = new Aluno(
+                    fields[0], // Nome
+                    fields[1], // Email
+                    fields[2], // Grupo
+                    fields[3], // Link
+                    fields[4], // RA
+                    fields[5], // Semestre
+                    fields[6]  // Curso
+                );
                 csvTableView.getItems().add(aluno);
+            } else {
+                // Caso o número de campos seja insuficiente, você pode tratar da forma que preferir
+                System.out.println("Linha inválida ou incompleta: " + line);
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
+    } catch (IOException e) {
+        e.printStackTrace();
     }
+}
+
 
     @FXML
     public void handleAddAluno() {
@@ -173,9 +192,48 @@ public class ProfImportarController {
     }
 
     @FXML
-    public void handleEditRA(TableColumn.CellEditEvent<Aluno, String> event) {
+    public void handleEditRa(TableColumn.CellEditEvent<Aluno, String> event) {
         Aluno aluno = event.getRowValue();
-        aluno.setRA(event.getNewValue());
+        aluno.setRa(event.getNewValue());
+    }
+
+    @FXML
+    public void handleEditNome(TableColumn.CellEditEvent<Aluno, String> event) {
+        Aluno aluno = event.getRowValue();
+        aluno.setNome(event.getNewValue());
+    }
+
+    
+    @FXML
+    public void handleEditEmail(TableColumn.CellEditEvent<Aluno, String> event) {
+        Aluno aluno = event.getRowValue();
+        aluno.setEmail(event.getNewValue());
+    }
+
+
+    @FXML
+    public void handleEditGrupo(TableColumn.CellEditEvent<Aluno, String> event) {
+        Aluno aluno = event.getRowValue();
+        aluno.setGrupo(event.getNewValue());
+    }
+
+
+    @FXML
+    public void handleEditLink(TableColumn.CellEditEvent<Aluno, String> event) {
+        Aluno aluno = event.getRowValue();
+        aluno.setLink(event.getNewValue());
+    }
+
+    @FXML
+    public void handleEditCurso(TableColumn.CellEditEvent<Aluno, String> event) {
+        Aluno aluno = event.getRowValue();
+        aluno.setCurso(event.getNewValue());
+    }
+
+    @FXML
+    public void handleEditSemestre(TableColumn.CellEditEvent<Aluno, String> event) {
+        Aluno aluno = event.getRowValue();
+        aluno.setSemestre(event.getNewValue());
     }
 
     // Implementação dos métodos de edição para as outras colunas
@@ -184,11 +242,77 @@ public class ProfImportarController {
     public void handleClearRa() {
         Aluno selectedAluno = csvTableView.getSelectionModel().getSelectedItem();
         if (selectedAluno != null) {
-            oldValuesMap.put(selectedAluno, new Aluno(selectedAluno.getRA(), selectedAluno.getNome(), selectedAluno.getEmail(), selectedAluno.getGrupo(), selectedAluno.getLink(), selectedAluno.getCurso(), selectedAluno.getSemestre()));
-            selectedAluno.setRA("");
+            oldValuesMap.put(selectedAluno, new Aluno(selectedAluno.getRa(), selectedAluno.getNome(), selectedAluno.getEmail(), selectedAluno.getGrupo(), selectedAluno.getLink(), selectedAluno.getCurso(), selectedAluno.getSemestre()));
+            selectedAluno.setRa("");
             csvTableView.refresh();
         }
     }
+
+    @FXML
+    public void handleClearNome() {
+        Aluno selectedAluno = csvTableView.getSelectionModel().getSelectedItem();
+        if (selectedAluno != null) {
+            oldValuesMap.put(selectedAluno, new Aluno(selectedAluno.getRa(), selectedAluno.getNome(), selectedAluno.getEmail(), selectedAluno.getGrupo(), selectedAluno.getLink(), selectedAluno.getCurso(), selectedAluno.getSemestre()));
+            selectedAluno.setNome("");
+            csvTableView.refresh();
+        }
+    }
+
+    @FXML
+    public void handleClearEmail() {
+        Aluno selectedAluno = csvTableView.getSelectionModel().getSelectedItem();
+        if (selectedAluno != null) {
+            oldValuesMap.put(selectedAluno, new Aluno(selectedAluno.getRa(), selectedAluno.getNome(), selectedAluno.getEmail(), selectedAluno.getGrupo(), selectedAluno.getLink(), selectedAluno.getCurso(), selectedAluno.getSemestre()));
+            selectedAluno.setEmail("");
+            csvTableView.refresh();
+        }
+    }
+
+    @FXML
+    public void handleClearGrupo() {
+        Aluno selectedAluno = csvTableView.getSelectionModel().getSelectedItem();
+        if (selectedAluno != null) {
+            oldValuesMap.put(selectedAluno, new Aluno(selectedAluno.getRa(), selectedAluno.getNome(), selectedAluno.getEmail(), selectedAluno.getGrupo(), selectedAluno.getLink(), selectedAluno.getCurso(), selectedAluno.getSemestre()));
+            selectedAluno.setGrupo("");
+            csvTableView.refresh();
+        }
+    }
+
+    @FXML
+    public void handleClearLink() {
+        Aluno selectedAluno = csvTableView.getSelectionModel().getSelectedItem();
+        if (selectedAluno != null) {
+            oldValuesMap.put(selectedAluno, new Aluno(selectedAluno.getRa(), selectedAluno.getNome(), selectedAluno.getEmail(), selectedAluno.getGrupo(), selectedAluno.getLink(), selectedAluno.getCurso(), selectedAluno.getSemestre()));
+            selectedAluno.setLink("");
+            csvTableView.refresh();
+        }
+    }
+
+    @FXML
+    public void handleClearCurso() {
+        Aluno selectedAluno = csvTableView.getSelectionModel().getSelectedItem();
+        if (selectedAluno != null) {
+            oldValuesMap.put(selectedAluno, new Aluno(selectedAluno.getRa(), selectedAluno.getNome(), selectedAluno.getEmail(), selectedAluno.getGrupo(), selectedAluno.getLink(), selectedAluno.getCurso(), selectedAluno.getSemestre()));
+            selectedAluno.setCurso("");
+            csvTableView.refresh();
+        }
+    }
+
+    @FXML
+    public void handleClearSemestre() {
+        Aluno selectedAluno = csvTableView.getSelectionModel().getSelectedItem();
+        if (selectedAluno != null) {
+            oldValuesMap.put(selectedAluno, new Aluno(selectedAluno.getRa(), selectedAluno.getNome(), selectedAluno.getEmail(), selectedAluno.getGrupo(), selectedAluno.getLink(), selectedAluno.getCurso(), selectedAluno.getSemestre()));
+            selectedAluno.setSemestre("");
+            csvTableView.refresh();
+        }
+    }
+
+    @FXML
+    private void handleVoltar(javafx.event.ActionEvent event) throws IOException {
+        sceneSwitcher.switchScene("/FXML/ProfEquipeAddEditView.fxml", event);
+    }
+
 
     // Outros métodos de limpeza para as colunas foram implementados similares
 
@@ -196,7 +320,7 @@ public class ProfImportarController {
     public void handleUndoClear() {
         for (Aluno aluno : oldValuesMap.keySet()) {
             Aluno oldAluno = oldValuesMap.get(aluno);
-            aluno.setRA(oldAluno.getRA());
+            aluno.setRa(oldAluno.getRa());
             aluno.setNome(oldAluno.getNome());
             aluno.setEmail(oldAluno.getEmail());
             aluno.setGrupo(oldAluno.getGrupo());
