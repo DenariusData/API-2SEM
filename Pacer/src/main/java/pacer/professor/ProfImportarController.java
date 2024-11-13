@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -108,7 +109,7 @@ public class ProfImportarController {
         columnLink.setCellValueFactory(new PropertyValueFactory<>("link"));
         columnCurso.setCellValueFactory(new PropertyValueFactory<>("curso"));
         columnSemestre.setCellValueFactory(new PropertyValueFactory<>("semestre"));
-
+    
         // Permite edição nas células
         csvTableView.setEditable(true);
         columnRA.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -118,7 +119,17 @@ public class ProfImportarController {
         columnLink.setCellFactory(TextFieldTableCell.forTableColumn());
         columnCurso.setCellFactory(TextFieldTableCell.forTableColumn());
         columnSemestre.setCellFactory(TextFieldTableCell.forTableColumn());
+    
+        // Define o comportamento de commit para cada coluna
+        columnRa.setOnEditCommit(event -> event.getRowValue().setRa(event.getNewValue()));
+        columnNome.setOnEditCommit(event -> event.getRowValue().setNome(event.getNewValue()));
+        columnEmail.setOnEditCommit(event -> event.getRowValue().setEmail(event.getNewValue()));
+        columnGrupo.setOnEditCommit(event -> event.getRowValue().setGrupo(event.getNewValue()));
+        columnLink.setOnEditCommit(event -> event.getRowValue().setLink(event.getNewValue()));
+        columnCurso.setOnEditCommit(event -> event.getRowValue().setCurso(event.getNewValue()));
+        columnSemestre.setOnEditCommit(event -> event.getRowValue().setSemestre(event.getNewValue()));
     }
+    
 
     @FXML
     public void handleImportCSV() {
@@ -184,11 +195,79 @@ public class ProfImportarController {
     public void handleClearRa() {
         Aluno selectedAluno = csvTableView.getSelectionModel().getSelectedItem();
         if (selectedAluno != null) {
-            oldValuesMap.put(selectedAluno, new Aluno(selectedAluno.getRA(), selectedAluno.getNome(), selectedAluno.getEmail(), selectedAluno.getGrupo(), selectedAluno.getLink(), selectedAluno.getCurso(), selectedAluno.getSemestre()));
-            selectedAluno.setRA("");
+            oldValuesMap.put(selectedAluno, new Aluno(selectedAluno.getRa(), selectedAluno.getNome(), selectedAluno.getEmail(), selectedAluno.getGrupo(), selectedAluno.getLink(), selectedAluno.getCurso(), selectedAluno.getSemestre()));
+            selectedAluno.setRa("");
             csvTableView.refresh();
         }
     }
+
+    @FXML
+    public void handleClearNome() {
+        Aluno selectedAluno = csvTableView.getSelectionModel().getSelectedItem();
+        if (selectedAluno != null) {
+            oldValuesMap.put(selectedAluno, new Aluno(selectedAluno.getRa(), selectedAluno.getNome(), selectedAluno.getEmail(), selectedAluno.getGrupo(), selectedAluno.getLink(), selectedAluno.getCurso(), selectedAluno.getSemestre()));
+            selectedAluno.setNome("");
+            csvTableView.refresh();
+        }
+    }
+
+    @FXML
+    public void handleClearEmail() {
+        Aluno selectedAluno = csvTableView.getSelectionModel().getSelectedItem();
+        if (selectedAluno != null) {
+            oldValuesMap.put(selectedAluno, new Aluno(selectedAluno.getRa(), selectedAluno.getNome(), selectedAluno.getEmail(), selectedAluno.getGrupo(), selectedAluno.getLink(), selectedAluno.getCurso(), selectedAluno.getSemestre()));
+            selectedAluno.setEmail("");
+            csvTableView.refresh();
+        }
+    }
+
+    @FXML
+    public void handleClearGrupo() {
+        Aluno selectedAluno = csvTableView.getSelectionModel().getSelectedItem();
+        if (selectedAluno != null) {
+            oldValuesMap.put(selectedAluno, new Aluno(selectedAluno.getRa(), selectedAluno.getNome(), selectedAluno.getEmail(), selectedAluno.getGrupo(), selectedAluno.getLink(), selectedAluno.getCurso(), selectedAluno.getSemestre()));
+            selectedAluno.setGrupo("");
+            csvTableView.refresh();
+        }
+    }
+
+    @FXML
+    public void handleClearLink() {
+        Aluno selectedAluno = csvTableView.getSelectionModel().getSelectedItem();
+        if (selectedAluno != null) {
+            oldValuesMap.put(selectedAluno, new Aluno(selectedAluno.getRa(), selectedAluno.getNome(), selectedAluno.getEmail(), selectedAluno.getGrupo(), selectedAluno.getLink(), selectedAluno.getCurso(), selectedAluno.getSemestre()));
+            selectedAluno.setLink("");
+            csvTableView.refresh();
+        }
+    }
+
+    @FXML
+    public void handleClearCurso() {
+        Aluno selectedAluno = csvTableView.getSelectionModel().getSelectedItem();
+        if (selectedAluno != null) {
+            oldValuesMap.put(selectedAluno, new Aluno(selectedAluno.getRa(), selectedAluno.getNome(), selectedAluno.getEmail(), selectedAluno.getGrupo(), selectedAluno.getLink(), selectedAluno.getCurso(), selectedAluno.getSemestre()));
+            selectedAluno.setCurso("");
+            csvTableView.refresh();
+        }
+    }
+
+    
+
+    @FXML
+    public void handleClearSemestre() {
+        Aluno selectedAluno = csvTableView.getSelectionModel().getSelectedItem();
+        if (selectedAluno != null) {
+            oldValuesMap.put(selectedAluno, new Aluno(selectedAluno.getRa(), selectedAluno.getNome(), selectedAluno.getEmail(), selectedAluno.getGrupo(), selectedAluno.getLink(), selectedAluno.getCurso(), selectedAluno.getSemestre()));
+            selectedAluno.setSemestre("");
+            csvTableView.refresh();
+        }
+    }
+
+    @FXML
+    private void handleVoltar(ActionEvent event) throws IOException {
+        sceneSwitcher.switchScene("/FXML/ProfEquipesView.fxml", event);
+    }
+
 
     // Outros métodos de limpeza para as colunas foram implementados similares
 
