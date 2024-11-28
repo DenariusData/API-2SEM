@@ -7,16 +7,21 @@ import java.util.ResourceBundle;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
+import javafx.stage.Stage;
 import pacer.data.dao.AlunoDAO;
 import pacer.data.dao.ProfessorDAO;
-import pacer.data.models.Professor;
 import pacer.utils.mbox;
 import pacer.utils.sceneSwitcher;
 
@@ -28,8 +33,28 @@ public class LoginController implements Initializable {
     @FXML
     private PasswordField passwordField;
 
+    @FXML
+    private ToggleButton togglePasswordVisibilityButton;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
+    }
+    @FXML
+    private void togglePasswordVisibility(){
+        if (togglePasswordVisibilityButton.isSelected()) {
+            // Altera para texto visível
+            passwordField.setPromptText(passwordField.getText());
+            passwordField.setText("");
+            passwordField.setStyle("-fx-border-radius: 50; -fx-border-color: black;");
+            passwordField.setDisable(true);
+        } else {
+            // Volta para senha oculta
+            passwordField.setDisable(false);
+            passwordField.setText(passwordField.getPromptText());
+            passwordField.setPromptText("Digite sua senha...");
+            passwordField.setStyle("-fx-border-radius: 50; -fx-border-color: black;");
+        }
     }
 
     @FXML
@@ -80,6 +105,17 @@ public class LoginController implements Initializable {
             // Se o usuário clicar em "Não", fecha o alerta
             alert.close();
         }
+    }
     
+    @FXML
+    private void handleesqueceuSenha(javafx.event.ActionEvent event) throws IOException {
+        FXMLLoader loader;
+        loader = new FXMLLoader(getClass().getResource("/FXML/EsqueceuSenhaView.fxml"));
+        Parent root = loader.load();
+        var scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+        stage.centerOnScreen();
     }
 }
