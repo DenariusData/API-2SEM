@@ -20,6 +20,17 @@ public class Calendario {
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
     }
+    public Calendario(int calendarioId, int sprintId, LocalDate dataInicio, LocalDate dataFim) {
+        this.calendarioId = calendarioId;
+        this.sprintId = sprintId;
+        this.dataInicio = dataInicio;
+        this.dataFim = dataFim;
+    }
+    public Calendario( int sprintId, LocalDate dataInicio, LocalDate dataFim) {
+        this.sprintId = sprintId;
+        this.dataInicio = dataInicio;
+        this.dataFim = dataFim;
+    }
     //endregion
 
     //region Getters e Setters

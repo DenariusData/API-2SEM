@@ -13,12 +13,15 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import pacer.data.models.Professor;
 import pacer.utils.sceneSwitcher;
 
@@ -87,5 +90,28 @@ public class ProfHomeController implements Initializable {
         }
     
     }
+    @FXML
+    private void handleConfigurar() {
+        try {
+            // Carregar a tela de configuração
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/ProfCalendarioConfigView.fxml"));
+            Pane calendarioConfig = loader.load();
 
+            // Criar uma nova cena com a tela de configuração
+            Stage stage = new Stage();
+            stage.setScene(new Scene(calendarioConfig));
+            stage.initStyle(StageStyle.UNDECORATED);
+            stage.show();
+
+        
+
+        } catch (IOException e) {
+            // Se houver um erro ao carregar a tela
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Erro");
+            alert.setHeaderText("Erro ao carregar a tela de configuração");
+            alert.setContentText("Ocorreu um erro ao tentar abrir a tela de configuração.");
+            alert.showAndWait();
+        }
+    }
 }
