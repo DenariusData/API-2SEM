@@ -5,7 +5,7 @@ import java.time.LocalDate;
 public class Sprint {
 
     //region Atributos
-    private int sprintId;
+    private int id;
     private int sprint;
     private int semestre;
     private LocalDate dataInicio;
@@ -14,7 +14,7 @@ public class Sprint {
 
     //region Construtor
     public Sprint(int sprintId, int sprint, int semestre, LocalDate dataInicio, LocalDate dataFim) {
-        this.sprintId = sprintId;
+        this.id = sprintId;
         this.sprint = sprint;
         this.semestre = semestre;
         this.dataInicio = dataInicio;
@@ -24,11 +24,11 @@ public class Sprint {
 
     //region Getters e Setters
     public int getSprintId() {
-        return sprintId;
+        return id;
     }
 
     public void setSprintId(int sprintId) {
-        this.sprintId = sprintId;
+        this.id = sprintId;
     }
 
     public int getSprint() {
