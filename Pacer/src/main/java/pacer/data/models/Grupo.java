@@ -10,25 +10,22 @@ public class Grupo {
     private int grupoId;
     private String grupoNome;
     private String reposLink;
-    private String cursoSigla;
-    private String semestre;
     private List<Aluno> alunos;
+    private int pontosSprint;
     // endregion
 
     // region Construtores
-    public Grupo(String grupoNome, String reposLink, String cursoSigla, String semestre) {
+    public Grupo(String grupoNome, String reposLink, int pontosSprint) {
         this.grupoNome = grupoNome;
         this.reposLink = reposLink;
-        this.cursoSigla = cursoSigla;
-        this.semestre = semestre;
+        this.pontosSprint = pontosSprint;
     }
 
-    public Grupo(int grupoId, String grupoNome, String reposLink, String cursoSigla, String semestre) {
+    public Grupo(int grupoId, String grupoNome, String reposLink, int pontosSprint) {
         this.grupoId = grupoId;
         this.grupoNome = grupoNome;
         this.reposLink = reposLink;
-        this.cursoSigla = cursoSigla;
-        this.semestre = semestre;
+        this.pontosSprint = pontosSprint;
     }
     // endregion
 
@@ -36,6 +33,9 @@ public class Grupo {
     public int getId() {
         return grupoId;
     }
+public int getPontosSprint(){
+    return pontosSprint;
+}
 
     public void setId(int grupoId) {
         this.grupoId = grupoId;
@@ -55,22 +55,6 @@ public class Grupo {
 
     public void setReposLink(String reposLink) {
         this.reposLink = reposLink;
-    }
-
-    public String getCursoSigla() {
-        return cursoSigla;
-    }
-
-    public void setCursoSigla(String cursoSigla) {
-        this.cursoSigla = cursoSigla;
-    }
-
-    public String getSemestre() {
-        return semestre;
-    }
-
-    public void setSemestre(String semestre) {
-        this.semestre = semestre;
     }
 
     public List<Aluno> getAlunos() { 

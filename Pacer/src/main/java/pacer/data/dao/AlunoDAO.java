@@ -18,7 +18,7 @@ public class AlunoDAO {
     private static Connection connection = DatabaseConnection.getConnection();
 
     public static void addAluno(Aluno aluno) {
-        String sql = "INSERT INTO ALUNO (ALUNO_RA, ALUNO_EMAIL, ALUNO_NOME, ALUNO_SENHA, FOTO, GRUPO_ID, CURSO_SIGLA, SEMESTRE) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO ALUNO (ALUNO_RA, ALUNO_EMAIL, ALUNO_NOME, ALUNO_SENHA, FOTO, GRUPO_ID) VALUES (?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setLong(1, aluno.getRa());
             stmt.setString(2, aluno.getEmail());
@@ -26,8 +26,6 @@ public class AlunoDAO {
             stmt.setString(4, aluno.getSenha());
             stmt.setBlob(5, new ByteArrayInputStream(aluno.getFoto()));
             stmt.setInt(6, aluno.getGrupoId());
-            stmt.setString(7, aluno.getCursoSigla());
-            stmt.setString(8, aluno.getSemestre());
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -47,9 +45,7 @@ public class AlunoDAO {
                     rs.getString("ALUNO_NOME"), 
                     rs.getString("ALUNO_SENHA"), 
                     rs.getBytes("FOTO"),
-                    rs.getInt("GRUPO_ID"),
-                    rs.getString("CURSO_SIGLA"),
-                    rs.getString("SEMESTRE")
+                    rs.getInt("GRUPO_ID")
                 );
 
                 return alunoLogado;
@@ -71,9 +67,7 @@ public class AlunoDAO {
                     rs.getString("ALUNO_NOME"), 
                     rs.getString("ALUNO_SENHA"), 
                     rs.getBytes("FOTO"), 
-                    rs.getInt("GRUPO_ID"),
-                    rs.getString("CURSO_SIGLA"),
-                    rs.getString("SEMESTRE")
+                    rs.getInt("GRUPO_ID")
                 ));
             }
         } catch (SQLException e) {
@@ -83,16 +77,14 @@ public class AlunoDAO {
     }
 
     public static void updateAluno(Aluno aluno) {
-        String sql = "UPDATE ALUNO SET ALUNO_EMAIL = ?, ALUNO_NOME = ?, ALUNO_SENHA = ?, FOTO = ?, GRUPO_ID = ?, CURSO_SIGLA = ?, SEMESTRE = ? WHERE ALUNO_RA = ?";
+        String sql = "UPDATE ALUNO SET ALUNO_EMAIL = ?, ALUNO_NOME = ?, ALUNO_SENHA = ?, FOTO = ?, GRUPO_ID = ? WHERE ALUNO_RA = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, aluno.getEmail());
             stmt.setString(2, aluno.getNome());
             stmt.setString(3, aluno.getSenha());
             stmt.setBlob(4, new ByteArrayInputStream(aluno.getFoto()));
             stmt.setInt(5, aluno.getGrupoId());
-            stmt.setString(6, aluno.getCursoSigla());
-            stmt.setString(7, aluno.getSemestre());
-            stmt.setLong(8, aluno.getRa());
+            stmt.setLong(6, aluno.getRa());
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -124,9 +116,7 @@ public class AlunoDAO {
                         rs.getString("ALUNO_NOME"),
                         rs.getString("ALUNO_SENHA"),
                         rs.getBytes("FOTO"),
-                        rs.getInt("GRUPO_ID"),
-                        rs.getString("CURSO_SIGLA"), 
-                        rs.getString("SEMESTRE")
+                        rs.getInt("GRUPO_ID")
                 );
             }
         } catch (SQLException e) {
@@ -148,9 +138,7 @@ public class AlunoDAO {
                     rs.getLong("ALUNO_RA"),
                     rs.getString("ALUNO_EMAIL"),
                     rs.getString("ALUNO_NOME"),
-                    rs.getInt("GRUPO_ID"),
-                    rs.getString("CURSO_SIGLA"),
-                    rs.getString("SEMESTRE")
+                    rs.getInt("GRUPO_ID")
                 );
                 alunos.add(aluno);
             }
@@ -174,9 +162,7 @@ public class AlunoDAO {
                     rs.getString("ALUNO_NOME"), 
                     rs.getString("ALUNO_SENHA"), 
                     rs.getBytes("FOTO"), 
-                    rs.getInt("GRUPO_ID"),
-                    rs.getString("CURSO_SIGLA"), 
-                    rs.getString("SEMESTRE")
+                    rs.getInt("GRUPO_ID")
                 ));
             }
         } catch (SQLException e) {
