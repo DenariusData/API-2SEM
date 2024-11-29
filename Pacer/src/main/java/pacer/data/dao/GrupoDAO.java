@@ -15,12 +15,11 @@ public class GrupoDAO {
     private static Connection connection = DatabaseConnection.getConnection();
 
     public static void addGrupo(Grupo grupo) {
-        String sql = "INSERT INTO GRUPO (GRUPO_NOME, REPOS_LINK, CURSO_SIGLA, SEMESTRE) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO GRUPO (GRUPO_NOME, REPOS_LINK, PONTOS_SPRINT) VALUES (?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, grupo.getNome());
             stmt.setString(2, grupo.getReposLink());
-            stmt.setString(3, grupo.getCursoSigla());
-            stmt.setString(4, grupo.getSemestre());
+            stmt.setString(3, String.valueOf(grupo.getPontosSprint()));
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -37,8 +36,8 @@ public class GrupoDAO {
                         rs.getInt("GRUPO_ID"),
                         rs.getString("GRUPO_NOME"),
                         rs.getString("REPOS_LINK"),
-                        rs.getString("CURSO_SIGLA"),
-                        rs.getString("SEMESTRE")
+                        rs.getInt("PONTOS_SPRINT")
+                        
                 ));
             }
         } catch (SQLException e) {
@@ -48,13 +47,12 @@ public class GrupoDAO {
     }
 
     public static void updateGrupo(Grupo grupo) {
-        String sql = "UPDATE GRUPO SET GRUPO_NOME = ?, REPOS_LINK = ?, CURSO_SIGLA = ?, SEMESTRE = ? WHERE GRUPO_ID = ?";
+        String sql = "UPDATE GRUPO SET GRUPO_NOME = ?, REPOS_LINK = ?, PONTOS_SPRINT = ? WHERE GRUPO_ID = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, grupo.getNome());
             stmt.setString(2, grupo.getReposLink());
-            stmt.setString(3, grupo.getCursoSigla());
-            stmt.setString(4, grupo.getSemestre());
-            stmt.setInt(5, grupo.getId());
+            stmt.setInt(3, grupo.getPontosSprint());
+            stmt.setInt(4, grupo.getId());
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -72,7 +70,7 @@ public class GrupoDAO {
     }
     public static Grupo getGrupoComAlunos(int grupoId) {
         Grupo grupo = null;
-        String sql = "SELECT G.GRUPO_ID, G.GRUPO_NOME, G.REPOS_LINK, G.CURSO_SIGLA, G.SEMESTRE, A.ALUNO_RA, A.ALUNO_EMAIL, A.ALUNO_NOME FROM GRUPO G LEFT JOIN ALUNO A ON G.GRUPO_ID = A.GRUPO_ID WHERE G.GRUPO_ID = ?";
+        String sql = "SELECT G.GRUPO_ID, G.GRUPO_NOME, G.REPOS_LINK, G.PONTOS_SPRINT, A.ALUNO_RA, A.ALUNO_EMAIL, A.ALUNO_NOME FROM GRUPO G LEFT JOIN ALUNO A ON G.GRUPO_ID = A.GRUPO_ID WHERE G.GRUPO_ID = ?";
     
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, grupoId);
@@ -86,8 +84,7 @@ public class GrupoDAO {
                             rs.getInt("GRUPO_ID"),
                             rs.getString("GRUPO_NOME"),
                             rs.getString("REPOS_LINK"),
-                            rs.getString("CURSO_SIGLA"),
-                            rs.getString("SEMESTRE")
+                            rs.getInt("PONTOS_SPRINT")
                         );
                     }
                     
