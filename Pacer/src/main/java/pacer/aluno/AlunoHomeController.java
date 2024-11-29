@@ -140,8 +140,8 @@ public class AlunoHomeController implements Initializable {
 
     // Método para definir dias coloridos (exemplo: avaliação, dias especiais)
     private void setupColoredDays() {
-        LocalDate avaliacaoStart = LocalDate.now().plusDays(3);  // Início da avaliação
-        LocalDate avaliacaoEnd = avaliacaoStart.plusDays(6);     // Fim da avaliação
+        LocalDate avaliacaoStart = LocalDate.now().plusDays(1);  // Início da avaliação
+        LocalDate avaliacaoEnd = avaliacaoStart.plusDays(3);     // Fim da avaliação
 
         // Definir o período de avaliação com uma cor
         for (LocalDate date = avaliacaoStart; !date.isAfter(avaliacaoEnd); date = date.plusDays(1)) {

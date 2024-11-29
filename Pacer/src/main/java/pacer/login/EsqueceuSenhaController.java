@@ -39,7 +39,7 @@ public class EsqueceuSenhaController {
             Alert.AlertType.INFORMATION, 
             "Sucesso", 
             "RA enviado: " + ra + "\n\n" + 
-            "Se você existir no nosso banco de dados, será redirecionado."
+            "Se você estiver cadastrado no sistema, será redirecionado."
         );        
         
         // Limpar o campo após o envio
