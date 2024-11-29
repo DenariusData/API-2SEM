@@ -37,7 +37,6 @@ public class SprintDAO {
                 sprints.add(new Sprint(
                     rs.getInt("SPRINT_ID"),
                     rs.getInt("SPRINT_NUM"),
-                    0, // O semestre não existe mais no esquema
                     rs.getDate("SPRINT_DATA_INICIO").toLocalDate(),
                     rs.getDate("SPRINT_DATA_FIM").toLocalDate()
                 ));

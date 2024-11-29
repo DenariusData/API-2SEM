@@ -12,8 +12,8 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import pacer.data.dao.CalendarioDAO;
-import pacer.data.models.Calendario;
+import pacer.data.dao.SprintDAO;
+import pacer.data.models.Sprint;
 public class ProfCalendarioConfigController {
 
     @FXML
@@ -56,10 +56,9 @@ public class ProfCalendarioConfigController {
         }
 
         // Criar objeto de Calendario e salvar no banco
-        Calendario calendario = new Calendario(0, sprintId, dataInicio, dataFim);
+        Sprint sprint = new Sprint(sprintId, dataInicio, dataFim);
 
-        CalendarioDAO.addCalendario(calendario);
-
+        SprintDAO.addSprint(sprint);
         // Exibir mensagem de sucesso
         showAlert("Sucesso", "Calendário salvo com sucesso!");
 

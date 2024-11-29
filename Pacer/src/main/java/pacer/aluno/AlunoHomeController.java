@@ -7,7 +7,9 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.time.LocalDate;
 import java.time.YearMonth;
+import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -33,7 +35,9 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import pacer.data.dao.AlunoDAO;
+import pacer.data.dao.SprintDAO;
 import pacer.data.models.Aluno;
+import pacer.data.models.Sprint;
 import pacer.utils.convertImage;
 import pacer.utils.sceneSwitcher;
 
@@ -49,6 +53,9 @@ public class AlunoHomeController implements Initializable {
     private Label monthYearLabel;  // Novo Label para exibir o mês e ano
 
     @FXML
+    private Label lblInfoSprint; 
+
+    @FXML
     ImageView pnlFoto;
     @FXML
     private Label nomeField;
@@ -62,6 +69,8 @@ public class AlunoHomeController implements Initializable {
     // Mapa para armazenar dias coloridos
     private Map<LocalDate, Color> coloredDays = new HashMap<>();
 
+    private Sprint sprintAtual;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         CentralizarJanela(anchorPane);
@@ -71,6 +80,11 @@ public class AlunoHomeController implements Initializable {
         YearMonth currentMonth = YearMonth.now();  // Mês e ano atuais
         populateCalendar(currentMonth);
 
+        configurarAluno();
+        configurarInfoSprint();
+    }
+    
+    private void configurarAluno() {
         logado = Aluno.AlunoLogado.getAluno();
         InputStream fotoStream = convertImage.imageToInputStream(logado.getFoto());
         if (fotoStream != null) {
@@ -80,6 +94,19 @@ public class AlunoHomeController implements Initializable {
         nomeField.setText(logado.getNome());
         emailField.setText(logado.getEmail());
         raField.setText(String.valueOf(logado.getRa()));
+    }
+
+    private void configurarInfoSprint() {
+        List<Sprint> sprints = SprintDAO.getAllSprints();
+
+        for (Sprint sprint : sprints) {
+            if (sprint.getDataInicio().isBefore(LocalDate.now()) && sprint.getDataFim().isAfter(LocalDate.now())) {
+                sprintAtual = sprint;
+                break;
+            }
+        }
+        int diasFaltantes = (int)ChronoUnit.DAYS.between(LocalDate.now(), sprintAtual.getDataFim());
+        lblInfoSprint.setText("Você está na Sprint " + sprintAtual.getSprint() + " faltam " + diasFaltantes + " dias para o fim.");
     }
 
     // Método para preencher o calendário com os dias do mês
