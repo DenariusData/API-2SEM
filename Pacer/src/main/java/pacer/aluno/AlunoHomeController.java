@@ -9,7 +9,6 @@ import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -22,6 +21,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
@@ -39,6 +39,7 @@ import pacer.data.dao.SprintDAO;
 import pacer.data.models.Aluno;
 import pacer.data.models.Sprint;
 import pacer.utils.convertImage;
+import pacer.utils.mbox;
 import pacer.utils.sceneSwitcher;
 
 public class AlunoHomeController implements Initializable {
@@ -71,17 +72,22 @@ public class AlunoHomeController implements Initializable {
 
     private Sprint sprintAtual;
 
+    private LocalDate dateAvaliacaoStart = LocalDate.now();
+    private LocalDate dateAvaliacaoEnd = LocalDate.now();
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         CentralizarJanela(anchorPane);
+
+        configurarAluno(); 
+
+        if (SprintDAO.getSprintAtual() == null) mbox.ShowMessageBox(AlertType.INFORMATION, "SPRINT", "Não existe Sprint para o periodo atual.");
+        if (SprintDAO.getSprintAtual() != null) configurarInfoSprint();
 
         // Configurar o calendário customizado
         setupColoredDays();
         YearMonth currentMonth = YearMonth.now();  // Mês e ano atuais
         populateCalendar(currentMonth);
-
-        configurarAluno();
-        configurarInfoSprint();
     }
     
     private void configurarAluno() {
@@ -97,14 +103,9 @@ public class AlunoHomeController implements Initializable {
     }
 
     private void configurarInfoSprint() {
-        List<Sprint> sprints = SprintDAO.getAllSprints();
-
-        for (Sprint sprint : sprints) {
-            if (sprint.getDataInicio().isBefore(LocalDate.now()) && sprint.getDataFim().isAfter(LocalDate.now())) {
-                sprintAtual = sprint;
-                break;
-            }
-        }
+        sprintAtual = SprintDAO.getSprintAtual();
+        dateAvaliacaoStart = sprintAtual.getDataInicio();
+        dateAvaliacaoEnd = sprintAtual.getDataFim();
         int diasFaltantes = (int)ChronoUnit.DAYS.between(LocalDate.now(), sprintAtual.getDataFim());
         lblInfoSprint.setText("Você está na Sprint " + sprintAtual.getSprint() + " faltam " + diasFaltantes + " dias para o fim.");
     }
@@ -167,8 +168,8 @@ public class AlunoHomeController implements Initializable {
 
     // Método para definir dias coloridos (exemplo: avaliação, dias especiais)
     private void setupColoredDays() {
-        LocalDate avaliacaoStart = LocalDate.now().plusDays(1);  // Início da avaliação
-        LocalDate avaliacaoEnd = avaliacaoStart.plusDays(3);     // Fim da avaliação
+        LocalDate avaliacaoStart = dateAvaliacaoStart;  // Início da avaliação
+        LocalDate avaliacaoEnd = dateAvaliacaoEnd;    // Fim da avaliação
 
         // Definir o período de avaliação com uma cor
         for (LocalDate date = avaliacaoStart; !date.isAfter(avaliacaoEnd); date = date.plusDays(1)) {

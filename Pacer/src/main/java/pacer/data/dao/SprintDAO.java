@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,5 +71,18 @@ public class SprintDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    public static Sprint getSprintAtual() {
+        List<Sprint> sprints = SprintDAO.getAllSprints();
+
+        Sprint sprintAtual = null;
+
+        for (Sprint sprint : sprints) {
+            if (sprint.getDataInicio().isBefore(LocalDate.now()) && sprint.getDataFim().isAfter(LocalDate.now())) {
+                sprintAtual = sprint;
+                break;
+            }
+        }
+        return sprintAtual;
     }
 }

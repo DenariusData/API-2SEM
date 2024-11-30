@@ -23,6 +23,9 @@ public class Sprint {
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
     }
+    public Sprint() {
+
+    }
     //endregion
 
     //region Getters e Setters
