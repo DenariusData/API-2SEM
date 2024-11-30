@@ -2,6 +2,7 @@ package pacer.professor;
 
 import java.io.IOException;
 
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,6 +15,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import pacer.data.dao.AlunoDAO;
 import pacer.data.dao.GrupoDAO;
+import pacer.data.dao.SprintDAO;
 import pacer.data.models.Aluno;
 import pacer.data.models.Grupo;
 import pacer.utils.sceneSwitcher;
@@ -40,13 +42,10 @@ public class ProfEquipesController {
     @FXML
     private TableColumn<Grupo, String> colReposLink;
     @FXML
-    private TableColumn<Grupo, String> colSemestre;
+    private TableColumn<Grupo, Integer> colPontos;
 
     private Grupo grupoSelecionado;
     private Aluno membroSelecionado;
-
-    @FXML
-    private TableColumn<Grupo, String> colCurso;
     
     @FXML
     private Button btnRelatorio;
@@ -62,15 +61,14 @@ public class ProfEquipesController {
     public void initialize() {
         colNomeGrupo.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNome()));
         colReposLink.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getReposLink()));
-        colSemestre.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSemestre()));
-        colCurso.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCursoSigla()));
+        colPontos.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getPontosSprint()));
         colNomeIntegrante.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNome()));
+
+        colPontos.setText("Pontos da Sprint " + SprintDAO.getSprintAtual().getSprint());
 
         carregarGrupos();
         configurarTabelas();
         
-
-        // Listener para detecção de seleção de grupo
         tblGrupos.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 carregarMembros(newSelection.getId());

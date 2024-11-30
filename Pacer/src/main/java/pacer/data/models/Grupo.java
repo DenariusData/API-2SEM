@@ -33,9 +33,12 @@ public class Grupo {
     public int getId() {
         return grupoId;
     }
-public int getPontosSprint(){
-    return pontosSprint;
-}
+    public int getPontosSprint(){
+        return pontosSprint;
+    }
+    public void setPontosSprint(int pontosSprint){
+        this.pontosSprint = pontosSprint;
+    }
 
     public void setId(int grupoId) {
         this.grupoId = grupoId;

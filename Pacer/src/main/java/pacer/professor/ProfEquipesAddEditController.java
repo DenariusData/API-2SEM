@@ -5,9 +5,12 @@ import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import pacer.data.dao.GrupoDAO;
+import pacer.data.dao.SprintDAO;
 import pacer.data.models.Grupo;
+import pacer.data.models.Sprint;
 import pacer.utils.sceneSwitcher;
 
 public class ProfEquipesAddEditController {
@@ -17,26 +20,29 @@ public class ProfEquipesAddEditController {
     @FXML
     private TextField txtReposLink;
     @FXML
-    private TextField txtSemestre;
+    private TextField txtPontos;
     @FXML
-    private TextField txtCursoSigla; // Campo para cursoSigla
+    private TextField txtCursoSigla;
     @FXML
-    private Button btnSalvar; // Mantido para manter a lógica atual
+    private Button btnSalvar;
 
-    private Grupo grupoAtual; // Grupo atual a ser editado
+    @FXML
+    private Label lblPontosSprint;
+
+    private Grupo grupoAtual;
 
     @FXML
     public void initialize() {
-        // Configuração inicial, se necessário
+        Sprint sprintAtual = SprintDAO.getSprintAtual();
+        if (sprintAtual != null)
+            lblPontosSprint.setText("Pontos da Sprint " + String.valueOf(sprintAtual.getSprint()) + ":");
     }
 
-    // Método para definir o grupo a ser editado
     public void setGrupo(Grupo grupo) {
         this.grupoAtual = grupo;
         txtNomeGrupo.setText(grupo.getNome());
         txtReposLink.setText(grupo.getReposLink());
-        txtSemestre.setText(String.valueOf(grupo.getSemestre()));
-        txtCursoSigla.setText(grupo.getCursoSigla()); // Definindo o cursoSigla
+        txtPontos.setText(String.valueOf(grupo.getPontosSprint()));
         btnSalvar.setText("Atualizar Grupo");
     }
 
@@ -44,21 +50,17 @@ public class ProfEquipesAddEditController {
     public void salvarGrupo(ActionEvent event) throws IOException {
         String nome = txtNomeGrupo.getText();
         String reposLink = txtReposLink.getText();
-        String semestre = txtSemestre.getText();
-        String cursoSigla = txtCursoSigla.getText(); // Obtendo o cursoSigla
+        int pontos = Integer.parseInt(txtPontos.getText());
 
         if (grupoAtual == null) {
-            Grupo novoGrupo = new Grupo(nome, reposLink, cursoSigla, semestre);
+            Grupo novoGrupo = new Grupo(nome, reposLink, pontos);
             GrupoDAO.addGrupo(novoGrupo);
         } else {
             grupoAtual.setNome(nome);
             grupoAtual.setReposLink(reposLink);
-            grupoAtual.setSemestre(semestre);
-            grupoAtual.setCursoSigla(cursoSigla);
+            grupoAtual.setPontosSprint(pontos);
             GrupoDAO.updateGrupo(grupoAtual);
         }
-
-        // Volta para a tela anterior
         sceneSwitcher.switchScene("/FXML/ProfEquipesView.fxml", event);
     }
 

@@ -46,8 +46,6 @@ public class GrupoGerarRelatorio {
                 if (grupo != null) {
                     sheet.createRow(rowNum++).createCell(0).setCellValue("Grupo: " + grupo.getNome());
                     sheet.createRow(rowNum++).createCell(0).setCellValue("Repositório: " + grupo.getReposLink());
-                    sheet.createRow(rowNum++).createCell(0).setCellValue("Curso: " + grupo.getCursoSigla());
-                    sheet.createRow(rowNum++).createCell(0).setCellValue("Semestre: " + grupo.getSemestre());
                     sheet.createRow(rowNum++).createCell(0).setCellValue("");
     
                     Row alunosTitleRow = sheet.createRow(rowNum++);

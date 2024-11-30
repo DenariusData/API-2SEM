@@ -28,8 +28,7 @@
          <columns>
             <TableColumn fx:id="colNomeGrupo" editable="false" prefWidth="175.0" sortable="false" style="-fx-background-color: white; -fx-text-fill: black; -fx-font-family: 'Arial Black';" text="Nome do Grupo" />
             <TableColumn fx:id="colReposLink" editable="false" prefWidth="175.0" sortable="false" style="-fx-background-color: white; -fx-text-fill: black; -fx-font-family: 'Arial Black';" text="Link do Repositório" />
-            <TableColumn fx:id="colSemestre" editable="false" prefWidth="100.0" sortable="false" style="-fx-background-color: white; -fx-text-fill: black; -fx-font-family: 'Arial Black';" text="Semestre" />
-            <TableColumn fx:id="colCurso" editable="false" prefWidth="100.0" sortable="false" style="-fx-background-color: white; -fx-text-fill: black; -fx-font-family: 'Arial Black';" text="Curso" />
+            <TableColumn fx:id="colPontos" editable="false" prefWidth="100.0" sortable="false" style="-fx-background-color: white; -fx-text-fill: black; -fx-font-family: 'Arial Black';" text="Pontos Sprint" />
          </columns>
       </TableView>
 
