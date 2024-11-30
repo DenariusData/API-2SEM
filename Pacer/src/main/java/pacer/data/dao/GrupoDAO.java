@@ -110,4 +110,23 @@ public class GrupoDAO {
         
         return grupo;
     }
+    public static Grupo getGrupoByNome(String nome) {
+        Grupo grupo = null;
+        String sql = "SELECT * FROM GRUPO WHERE GRUPO_NOME = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, nome);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                grupo = new Grupo(
+                    rs.getInt("GRUPO_ID"), 
+                    rs.getString("GRUPO_NOME"), 
+                    rs.getString("REPOS_LINK"), 
+                    rs.getInt("PONTOS_SPRINT")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return grupo;
+    }
 }
