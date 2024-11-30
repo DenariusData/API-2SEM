@@ -6,6 +6,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.ToggleButton;
+import pacer.data.dao.AlunoDAO;
+import pacer.data.models.Aluno;
 import pacer.utils.mbox;
 
 public class RedefinirSenhaController {
@@ -20,6 +22,12 @@ public class RedefinirSenhaController {
    private ToggleButton togglePasswordVisibilityButton;
    @FXML
    private ToggleButton togglePasswordVisibilityButton2;
+
+   private Aluno aluno;
+
+    public void configureAlunoEsqueceuSenha(Aluno aluno) {
+        this.aluno = aluno;
+    }
 
     @FXML
     private void handleConfirmarSenha() {
@@ -40,9 +48,13 @@ public class RedefinirSenhaController {
             mbox.ShowError("A senha deve ter pelo menos 8 caracteres e incluir números e letras.");
             return;
         }
-
-        System.out.println("Senha redefinida com sucesso!");
-        mbox.ShowMessageBox(Alert.AlertType.INFORMATION, "Sucesso", "Senha redefinida com sucesso!");
+        try {
+            aluno.setSenha(novaSenha);
+            AlunoDAO.updateAluno(aluno);
+            mbox.ShowMessageBox(Alert.AlertType.INFORMATION, "Sucesso", "Senha redefinida com sucesso!");
+        } catch (Exception e) {
+        }
+        
 
         txtNovaSenha.clear();
         txtConfirmarSenha.clear();

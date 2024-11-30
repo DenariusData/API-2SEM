@@ -170,6 +170,25 @@ public class AlunoDAO {
         }
         return alunos;
     }
-    
-    
+    public static Aluno getAlunosByRA(long ra) {
+        Aluno aluno = null;
+        String sql = "SELECT * FROM ALUNO WHERE ALUNO_RA = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setLong(1, ra);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                aluno = new Aluno(
+                    rs.getLong("ALUNO_RA"), 
+                    rs.getString("ALUNO_EMAIL"), 
+                    rs.getString("ALUNO_NOME"), 
+                    rs.getString("ALUNO_SENHA"), 
+                    rs.getBytes("FOTO"), 
+                    rs.getInt("GRUPO_ID")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return aluno;
+    }
 }

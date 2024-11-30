@@ -6,6 +6,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import pacer.data.dao.AlunoDAO;
+import pacer.data.models.Aluno;
 import pacer.utils.mbox;
 import pacer.utils.sceneSwitcher;
 
@@ -19,8 +21,8 @@ public class EsqueceuSenhaController {
         txtRA.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
                 txtRA.setText(oldValue); 
-            } else if (newValue.length() > 12) {
-                mbox.ShowMessageBox(Alert.AlertType.WARNING, "Atenção", "O RA deve ter no máximo 12 dígitos.");
+            } else if (newValue.length() > 13) {
+                mbox.ShowMessageBox(Alert.AlertType.WARNING, "Atenção", "O RA deve ter no máximo 13 dígitos.");
                 txtRA.setText(oldValue); 
             }
         });
@@ -28,7 +30,7 @@ public class EsqueceuSenhaController {
     
 
     @FXML
-    private void handleEnviarRA() {
+    private void handleEnviarRA(ActionEvent event) throws IOException {
         String ra = txtRA.getText();
         if (ra.isEmpty()) {
             mbox.ShowMessageBox(Alert.AlertType.WARNING, "Atenção", "Por favor, insira seu RA.");
@@ -40,7 +42,13 @@ public class EsqueceuSenhaController {
             "Sucesso", 
             "RA enviado: " + ra + "\n\n" + 
             "Se você estiver cadastrado no sistema, será redirecionado."
-        );        
+        );
+
+        Aluno aluno = AlunoDAO.getAlunosByRA(Long.parseLong(ra));
+        if(aluno != null){
+            RedefinirSenhaController controller = sceneSwitcher.switchSceneRetController("/FXML/RedefinirSenhaView.fxml", event);
+            controller.configureAlunoEsqueceuSenha(aluno);
+        }
         
         // Limpar o campo após o envio
         txtRA.clear();
