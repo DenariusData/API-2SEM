@@ -37,10 +37,6 @@ public class ProfImportarController {
     private TableColumn<Aluno, String> columnNome;
     @FXML
     private TableColumn<Aluno, String> columnEmail;
-    @FXML
-    private TableColumn<Aluno, String> columnCurso;
-    @FXML
-    private TableColumn<Aluno, String> columnSemestre;
 
     @FXML
     private TextField RaField;
@@ -48,10 +44,6 @@ public class ProfImportarController {
     private TextField nomeField;
     @FXML
     private TextField emailField;
-    @FXML
-    private TextField cursoField;
-    @FXML
-    private TextField semestreField;
 
     // Mapa para armazenar os valores antigos antes da limpeza
     private Map<Aluno, Aluno> oldValuesMap = new HashMap<>();
@@ -61,15 +53,11 @@ public class ProfImportarController {
         private String ra;
         private String nome;
         private String email;
-        private String curso;
-        private String semestre;
 
-        public Aluno(String ra, String nome, String email, String curso, String semestre) {
+        public Aluno(String ra, String nome, String email) {
             this.ra = ra;
             this.nome = nome;
             this.email = email;
-            this.curso = curso;
-            this.semestre = semestre;
         }
 
         public String getRa() {
@@ -95,22 +83,6 @@ public class ProfImportarController {
         public void setEmail(String email) {
             this.email = email;
         }
-
-        public String getCurso() {
-            return curso;
-        }
-
-        public void setCurso(String curso) {
-            this.curso = curso;
-        }
-
-        public String getSemestre() {
-            return semestre;
-        }
-
-        public void setSemestre(String semestre) {
-            this.semestre = semestre;
-        }
     }
 
     @FXML
@@ -119,23 +91,17 @@ public class ProfImportarController {
         columnRa.setCellValueFactory(new PropertyValueFactory<>("ra"));
         columnNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
         columnEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
-        columnCurso.setCellValueFactory(new PropertyValueFactory<>("curso"));
-        columnSemestre.setCellValueFactory(new PropertyValueFactory<>("semestre"));
 
         // Permite edição nas células
         csvTableView.setEditable(true);
         columnRa.setCellFactory(TextFieldTableCell.forTableColumn());
         columnNome.setCellFactory(TextFieldTableCell.forTableColumn());
         columnEmail.setCellFactory(TextFieldTableCell.forTableColumn());
-        columnCurso.setCellFactory(TextFieldTableCell.forTableColumn());
-        columnSemestre.setCellFactory(TextFieldTableCell.forTableColumn());
 
         // Define o comportamento de commit para cada coluna
         columnRa.setOnEditCommit(event -> event.getRowValue().setRa(event.getNewValue()));
         columnNome.setOnEditCommit(event -> event.getRowValue().setNome(event.getNewValue()));
         columnEmail.setOnEditCommit(event -> event.getRowValue().setEmail(event.getNewValue()));
-        columnCurso.setOnEditCommit(event -> event.getRowValue().setCurso(event.getNewValue()));
-        columnSemestre.setOnEditCommit(event -> event.getRowValue().setSemestre(event.getNewValue()));
     }
 
     @FXML
@@ -163,13 +129,11 @@ public class ProfImportarController {
                 String[] fields = line.split(";"); // Usando ponto e vírgula como delimitador
     
                 // Verifique se o número de campos é suficiente e se os dados não estão vazios
-                if (fields.length == 5 && !fields[0].isEmpty() && !fields[1].isEmpty()) {
+                if (fields.length == 3 && !fields[0].isEmpty() && !fields[1].isEmpty()) {
                     Aluno aluno = new Aluno(
                             fields[0], // RA
                             fields[1], // Nome
-                            fields[2], // Email
-                            fields[3], // Curso
-                            fields[4]  // Semestre
+                            fields[2] // Email
                     );
                     csvTableView.getItems().add(aluno);
                 } else {
@@ -187,18 +151,14 @@ public class ProfImportarController {
         String ra = RaField.getText();
         String nome = nomeField.getText();
         String email = emailField.getText();
-        String curso = cursoField.getText();
-        String semestre = semestreField.getText();
 
         if (!ra.isEmpty() && !nome.isEmpty() && !email.isEmpty()) {
-            Aluno novoAluno = new Aluno(ra, nome, email, curso, semestre);
+            Aluno novoAluno = new Aluno(ra, nome, email);
             csvTableView.getItems().add(novoAluno);
 
             RaField.clear();
             nomeField.clear();
             emailField.clear();
-            cursoField.clear();
-            semestreField.clear();
         }
     }
 
@@ -220,24 +180,12 @@ public class ProfImportarController {
         aluno.setEmail(event.getNewValue());
     }
 
-    @FXML
-    public void handleEditCurso(TableColumn.CellEditEvent<Aluno, String> event) {
-        Aluno aluno = event.getRowValue();
-        aluno.setCurso(event.getNewValue());
-    }
-
-    @FXML
-    public void handleEditSemestre(TableColumn.CellEditEvent<Aluno, String> event) {
-        Aluno aluno = event.getRowValue();
-        aluno.setSemestre(event.getNewValue());
-    }
-
     // Implementação dos métodos de edição para as outras colunas
     @FXML
     public void handleClearRa() {
         Aluno selectedAluno = csvTableView.getSelectionModel().getSelectedItem();
         if (selectedAluno != null) {
-            oldValuesMap.put(selectedAluno, new Aluno(selectedAluno.getRa(), selectedAluno.getNome(), selectedAluno.getEmail(), selectedAluno.getCurso(), selectedAluno.getSemestre()));
+            oldValuesMap.put(selectedAluno, new Aluno(selectedAluno.getRa(), selectedAluno.getNome(), selectedAluno.getEmail()));
             selectedAluno.setRa("");
             csvTableView.refresh();
         }
@@ -247,7 +195,7 @@ public class ProfImportarController {
     public void handleClearNome() {
         Aluno selectedAluno = csvTableView.getSelectionModel().getSelectedItem();
         if (selectedAluno != null) {
-            oldValuesMap.put(selectedAluno, new Aluno(selectedAluno.getRa(), selectedAluno.getNome(), selectedAluno.getEmail(), selectedAluno.getCurso(), selectedAluno.getSemestre()));
+            oldValuesMap.put(selectedAluno, new Aluno(selectedAluno.getRa(), selectedAluno.getNome(), selectedAluno.getEmail()));
             selectedAluno.setNome("");
             csvTableView.refresh();
         }
@@ -257,46 +205,8 @@ public class ProfImportarController {
     public void handleClearEmail() {
         Aluno selectedAluno = csvTableView.getSelectionModel().getSelectedItem();
         if (selectedAluno != null) {
-            oldValuesMap.put(selectedAluno, new Aluno(selectedAluno.getRa(), selectedAluno.getNome(), selectedAluno.getEmail(), selectedAluno.getCurso(), selectedAluno.getSemestre()));
+            oldValuesMap.put(selectedAluno, new Aluno(selectedAluno.getRa(), selectedAluno.getNome(), selectedAluno.getEmail()));
             selectedAluno.setEmail("");
-            csvTableView.refresh();
-        }
-    }
-
-    @FXML
-    public void handleClearGrupo() {
-        Aluno selectedAluno = csvTableView.getSelectionModel().getSelectedItem();
-        if (selectedAluno != null) {
-            oldValuesMap.put(selectedAluno, new Aluno(selectedAluno.getRa(), selectedAluno.getNome(), selectedAluno.getEmail(), selectedAluno.getCurso(), selectedAluno.getSemestre()));
-            csvTableView.refresh();
-        }
-    }
-
-    @FXML
-    public void handleClearLink() {
-        Aluno selectedAluno = csvTableView.getSelectionModel().getSelectedItem();
-        if (selectedAluno != null) {
-            oldValuesMap.put(selectedAluno, new Aluno(selectedAluno.getRa(), selectedAluno.getNome(), selectedAluno.getEmail(), selectedAluno.getCurso(), selectedAluno.getSemestre()));
-            csvTableView.refresh();
-        }
-    }
-
-    @FXML
-    public void handleClearCurso() {
-        Aluno selectedAluno = csvTableView.getSelectionModel().getSelectedItem();
-        if (selectedAluno != null) {
-            oldValuesMap.put(selectedAluno, new Aluno(selectedAluno.getRa(), selectedAluno.getNome(), selectedAluno.getEmail(), selectedAluno.getCurso(), selectedAluno.getSemestre()));
-            selectedAluno.setCurso("");
-            csvTableView.refresh();
-        }
-    }
-
-    @FXML
-    public void handleClearSemestre() {
-        Aluno selectedAluno = csvTableView.getSelectionModel().getSelectedItem();
-        if (selectedAluno != null) {
-            oldValuesMap.put(selectedAluno, new Aluno(selectedAluno.getRa(), selectedAluno.getNome(), selectedAluno.getEmail(), selectedAluno.getCurso(), selectedAluno.getSemestre()));
-            selectedAluno.setSemestre("");
             csvTableView.refresh();
         }
     }
@@ -315,8 +225,6 @@ public class ProfImportarController {
             aluno.setRa(oldAluno.getRa());
             aluno.setNome(oldAluno.getNome());
             aluno.setEmail(oldAluno.getEmail());
-            aluno.setCurso(oldAluno.getCurso());
-            aluno.setSemestre(oldAluno.getSemestre());
         }
         oldValuesMap.clear();
         csvTableView.refresh();
@@ -331,10 +239,8 @@ public class ProfImportarController {
                 String ra = rs.getString("aluno_ra");
                 String nome = rs.getString("aluno_nome");
                 String email = rs.getString("aluno_email");
-                String curso = rs.getString("curso_sigla");
-                String semestre = rs.getString("semestre");
 
-                Aluno aluno = new Aluno(ra, nome, email, curso, semestre);
+                Aluno aluno = new Aluno(ra, nome, email);
                 csvTableView.getItems().add(aluno);
             }
 
@@ -345,15 +251,13 @@ public class ProfImportarController {
 
     // Método para salvar alunos no banco de dados
     private void saveAlunosToDatabase() {
-        String sql = "INSERT INTO aluno (aluno_ra, aluno_nome, aluno_email, curso_sigla, semestre) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO aluno (aluno_ra, aluno_nome, aluno_email) VALUES (?, ?, ?)";
         try (Connection connection = DatabaseConnection.getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             for (Aluno aluno : csvTableView.getItems()) {
                 stmt.setString(1, aluno.getRa());
                 stmt.setString(2, aluno.getNome());
                 stmt.setString(3, aluno.getEmail());
-                stmt.setString(4, aluno.getCurso());
-                stmt.setString(5, aluno.getSemestre());
 
                 stmt.addBatch();
             }
@@ -367,13 +271,11 @@ public class ProfImportarController {
 
     // Método para atualizar aluno no banco de dados
     private void updateAlunoInDatabase(Aluno aluno) {
-        String sql = "UPDATE aluno SET aluno_nome = ?, aluno_email = ?, curso_sigla = ?, semestre = ? WHERE aluno_ra = ?";
+        String sql = "UPDATE aluno SET aluno_nome = ?, aluno_email = ? WHERE aluno_ra = ?";
         try (Connection connection = DatabaseConnection.getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             stmt.setString(1, aluno.getNome());
             stmt.setString(2, aluno.getEmail());
-            stmt.setString(5, aluno.getCurso());
-            stmt.setString(6, aluno.getSemestre());
             stmt.setString(7, aluno.getRa());
 
             stmt.executeUpdate(); // Atualiza o aluno no banco
