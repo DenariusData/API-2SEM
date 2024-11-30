@@ -20,6 +20,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar;
@@ -41,6 +42,7 @@ import pacer.data.models.Sprint;
 import pacer.utils.convertImage;
 import pacer.utils.mbox;
 import pacer.utils.sceneSwitcher;
+import pacer.utils.traducaoMes;
 
 public class AlunoHomeController implements Initializable {
 
@@ -55,6 +57,8 @@ public class AlunoHomeController implements Initializable {
 
     @FXML
     private Label lblInfoSprint; 
+    @FXML
+    private Label lblInfoMes; 
 
     @FXML
     ImageView pnlFoto;
@@ -107,6 +111,7 @@ public class AlunoHomeController implements Initializable {
         dateAvaliacaoStart = sprintAtual.getDataInicio();
         dateAvaliacaoEnd = sprintAtual.getDataFim();
         int diasFaltantes = (int)ChronoUnit.DAYS.between(LocalDate.now(), sprintAtual.getDataFim());
+        lblInfoMes.setText(traducaoMes.traduzirMes(dateAvaliacaoStart.getMonth()));
         lblInfoSprint.setText("Você está na Sprint " + sprintAtual.getSprint() + " faltam " + diasFaltantes + " dias para o fim.");
     }
 
@@ -170,6 +175,8 @@ public class AlunoHomeController implements Initializable {
     private void setupColoredDays() {
         LocalDate avaliacaoStart = dateAvaliacaoStart;  // Início da avaliação
         LocalDate avaliacaoEnd = dateAvaliacaoEnd;    // Fim da avaliação
+
+        
 
         // Definir o período de avaliação com uma cor
         for (LocalDate date = avaliacaoStart; !date.isAfter(avaliacaoEnd); date = date.plusDays(1)) {
