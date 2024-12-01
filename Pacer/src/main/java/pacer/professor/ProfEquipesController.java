@@ -2,7 +2,6 @@ package pacer.professor;
 
 import java.io.IOException;
 
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,6 +18,7 @@ import pacer.data.dao.SprintDAO;
 import pacer.data.models.Aluno;
 import pacer.data.models.Grupo;
 import pacer.data.models.Sprint;
+import pacer.utils.mbox;
 import pacer.utils.sceneSwitcher;
 
 public class ProfEquipesController {
@@ -62,7 +62,7 @@ public class ProfEquipesController {
     public void initialize() {
         colNomeGrupo.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNome()));
         colReposLink.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getReposLink()));
-        colPontos.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getPontosSprint()));
+        // colPontos.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getPontosSprint()));
         colNomeIntegrante.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNome()));
 
         colPontos.setText("Pontos da Sprint " + SprintDAO.getSprintAtual().getSprint());
@@ -173,14 +173,23 @@ public class ProfEquipesController {
 
     @FXML
     public void handleRelatorio(ActionEvent event) throws IOException {
-        ProfEquipesRelatorioController controller = sceneSwitcher.switchSceneRetController("/FXML/ProfEquipesRelatorioView.fxml", event);
-        controller.selectGrupo(grupoSelecionado);
+        if (grupoSelecionado == null) {
+            mbox.ShowError("Selecione um grupo");
+            return;
+        }
+        ProfEquipesSprintController controller = sceneSwitcher.switchSceneRetController("/FXML/ProfEquipesSprintView.fxml", event);
+        controller.selectGrupo(grupoSelecionado, "Relatorio");
     }
     public void gerarRelatorio(Grupo grupoSelecionado, Sprint sprintSelecionada) throws IOException {
         grupoSelecionado.getRelatorio((Stage) btnRelatorio.getScene().getWindow(), sprintSelecionada);
     }
     @FXML
-    private void handlePontos() {
-
+    private void handlePontos(ActionEvent event) throws IOException {
+        if (grupoSelecionado == null) {
+            mbox.ShowError("Selecione um grupo");
+            return;
+        }
+        ProfEquipesSprintController controller = sceneSwitcher.switchSceneRetController("/FXML/ProfEquipesSprintView.fxml", event);
+        controller.selectGrupo(grupoSelecionado, "Pontos");
     }
 }

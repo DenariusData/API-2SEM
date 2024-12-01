@@ -8,13 +8,13 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="208.0" prefWidth="308.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pacer.professor.ProfEquipesRelatorioController">
+<AnchorPane prefHeight="208.0" prefWidth="308.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pacer.professor.ProfEquipesSprintController">
     <children>
         
         <VBox layoutX="4.0" layoutY="38.0" prefHeight="89.0" prefWidth="294.0" spacing="10">
             <HBox spacing="10" />
             <HBox spacing="10" />
-           <Label style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #004aad;" text="Baixar relatório" textAlignment="CENTER">
+           <Label style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #004aad;" text="Selecionar Sprint" textAlignment="CENTER">
             <VBox.margin>
                <Insets left="15.0" />
             </VBox.margin>
@@ -29,7 +29,7 @@
             </HBox>
             <HBox spacing="10">
             <children>
-                  <Button fx:id="btnBaixar" onAction="#baixarRelatorio" style="-fx-background-color: #004aad; -fx-text-fill: white;" text="Baixar">
+                  <Button fx:id="Concluir" onAction="#handleConcluir" style="-fx-background-color: #004aad; -fx-text-fill: white;" text="Baixar">
                   <HBox.margin>
                      <Insets left="15.0" />
                   </HBox.margin>

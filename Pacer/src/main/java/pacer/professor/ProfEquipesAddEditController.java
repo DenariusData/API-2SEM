@@ -42,7 +42,6 @@ public class ProfEquipesAddEditController {
         this.grupoAtual = grupo;
         txtNomeGrupo.setText(grupo.getNome());
         txtReposLink.setText(grupo.getReposLink());
-        txtPontos.setText(String.valueOf(grupo.getPontosSprint()));
         btnSalvar.setText("Atualizar Grupo");
     }
 
@@ -53,12 +52,11 @@ public class ProfEquipesAddEditController {
         int pontos = Integer.parseInt(txtPontos.getText());
 
         if (grupoAtual == null) {
-            Grupo novoGrupo = new Grupo(nome, reposLink, pontos);
+            Grupo novoGrupo = new Grupo(nome, reposLink);
             GrupoDAO.addGrupo(novoGrupo);
         } else {
             grupoAtual.setNome(nome);
             grupoAtual.setReposLink(reposLink);
-            grupoAtual.setPontosSprint(pontos);
             GrupoDAO.updateGrupo(grupoAtual);
         }
         sceneSwitcher.switchScene("/FXML/ProfEquipesView.fxml", event);

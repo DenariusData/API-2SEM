@@ -11,23 +11,23 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
 import pacer.data.dao.SprintDAO;
-import pacer.data.models.Sprint;
 import pacer.data.models.Grupo;
+import pacer.data.models.Sprint;
 import pacer.utils.sceneSwitcher;
 
-public class ProfEquipesRelatorioController implements Initializable {
+public class ProfEquipesSprintController implements Initializable {
     @FXML
     private ComboBox<Sprint> cmbSprint;
 
     private Sprint sprintSelecionada;
     private Grupo grupoSelecionado;
     private Button btn;
+    private String req;
 
-    public void selectGrupo(Grupo grupo) {
+    public void selectGrupo(Grupo grupo, String req) {
         grupoSelecionado = grupo;
+        this.req = req;
     }
 
     @Override
@@ -40,9 +40,18 @@ public class ProfEquipesRelatorioController implements Initializable {
         sprintSelecionada = cmbSprint.getSelectionModel().getSelectedItem();
     }
     @FXML
-    public void baixarRelatorio(ActionEvent event) throws IOException {
-        ProfEquipesController controller = sceneSwitcher.switchSceneRetController("/FXML/ProfEquipesView.fxml", event);
-        controller.gerarRelatorio(grupoSelecionado, sprintSelecionada);
+    public void handleConcluir(ActionEvent event) throws IOException {
+        switch(req)
+        {
+            case "Relatorio" -> {
+                ProfEquipesController controller = sceneSwitcher.switchSceneRetController("/FXML/ProfEquipesView.fxml", event);
+                controller.gerarRelatorio(grupoSelecionado, sprintSelecionada);
+            }
+            case "Pontos" -> {
+                ProfEquipesPontosController controllerPontos = sceneSwitcher.switchSceneRetController("/FXML/ProfEquipesPontosView.fxml", event);
+                controllerPontos.selectSprint(grupoSelecionado, sprintSelecionada);
+            }
+        }
     }
     @FXML
     public void cancelar(ActionEvent event) throws IOException {
