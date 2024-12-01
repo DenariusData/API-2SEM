@@ -11,33 +11,24 @@ public class Grupo {
     private String grupoNome;
     private String reposLink;
     private List<Aluno> alunos;
-    private int pontosSprint;
     // endregion
 
     // region Construtores
-    public Grupo(String grupoNome, String reposLink, int pontosSprint) {
+    public Grupo(String grupoNome, String reposLink) {
         this.grupoNome = grupoNome;
         this.reposLink = reposLink;
-        this.pontosSprint = pontosSprint;
     }
 
-    public Grupo(int grupoId, String grupoNome, String reposLink, int pontosSprint) {
+    public Grupo(int grupoId, String grupoNome, String reposLink) {
         this.grupoId = grupoId;
         this.grupoNome = grupoNome;
         this.reposLink = reposLink;
-        this.pontosSprint = pontosSprint;
     }
     // endregion
 
     // region Getters e Setters
     public int getId() {
         return grupoId;
-    }
-    public int getPontosSprint(){
-        return pontosSprint;
-    }
-    public void setPontosSprint(int pontosSprint){
-        this.pontosSprint = pontosSprint;
     }
 
     public void setId(int grupoId) {
