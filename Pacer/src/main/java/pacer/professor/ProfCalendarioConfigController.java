@@ -50,10 +50,6 @@ public class ProfCalendarioConfigController {
             showAlert("Erro", "A data de início não pode ser posterior à data de entrega.");
             return;
         }
-        if(dataInicio.isBefore(LocalDate.now()) || dataFim.isBefore(LocalDate.now())){
-            showAlert("Erro", "Nenhuma data pode ser marcada anterior ao dia de hoje.");
-            return;
-        }
 
         // Criar objeto de Calendario e salvar no banco
         Sprint sprint = new Sprint(sprintId, dataInicio, dataFim);
