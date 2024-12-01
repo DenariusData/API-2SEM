@@ -60,5 +60,9 @@ public class Sprint {
     public void setDataFim(LocalDate dataFim) {
         this.dataFim = dataFim;
     }
+    @Override
+    public String toString() {
+        return String.valueOf(sprint);
+    }
     //endregion
 }

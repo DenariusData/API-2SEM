@@ -57,7 +57,7 @@ public class AvaliacaoDAO {
             pstmt.setLong(2, avaliacao.getAvaliadorAlunoRa());
             pstmt.setInt(3, avaliacao.getCriterioId());
             pstmt.setDouble(4, avaliacao.getNota());
-            pstmt.setInt(4, avaliacao.getSprintId());
+            pstmt.setInt(5, avaliacao.getSprintId());
             pstmt.setTimestamp(6, java.sql.Timestamp.valueOf(avaliacao.getData()));
             pstmt.setInt(7, avaliacao.getAvaliacaoId());
             pstmt.executeUpdate();
@@ -75,6 +75,40 @@ public class AvaliacaoDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    public static Avaliacao getAvaliacaoPorAlunoECriterio(Long avaliadorRa, Long avaliadoRa, int criterioId, int sprintId) {
+        Avaliacao avaliacao = null;
+        String sql = "SELECT * FROM AVALIACAO WHERE AVALIADOR_ALUNO_RA = ? AND AVALIADO_ALUNO_RA = ? AND CRITERIO_ID = ? AND SPRINT_ID = ?";
+    
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+    
+            stmt.setLong(1, avaliadorRa); // Aluno que está fazendo a avaliação
+            stmt.setLong(2, avaliadoRa); // Aluno que está sendo avaliado
+            stmt.setLong(3, criterioId); // Critério específico
+            stmt.setLong(4, sprintId); // Critério específico
+    
+            ResultSet rs = stmt.executeQuery();
+            
+            
+            if (rs.next()) {
+                LocalDateTime data = rs.getTimestamp("AVALIACAO_DATA").toLocalDateTime();
+                
+                avaliacao = new Avaliacao();
+                avaliacao.setAvaliacaoId(rs.getInt("AVALIACAO_ID"));
+                avaliacao.setAvaliadorAlunoRa(rs.getLong("AVALIADOR_ALUNO_RA"));
+                avaliacao.setAvaliadoAlunoRa(rs.getLong("AVALIADO_ALUNO_RA"));
+                avaliacao.setCriterioId(rs.getInt("CRITERIO_ID"));
+                avaliacao.setNota(rs.getDouble("NOTA"));
+                avaliacao.setSprintId(rs.getInt("SPRINT_ID"));
+                avaliacao.setData(data);
+            }
+    
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    
+        return avaliacao;
     }
     public static Avaliacao getAvaliacaoPorAlunoECriterio(Long avaliadorRa, Long avaliadoRa, int criterioId) {
         Avaliacao avaliacao = null;

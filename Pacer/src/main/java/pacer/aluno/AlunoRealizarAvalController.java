@@ -24,6 +24,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import pacer.data.dao.AvaliacaoDAO;
 import pacer.data.dao.CriteriosDAO;
+import pacer.data.dao.SprintDAO;
 import pacer.data.models.Aluno;
 import pacer.data.models.AlunosParaAvaliacao;
 import pacer.data.models.Avaliacao;
@@ -119,17 +120,19 @@ public class AlunoRealizarAvalController implements Initializable {
             for (int i = 0; i < toggleGroups.size(); i++) {
                 ToggleGroup group = toggleGroups.get(i);
                 int criterioId = criterios.get(i).getId();
+                int sprintId = SprintDAO.getSprintAtual().getSprintId();
     
                 ToggleButton selectedToggle = (ToggleButton) group.getSelectedToggle();
             
                 if (selectedToggle != null) {
                     double nota = Double.parseDouble(selectedToggle.getText());
     
-                    Avaliacao avaliacaoExistente = AvaliacaoDAO.getAvaliacaoPorAlunoECriterio(avaliadorRa, avaliadoRa, criterioId);
+                    Avaliacao avaliacaoExistente = AvaliacaoDAO.getAvaliacaoPorAlunoECriterio(avaliadorRa, avaliadoRa, criterioId, sprintId);
     
                     if (avaliacaoExistente != null) {
                         avaliacaoExistente.setNota(nota);
                         avaliacaoExistente.setData(LocalDateTime.now());
+                        avaliacaoExistente.setSprintId(sprintId);
                         AvaliacaoDAO.update(avaliacaoExistente);
                     } 
                     else {
@@ -138,6 +141,7 @@ public class AlunoRealizarAvalController implements Initializable {
                         avaliacao.setAvaliadoAlunoRa(avaliadoRa);
                         avaliacao.setCriterioId(criterioId);
                         avaliacao.setNota(nota);
+                        avaliacao.setSprintId(sprintId);
                         avaliacao.setData(LocalDateTime.now());
     
                         AvaliacaoDAO.create(avaliacao);
