@@ -26,7 +26,6 @@ import pacer.data.models.Avaliacao;
 import pacer.data.models.Criterios;
 import pacer.data.models.Grupo;
 import pacer.data.models.Sprint;
-import pacer.utils.mbox;
 
 public class GrupoGerarRelatorio {
     
@@ -34,9 +33,9 @@ public class GrupoGerarRelatorio {
         Grupo grupo = GrupoDAO.getGrupoComAlunos(grupoSelecionado.getId());
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Salvar Relatório");
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Excel Files", "*.xlsx"));
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Excel Files", "*.csv"));
     
-        fileChooser.setInitialFileName("Relatorio - " + grupo.getNome() + " - Sprint " + sprint.getSprint() +".xlsx");
+        fileChooser.setInitialFileName("Relatorio - " + grupo.getNome() + " - Sprint " + sprint.getSprint() +".csv");
         File arquivo = fileChooser.showSaveDialog(stage);
     
         if (arquivo != null) {
