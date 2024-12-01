@@ -25,16 +25,18 @@ import pacer.data.models.Aluno;
 import pacer.data.models.Avaliacao;
 import pacer.data.models.Criterios;
 import pacer.data.models.Grupo;
+import pacer.data.models.Sprint;
+import pacer.utils.mbox;
 
 public class GrupoGerarRelatorio {
     
-    public static void GenRelatorio(Grupo grupoSelecionado, Stage stage) {
+    public static void GenRelatorio(Grupo grupoSelecionado, Stage stage, Sprint sprint) {
         Grupo grupo = GrupoDAO.getGrupoComAlunos(grupoSelecionado.getId());
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Salvar Relatório");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Excel Files", "*.xlsx"));
     
-        fileChooser.setInitialFileName("Relatorio - " + grupoSelecionado.getNome() + ".xlsx");
+        fileChooser.setInitialFileName("Relatorio - " + grupo.getNome() + " - Sprint " + sprint.getSprint() +".xlsx");
         File arquivo = fileChooser.showSaveDialog(stage);
     
         if (arquivo != null) {
@@ -85,7 +87,7 @@ public class GrupoGerarRelatorio {
     
                     sheet.addMergedRegion(new CellRangeAddress(rowNum - 2, rowNum - 2, 0, numColunas - 1));
     
-                    List<Aluno> alunos = AlunoDAO.getAlunosDoGrupo(grupoSelecionado.getId());
+                    List<Aluno> alunos = AlunoDAO.getAlunosDoGrupo(grupo.getId());
                     for (Aluno aluno : alunos) {
                         Row row = sheet.createRow(rowNum++);
                         Cell raCell = row.createCell(0);
@@ -103,17 +105,17 @@ public class GrupoGerarRelatorio {
                             double somaNotas = 0;
                             int totalAvaliacoes = 0;
     
-                            List<Aluno> alunosDoGrupo = AlunoDAO.getAlunosDoGrupo(grupoSelecionado.getId());
+                            List<Aluno> alunosDoGrupo = AlunoDAO.getAlunosDoGrupo(grupo.getId());
                             for (Aluno avaliador : alunosDoGrupo) {
                                 if (avaliador.getRa() != aluno.getRa()) {
-                                    Avaliacao avaliacao = AvaliacaoDAO.getAvaliacaoPorAlunoECriterio(avaliador.getRa(), aluno.getRa(), criterio.getId());
+                                    Avaliacao avaliacao = AvaliacaoDAO.getAvaliacaoPorAlunoECriterio(avaliador.getRa(), aluno.getRa(), criterio.getId(), sprint.getSprintId());
                                     if (avaliacao != null) {
                                         somaNotas += avaliacao.getNota();
                                         totalAvaliacoes++;
                                     }
                                 }
                             }
-                            double mediaNota = (totalAvaliacoes > 0) ? somaNotas / totalAvaliacoes : 0;
+                            double mediaNota = (grupo.getAlunos().size() > 0) ? somaNotas / grupo.getAlunos().size() : 0;
                             row.createCell(colIndex++).setCellValue(mediaNota);
                         }
                     }

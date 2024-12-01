@@ -18,6 +18,7 @@ import pacer.data.dao.GrupoDAO;
 import pacer.data.dao.SprintDAO;
 import pacer.data.models.Aluno;
 import pacer.data.models.Grupo;
+import pacer.data.models.Sprint;
 import pacer.utils.sceneSwitcher;
 
 public class ProfEquipesController {
@@ -172,7 +173,11 @@ public class ProfEquipesController {
 
     @FXML
     public void handleRelatorio(ActionEvent event) throws IOException {
-        grupoSelecionado.getRelatorio((Stage) btnRelatorio.getScene().getWindow());
+        ProfEquipesRelatorioController controller = sceneSwitcher.switchSceneRetController("/FXML/ProfEquipesRelatorioView.fxml", event);
+        controller.selectGrupo(grupoSelecionado);
+    }
+    public void gerarRelatorio(Grupo grupoSelecionado, Sprint sprintSelecionada) throws IOException {
+        grupoSelecionado.getRelatorio((Stage) btnRelatorio.getScene().getWindow(), sprintSelecionada);
     }
     @FXML
     private void handlePontos() {

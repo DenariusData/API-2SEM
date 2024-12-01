@@ -68,8 +68,8 @@ public class Grupo {
         this.alunos = alunos;
     }
     
-    public void getRelatorio(Stage stage) {
-        GrupoGerarRelatorio.GenRelatorio(this, stage);
+    public void getRelatorio(Stage stage, Sprint sprint) {
+        GrupoGerarRelatorio.GenRelatorio(this, stage, sprint);
     }
 
     @Override
