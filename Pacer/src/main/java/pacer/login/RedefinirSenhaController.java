@@ -1,14 +1,15 @@
 package pacer.login;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.ToggleButton;
 import pacer.data.dao.AlunoDAO;
 import pacer.data.models.Aluno;
 import pacer.utils.mbox;
+import pacer.utils.sceneSwitcher;
 
 public class RedefinirSenhaController {
 
@@ -30,7 +31,7 @@ public class RedefinirSenhaController {
     }
 
     @FXML
-    private void handleConfirmarSenha() {
+    private void handleConfirmarSenha(ActionEvent event) {
         String novaSenha = txtNovaSenha.getText();
         String confirmarSenha = txtConfirmarSenha.getText();
 
@@ -52,6 +53,7 @@ public class RedefinirSenhaController {
             aluno.setSenha(novaSenha);
             AlunoDAO.updateAluno(aluno);
             mbox.ShowMessageBox(Alert.AlertType.INFORMATION, "Sucesso", "Senha redefinida com sucesso!");
+            sceneSwitcher.switchScene("/FXML/LoginView.fxml", event);
         } catch (Exception e) {
         }
         
