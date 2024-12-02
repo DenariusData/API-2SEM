@@ -16,6 +16,9 @@ import pacer.data.dao.AlunoDAO;
 import pacer.data.dao.GrupoDAO;
 import pacer.data.models.Aluno;
 import pacer.data.models.Grupo;
+import pacer.data.models.Pontos;
+import pacer.data.models.Sprint;
+import pacer.utils.mbox;
 import pacer.utils.sceneSwitcher;
 
 public class ProfEquipesController {
@@ -40,13 +43,10 @@ public class ProfEquipesController {
     @FXML
     private TableColumn<Grupo, String> colReposLink;
     @FXML
-    private TableColumn<Grupo, String> colSemestre;
+    private TableColumn<Pontos, Integer> colPontos;
 
     private Grupo grupoSelecionado;
     private Aluno membroSelecionado;
-
-    @FXML
-    private TableColumn<Grupo, String> colCurso;
     
     @FXML
     private Button btnRelatorio;
@@ -62,16 +62,13 @@ public class ProfEquipesController {
     public void initialize() {
         colNomeGrupo.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNome()));
         colReposLink.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getReposLink()));
-        colSemestre.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSemestre()));
-        colCurso.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCursoSigla()));
         colNomeIntegrante.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNome()));
 
         carregarGrupos();
         configurarTabelas();
         
-
-        // Listener para detecção de seleção de grupo
         tblGrupos.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            tblIntegrantes.getItems().clear();
             if (newSelection != null) {
                 carregarMembros(newSelection.getId());
             }
@@ -89,6 +86,10 @@ public class ProfEquipesController {
 
     private void carregarMembros(int grupoId) {
         membros.setAll(AlunoDAO.getAlunosByGrupo(grupoId));
+    }
+    @FXML
+    private void handleSemGrupos() {
+        membros.setAll(AlunoDAO.getAlunosSemGrupo());
     }
 
 
@@ -174,10 +175,33 @@ public class ProfEquipesController {
 
     @FXML
     public void handleRelatorio(ActionEvent event) throws IOException {
-        grupoSelecionado.getRelatorio((Stage) btnRelatorio.getScene().getWindow());
+        if (grupoSelecionado == null) {
+            mbox.ShowError("Selecione um grupo");
+            return;
+        }
+        ProfEquipesSprintController controller = sceneSwitcher.openNewWindow("/FXML/ProfEquipesSprintView.fxml");
+        controller.selectGrupo(grupoSelecionado, "Relatorio");
+    }
+    public void gerarRelatorio(Grupo grupoSelecionado, Sprint sprintSelecionada, Stage stage) throws IOException {
+        stage.close();
+        grupoSelecionado.getRelatorio((Stage) btnRelatorio.getScene().getWindow(), sprintSelecionada);
     }
     @FXML
-    private void handlePontos() {
-
+    private void handlePontos(ActionEvent event) throws IOException {
+        if (grupoSelecionado == null) {
+            mbox.ShowError("Selecione um grupo");
+            return;
+        }
+        ProfEquipesSprintController controller = sceneSwitcher.openNewWindow("/FXML/ProfEquipesSprintView.fxml");
+        controller.selectGrupo(grupoSelecionado, "Pontos");
+    }
+    @FXML
+    private void handleVerPontos(ActionEvent event) throws IOException {
+        if (grupoSelecionado == null) {
+            mbox.ShowError("Selecione um grupo");
+            return;
+        }
+        ProfEquipesSprintController controller = sceneSwitcher.openNewWindow("/FXML/ProfEquipesSprintView.fxml");
+        controller.selectGrupo(grupoSelecionado, "VerPontos");
     }
 }

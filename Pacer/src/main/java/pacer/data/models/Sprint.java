@@ -5,30 +5,36 @@ import java.time.LocalDate;
 public class Sprint {
 
     //region Atributos
-    private int sprintId;
+    private int id;
     private int sprint;
-    private int semestre;
     private LocalDate dataInicio;
     private LocalDate dataFim;
     //endregion
 
     //region Construtor
-    public Sprint(int sprintId, int sprint, int semestre, LocalDate dataInicio, LocalDate dataFim) {
-        this.sprintId = sprintId;
+    public Sprint(int sprintId, int sprint, LocalDate dataInicio, LocalDate dataFim) {
+        this.id = sprintId;
         this.sprint = sprint;
-        this.semestre = semestre;
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
+    }
+    public Sprint(int sprint, LocalDate dataInicio, LocalDate dataFim) {
+        this.sprint = sprint;
+        this.dataInicio = dataInicio;
+        this.dataFim = dataFim;
+    }
+    public Sprint() {
+
     }
     //endregion
 
     //region Getters e Setters
     public int getSprintId() {
-        return sprintId;
+        return id;
     }
 
     public void setSprintId(int sprintId) {
-        this.sprintId = sprintId;
+        this.id = sprintId;
     }
 
     public int getSprint() {
@@ -37,14 +43,6 @@ public class Sprint {
 
     public void setSprint(int sprint) {
         this.sprint = sprint;
-    }
-
-    public int getSemestre() {
-        return semestre;
-    }
-
-    public void setSemestre(int semestre) {
-        this.semestre = semestre;
     }
 
     public LocalDate getDataInicio() {
@@ -61,6 +59,10 @@ public class Sprint {
 
     public void setDataFim(LocalDate dataFim) {
         this.dataFim = dataFim;
+    }
+    @Override
+    public String toString() {
+        return String.valueOf(sprint);
     }
     //endregion
 }

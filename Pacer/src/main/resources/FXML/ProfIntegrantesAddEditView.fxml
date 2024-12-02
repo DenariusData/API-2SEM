@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pacer.professor.ProfIntegrantesAddEditController">
+<AnchorPane prefHeight="258.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pacer.professor.ProfIntegrantesAddEditController">
     <children>
         <Label layoutX="14.0" layoutY="14.0" style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #004aad;" text="Adicionar/Editar Integrante" textAlignment="CENTER" />
         
@@ -29,19 +29,13 @@
                 <Label text="Grupo:" />
             <ComboBox fx:id="cmbGrupo" onAction="#selectGrupo" prefHeight="25.0" prefWidth="238.0" style="-fx-border-color: #bfbfbf; -fx-background-color: #FFFFFF;" />
             </HBox>
-            <HBox spacing="10">
-                <Label text="Curso:" />
-                <TextField fx:id="txtCursoSigla" prefWidth="200.0" />
-            </HBox>
-            <HBox spacing="10">
-                <Label text="Semestre:" />
-                <TextField fx:id="txtSemestre" prefWidth="200.0" />
-            </HBox>
+            <HBox spacing="10" />
+            <HBox spacing="10" />
             
         </VBox>
 
-        <HBox layoutX="14.0" layoutY="210.0" spacing="10" />
-         <Button layoutX="21.0" layoutY="261.0" onAction="#salvarAluno" style="-fx-background-color: #004aad; -fx-text-fill: white;" text="Salvar" />
-         <Button layoutX="88.0" layoutY="261.0" onAction="#cancelar" style="-fx-background-color: grey; -fx-text-fill: white;" text="Cancelar" />
+        <HBox layoutX="14.0" layoutY="210.0" prefHeight="27.0" prefWidth="0.0" spacing="10" />
+         <Button layoutX="14.0" layoutY="210.0" onAction="#salvarAluno" style="-fx-background-color: #004aad; -fx-text-fill: white;" text="Salvar" />
+         <Button layoutX="69.0" layoutY="210.0" onAction="#cancelar" style="-fx-background-color: grey; -fx-text-fill: white;" text="Cancelar" />
     </children>
 </AnchorPane>

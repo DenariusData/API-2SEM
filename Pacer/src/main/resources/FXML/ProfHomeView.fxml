@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.ToggleButton?>
@@ -32,56 +31,54 @@
          </children>
       </Pane>
 
-      <!-- Calendário -->
-      <DatePicker fx:id="pnlCalendario" layoutX="598.0" layoutY="23.0" prefWidth="300" />
-
-      <!-- Configurações de Cronograma -->
-      <Pane layoutX="640.0" layoutY="316.0" prefHeight="120" prefWidth="217.0" style="-fx-background-color: white; -fx-border-color: #004aad; -fx-border-width: 1; -fx-border-radius: 10;">
-         <children>
-            <ToggleButton fx:id="pnlBotaoconfig" layoutX="34.0" layoutY="21.0" prefWidth="150" style="-fx-background-color: #004aad;" text="Configurar" textFill="WHITE">
-               <font>
-                  <Font name="Arial Black" size="12.0" />
-               </font>
-            </ToggleButton>
-            <Label fx:id="pnlOrientacaoconfig" layoutX="20" layoutY="60" prefHeight="44.0" prefWidth="180.0" text="Configurar datas do cronograma do projeto." wrapText="true">
-               <font>
-                  <Font name="Arial Black" size="10.0" />
-               </font></Label>
-         </children>
-      </Pane>
-
       <!-- Gerenciamento de Equipes -->
-      <Pane layoutX="275.0" layoutY="10.0" prefHeight="426.0" prefWidth="272.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-color: #004aad; -fx-border-radius: 10;">
+      <Pane layoutX="275.0" layoutY="10.0" prefHeight="426.0" prefWidth="587.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-color: #004aad; -fx-border-radius: 10;">
          <children>
-            <ToggleButton fx:id="pnlBotaogerenciar" layoutX="60.0" layoutY="113.0" onAction="#handleEquipes" prefWidth="150" style="-fx-background-color: #004aad;" text="Gerenciar Equipes" textFill="WHITE">
+            <ToggleButton fx:id="pnlBotaogerenciar" layoutX="79.0" layoutY="111.0" onAction="#handleEquipes" prefWidth="150" style="-fx-background-color: #004aad;" text="Gerenciar Equipes" textFill="WHITE">
                <font>
                   <Font name="Arial Black" size="13.0" />
                </font>
             </ToggleButton>
-            <Label fx:id="pnlOrientacaogerenciar" layoutX="28.0" layoutY="151.0" prefHeight="34.0" prefWidth="230.0" text="Atribuir notas, adicionar/excluir membros e relátorios." wrapText="true">
+            <Label fx:id="pnlOrientacaogerenciar" layoutX="39.0" layoutY="152.0" prefHeight="34.0" prefWidth="230.0" text="Atribuir notas, adicionar/excluir membros e relátorios." wrapText="true">
                <font>
                   <Font name="Arial Black" size="10.0" />
                </font></Label>
-            <ToggleButton fx:id="pnlBotaocriterios" layoutX="45.0" layoutY="303.0" onAction="#handleCriterios" prefWidth="180" style="-fx-background-color: #004aad;" text="Administração de Critérios" textFill="WHITE">
+            <ToggleButton fx:id="pnlBotaocriterios" layoutX="357.0" layoutY="113.0" onAction="#handleCriterios" prefWidth="180" style="-fx-background-color: #004aad;" text="Administração de Critérios" textFill="WHITE">
                <font>
                   <Font name="Arial Black" size="11.0" />
                </font>
             </ToggleButton>
-            <Label fx:id="pnlOrientacaocriterios" layoutX="43.0" layoutY="353.0" prefWidth="200" text="Incluir ou alterar critérios de avaliação." wrapText="true">
+            <Label fx:id="pnlOrientacaocriterios" layoutX="357.0" layoutY="154.0" prefWidth="200" text="Incluir ou alterar critérios de avaliação." wrapText="true">
                <font>
                   <Font name="Arial Black" size="10.0" />
                </font></Label>
-            <ImageView fitHeight="80.0" fitWidth="107.0" layoutX="95.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="80.0" fitWidth="107.0" layoutX="114.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/gerenciar_prof.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="80.0" fitWidth="101.0" layoutX="96.0" layoutY="223.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="80.0" fitWidth="101.0" layoutX="407.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/criterios_prof.png" />
                </image>
             </ImageView>
-            <Separator layoutX="6.0" layoutY="209.0" prefHeight="4.0" prefWidth="260.0" />
+            <Separator layoutX="6.0" layoutY="213.0" prefHeight="0.0" prefWidth="579.0" />
+            <Label fx:id="pnlOrientacaoconfig" layoutX="204.0" layoutY="362.0" prefHeight="44.0" prefWidth="180.0" text="Configurar datas do cronograma do projeto." wrapText="true">
+               <font>
+                  <Font name="Arial Black" size="10.0" />
+               </font>
+            </Label>
+            <ToggleButton fx:id="pnlBotaoconfig" layoutX="216.0" layoutY="331.0" onAction="#handleConfigurar" prefWidth="150" style="-fx-background-color: #004aad;" text="Configurar" textFill="WHITE">
+               <font>
+                  <Font name="Arial Black" size="12.0" />
+               </font>
+            </ToggleButton>
+            <ImageView fitHeight="80.0" fitWidth="107.0" layoutX="251.0" layoutY="236.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/Calendario-prof" />
+               </image>
+            </ImageView>
+            <Separator layoutX="293.0" layoutY="1.0" orientation="VERTICAL" prefHeight="211.0" prefWidth="6.0" />
          </children>
       </Pane>
 

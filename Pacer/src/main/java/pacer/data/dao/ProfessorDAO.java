@@ -1,6 +1,5 @@
 package pacer.data.dao;
 
-import java.io.ByteArrayInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,11 +15,10 @@ public class ProfessorDAO {
     private static Connection connection = DatabaseConnection.getConnection();
 
     public static void addProfessor(Professor professor) {
-        String sql = "INSERT INTO PROFESSOR (PROF_EMAIL, PROF_SENHA, FOTO) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO PROFESSOR (PROF_EMAIL, PROF_SENHA) VALUES (?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, professor.getEmail());
             stmt.setString(2, professor.getSenha());
-            stmt.setBlob(3, new ByteArrayInputStream(professor.getFoto()));
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -36,11 +34,8 @@ public class ProfessorDAO {
             
             if (rs.next()) {
                 return Professor.ProfessorLogado.getInstancia(
-                    rs.getInt("PROF_ID"),
-                    rs.getString("PROF_NOME"),
                     rs.getString("PROF_EMAIL"),
-                    rs.getString("PROF_SENHA"),
-                    rs.getBytes("FOTO")
+                    rs.getString("PROF_SENHA")
                 );
             }
         } catch (SQLException e) {
@@ -54,36 +49,11 @@ public class ProfessorDAO {
         String sql = "SELECT * FROM PROFESSOR";
         try (Statement stmt = connection.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
-                professores.add(new Professor(rs.getInt("PROF_ID"), rs.getString("PROF_NOME"), rs.getString("PROF_EMAIL"),
-                        rs.getString("PROF_SENHA"), rs.getBytes("FOTO")));
+                professores.add(new Professor(rs.getString("PROF_EMAIL"), rs.getString("PROF_SENHA")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return professores;
-    }
-
-    public static void updateProfessor(Professor professor) {
-        String sql = "UPDATE PROFESSOR SET PROF_NOME = ?, PROF_EMAIL = ?, PROF_SENHA = ?, FOTO = ? WHERE PROF_ID = ?";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, professor.getNome());
-            stmt.setString(2, professor.getEmail());
-            stmt.setString(3, professor.getSenha());
-            stmt.setBlob(4, new ByteArrayInputStream(professor.getFoto()));
-            stmt.setInt(5, professor.getId());
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void deleteProfessor(int id) {
-        String sql = "DELETE FROM PROFESSOR WHERE PROF_ID = ?";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setInt(1, id);
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 }

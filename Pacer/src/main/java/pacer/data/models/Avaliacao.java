@@ -10,6 +10,7 @@ public class Avaliacao {
     private long avaliadorAlunoRa;
     private int criterioId;
     private double nota;
+    private int sprintId;
     private LocalDateTime data;
     //endregion
 
@@ -20,6 +21,15 @@ public class Avaliacao {
         this.avaliadorAlunoRa = avaliadorAlunoRa;
         this.criterioId = criterioId;
         this.nota = nota;
+        this.data = data;
+    }
+    public Avaliacao(int avaliacaoId, long avaliadoAlunoRa, long avaliadorAlunoRa, int criterioId, double nota, int sprintId, LocalDateTime data) {
+        this.avaliacaoId = avaliacaoId;
+        this.avaliadoAlunoRa = avaliadoAlunoRa;
+        this.avaliadorAlunoRa = avaliadorAlunoRa;
+        this.criterioId = criterioId;
+        this.nota = nota;
+        this.sprintId = sprintId;
         this.data = data;
     }
     public Avaliacao() {
@@ -66,6 +76,14 @@ public class Avaliacao {
 
     public void setNota(double nota) {
         this.nota = nota;
+    }
+
+    public int getSprintId() {
+        return sprintId;
+    }
+
+    public void setSprintId(int sprintId) {
+        this.sprintId = sprintId;
     }
 
     public LocalDateTime getData() {

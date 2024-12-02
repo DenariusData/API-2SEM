@@ -7,6 +7,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.time.LocalDate;
 import java.time.YearMonth;
+import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -19,7 +20,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
@@ -33,9 +36,13 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import pacer.data.dao.AlunoDAO;
+import pacer.data.dao.SprintDAO;
 import pacer.data.models.Aluno;
+import pacer.data.models.Sprint;
 import pacer.utils.convertImage;
+import pacer.utils.mbox;
 import pacer.utils.sceneSwitcher;
+import pacer.utils.traducaoMes;
 
 public class AlunoHomeController implements Initializable {
 
@@ -47,6 +54,11 @@ public class AlunoHomeController implements Initializable {
 
     @FXML
     private Label monthYearLabel;  // Novo Label para exibir o mês e ano
+
+    @FXML
+    private Label lblInfoSprint; 
+    @FXML
+    private Label lblInfoMes; 
 
     @FXML
     ImageView pnlFoto;
@@ -62,15 +74,27 @@ public class AlunoHomeController implements Initializable {
     // Mapa para armazenar dias coloridos
     private Map<LocalDate, Color> coloredDays = new HashMap<>();
 
+    private Sprint sprintAtual;
+
+    private LocalDate dateAvaliacaoStart = LocalDate.now();
+    private LocalDate dateAvaliacaoEnd = LocalDate.now();
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         CentralizarJanela(anchorPane);
+
+        configurarAluno(); 
+
+        if (SprintDAO.getSprintAtual() == null) mbox.ShowMessageBox(AlertType.INFORMATION, "SPRINT", "Não existe Sprint para o periodo atual.");
+        if (SprintDAO.getSprintAtual() != null) configurarInfoSprint();
 
         // Configurar o calendário customizado
         setupColoredDays();
         YearMonth currentMonth = YearMonth.now();  // Mês e ano atuais
         populateCalendar(currentMonth);
-
+    }
+    
+    private void configurarAluno() {
         logado = Aluno.AlunoLogado.getAluno();
         InputStream fotoStream = convertImage.imageToInputStream(logado.getFoto());
         if (fotoStream != null) {
@@ -80,6 +104,15 @@ public class AlunoHomeController implements Initializable {
         nomeField.setText(logado.getNome());
         emailField.setText(logado.getEmail());
         raField.setText(String.valueOf(logado.getRa()));
+    }
+
+    private void configurarInfoSprint() {
+        sprintAtual = SprintDAO.getSprintAtual();
+        dateAvaliacaoStart = sprintAtual.getDataInicio();
+        dateAvaliacaoEnd = sprintAtual.getDataFim();
+        int diasFaltantes = (int)ChronoUnit.DAYS.between(LocalDate.now(), sprintAtual.getDataFim());
+        lblInfoMes.setText(traducaoMes.traduzirMes(LocalDate.now().getMonth()));
+        lblInfoSprint.setText("Você está na Sprint " + sprintAtual.getSprint() + " faltam " + diasFaltantes + " dias para o fim.");
     }
 
     // Método para preencher o calendário com os dias do mês
@@ -140,8 +173,10 @@ public class AlunoHomeController implements Initializable {
 
     // Método para definir dias coloridos (exemplo: avaliação, dias especiais)
     private void setupColoredDays() {
-        LocalDate avaliacaoStart = LocalDate.now().plusDays(3);  // Início da avaliação
-        LocalDate avaliacaoEnd = avaliacaoStart.plusDays(6);     // Fim da avaliação
+        LocalDate avaliacaoStart = dateAvaliacaoStart;  // Início da avaliação
+        LocalDate avaliacaoEnd = dateAvaliacaoEnd;    // Fim da avaliação
+
+        
 
         // Definir o período de avaliação com uma cor
         for (LocalDate date = avaliacaoStart; !date.isAfter(avaliacaoEnd); date = date.plusDays(1)) {

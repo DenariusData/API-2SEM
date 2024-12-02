@@ -4,51 +4,28 @@ CREATE DATABASE API;
 
 USE API;
 
-CREATE TABLE CURSO (
-	CURSO_ID INT AUTO_INCREMENT,
-    CURSO_NOME VARCHAR(50) NOT NULL,
-    CURSO_SIGLA VARCHAR(5) UNIQUE NOT NULL,
-    PRIMARY KEY(CURSO_ID)
-);
-
 CREATE TABLE GRUPO (
     GRUPO_ID INT AUTO_INCREMENT,
     GRUPO_NOME VARCHAR(20) NOT NULL UNIQUE,
     REPOS_LINK VARCHAR(255) NOT NULL,
-    CURSO_SIGLA VARCHAR(5) NOT NULL,
-    SEMESTRE VARCHAR(10) NOT NULL,
-    PRIMARY KEY (GRUPO_ID),
-    FOREIGN KEY (CURSO_SIGLA) REFERENCES CURSO(CURSO_SIGLA)
+    PRIMARY KEY (GRUPO_ID)
 );
 
 CREATE TABLE ALUNO (
     ALUNO_RA BIGINT NOT NULL,                 
-    ALUNO_EMAIL VARCHAR(30) NOT NULL UNIQUE,   
+    ALUNO_EMAIL VARCHAR(50) NOT NULL UNIQUE,   
     ALUNO_NOME VARCHAR(100) NOT NULL,
     ALUNO_SENHA VARCHAR(30),
     FOTO LONGBLOB,
     GRUPO_ID INT,
-    CURSO_SIGLA VARCHAR(5) NOT NULL,
-    SEMESTRE VARCHAR(10) NOT NULL,
     PRIMARY KEY (ALUNO_RA),
-    FOREIGN KEY (CURSO_SIGLA) REFERENCES CURSO(CURSO_SIGLA),
     FOREIGN KEY (GRUPO_ID) REFERENCES GRUPO(GRUPO_ID)
 );
 
 CREATE TABLE PROFESSOR (
-    PROF_ID INT AUTO_INCREMENT,
-    PROF_NOME VARCHAR(100) NOT NULL,
     PROF_EMAIL VARCHAR(30) NOT NULL UNIQUE,  
     PROF_SENHA VARCHAR(30) NOT NULL,
-    FOTO LONGBLOB,
-    PRIMARY KEY (PROF_ID)
-);
-
-CREATE TABLE MATERIA (
-    MATERIA_ID INT AUTO_INCREMENT,
-    MATERIA_NOME VARCHAR(30) NOT NULL,
-    MATERIA_SEMESTRE INT NOT NULL,
-    PRIMARY KEY (MATERIA_ID)
+    PRIMARY KEY (PROF_EMAIL)
 );
 
 CREATE TABLE CRITERIOS (
@@ -59,135 +36,135 @@ CREATE TABLE CRITERIOS (
     PRIMARY KEY (CRITERIO_ID)
 );
 
-CREATE TABLE AVALIACAO (
-    AVALIACAO_ID INT AUTO_INCREMENT,
-    AVALIADO_ALUNO_RA BIGINT NOT NULL,
-    AVALIADOR_ALUNO_RA BIGINT NOT NULL,
-    CRITERIO_ID INT NOT NULL,
-    NOTA DECIMAL(3,1) NOT NULL,
-    AVALIACAO_DATA DATETIME NOT NULL,
-    PRIMARY KEY (AVALIACAO_ID),
-    FOREIGN KEY (AVALIADO_ALUNO_RA) REFERENCES ALUNO(ALUNO_RA),
-    FOREIGN KEY (AVALIADOR_ALUNO_RA) REFERENCES ALUNO(ALUNO_RA),
-    FOREIGN KEY (CRITERIO_ID) REFERENCES CRITERIOS(CRITERIO_ID)
-);
-
 CREATE TABLE SPRINT (
     SPRINT_ID INT AUTO_INCREMENT,
     SPRINT_NUM INT NOT NULL,
-    SPRINT_SEMESTRE INT NOT NULL,
     SPRINT_DATA_INICIO DATE NOT NULL,
     SPRINT_DATA_FIM DATE NOT NULL,
     CONSTRAINT CK_SPRINT CHECK (SPRINT_NUM IN (1,2,3,4)),
     PRIMARY KEY (SPRINT_ID)
 );
 
-CREATE TABLE CALENDARIO (
-    CALENDARIO_ID INT AUTO_INCREMENT,
-    SEMESTRE VARCHAR(10) NOT NULL,
-    SPRINT_ID INT,
-    DATA_INICIO DATE NOT NULL,
-    DATA_FIM DATE NOT NULL,
-    PRIMARY KEY (CALENDARIO_ID),
+CREATE TABLE AVALIACAO (
+    AVALIACAO_ID INT AUTO_INCREMENT,
+    AVALIADO_ALUNO_RA BIGINT NOT NULL,
+    AVALIADOR_ALUNO_RA BIGINT NOT NULL,
+    CRITERIO_ID INT NOT NULL,
+    NOTA DECIMAL(3,1) NOT NULL,
+    SPRINT_ID INT NOT NULL,
+    AVALIACAO_DATA DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
+    PRIMARY KEY (AVALIACAO_ID),
+    FOREIGN KEY (AVALIADO_ALUNO_RA) REFERENCES ALUNO(ALUNO_RA),
+    FOREIGN KEY (AVALIADOR_ALUNO_RA) REFERENCES ALUNO(ALUNO_RA),
+    FOREIGN KEY (CRITERIO_ID) REFERENCES CRITERIOS(CRITERIO_ID),
     FOREIGN KEY (SPRINT_ID) REFERENCES SPRINT(SPRINT_ID)
 );
 
--- Inserir cursos
-INSERT INTO CURSO (CURSO_NOME, CURSO_SIGLA) VALUES
-('Engenharia de Software', 'ES'),
-('Sistemas de Informação', 'SI'),
-('Ciência da Computação', 'CC'),
-('Design de Sistemas', 'DS');
+CREATE TABLE CALENDARIO (
+    CALENDARIO_ID INT AUTO_INCREMENT,
+    SEMESTRE VARCHAR(10) NOT NULL,
+    DATA_INICIO DATE NOT NULL,
+    DATA_FIM DATE NOT NULL,
+    PRIMARY KEY (CALENDARIO_ID)
+);
 
--- Inserir grupos
-INSERT INTO GRUPO (GRUPO_NOME, REPOS_LINK, CURSO_SIGLA, SEMESTRE) VALUES
-('Grupo A', 'https://github.com/grupoA', 'ES', '2024.1'),
-('Grupo B', 'https://github.com/grupoB', 'SI', '2024.1'),
-('Grupo C', 'https://github.com/grupoC', 'CC', '2024.1'),
-('Grupo D', 'https://github.com/grupoD', 'DS', '2024.1');
+CREATE TABLE PONTOS_SPRINT (
+    PONTOS_INICIAIS INT,
+    PONTOS_ATUAIS INT,
+    SPRINT_ID INT NOT NULL,
+    GRUPO_ID INT NOT NULL,
+    DATA_ATRIBUICAO DATETIME DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY(SPRINT_ID, GRUPO_ID),
+    FOREIGN KEY (SPRINT_ID) REFERENCES SPRINT(SPRINT_ID),
+    FOREIGN KEY (GRUPO_ID) REFERENCES GRUPO(GRUPO_ID)
+);
 
--- Inserindo professores
-INSERT INTO PROFESSOR (PROF_NOME, PROF_EMAIL, PROF_SENHA) VALUES
-('Carlos Silva', 'carlos.silva@exemplo.com', 'senha123'),
-('Ana Souza', 'ana.souza@exemplo.com', 'senha456'),
-('Roberto Oliveira', 'roberto.oliveira@exemplo.com', 'senha789'),
-('Mariana Costa', 'mariana.costa@exemplo.com', 'senha012'),
-('Paulo Almeida', 'paulo.almeida@exemplo.com', 'senha345');
+-- Grupos
+INSERT INTO GRUPO (GRUPO_NOME, REPOS_LINK)
+VALUES 
+('Equipe Alpha', 'https://github.com/equipe-alpha'),
+('Equipe Beta', 'https://github.com/equipe-beta');
 
+-- Alunos
+INSERT INTO ALUNO (ALUNO_RA, ALUNO_EMAIL, ALUNO_NOME, ALUNO_SENHA, GRUPO_ID)
+VALUES
+(12345678901, 'joao.alpha@email.com', 'João Silva', 'senha123', 1),
+(12345678902, 'maria.alpha@email.com', 'Maria Oliveira', 'senha123', 1),
+(12345678903, 'carlos.beta@email.com', 'Carlos Santos', 'senha123', 2),
+(12345678904, 'ana.beta@email.com', 'Ana Pereira', 'senha123', 2),
+(12345678905, 'lucas@email.com', 'Lucas Fernandes', 'senha123', NULL),
+(12345678906, 'juliana@email.com', 'Juliana Souza', 'senha123', NULL),
+(12345678907, 'ricardo@email.com', 'Ricardo Lima', 'senha123', NULL);
 
--- Inserir alunos
-INSERT INTO ALUNO (ALUNO_RA, ALUNO_EMAIL, ALUNO_NOME, ALUNO_SENHA, GRUPO_ID, CURSO_SIGLA, SEMESTRE) VALUES
-(1234567890123, 'joao@exemplo.com', 'João Silva', 'senha123', 1, 'ES', '2024.1'),
-(1234567890124, 'maria@exemplo.com', 'Maria Oliveira', 'senha123', 1, 'ES', '2024.1'),
-(1234567890125, 'pedro@exemplo.com', 'Pedro Santos', 'senha123', 1, 'ES', '2024.1'),
-(1234567890126, 'lucas@exemplo.com', 'Lucas Pereira', 'senha123', 2, 'SI', '2024.1'),
-(1234567890127, 'juliana@exemplo.com', 'Juliana Costa', 'senha123', 2, 'SI', '2024.1'),
-(1234567890128, 'ana@exemplo.com', 'Ana Souza', 'senha123', 2, 'SI', '2024.1'),
-(1234567890129, 'gustavo@exemplo.com', 'Gustavo Lima', 'senha123', 3, 'CC', '2024.1'),
-(1234567890130, 'carla@exemplo.com', 'Carla Rocha', 'senha123', 3, 'CC', '2024.1'),
-(1234567890131, 'marcio@exemplo.com', 'Márcio Almeida', 'senha123', 3, 'CC', '2024.1'),
-(1234567890132, 'beatriz@exemplo.com', 'Beatriz Silva', 'senha123', 4, 'DS', '2024.1'),
-(1234567890133, 'patricia@exemplo.com', 'Patrícia Souza', 'senha123', 4, 'DS', '2024.1'),
-(1234567890134, 'ricardo@exemplo.com', 'Ricardo Almeida', 'senha123', 4, 'DS', '2024.1');
+-- Professor
+INSERT INTO PROFESSOR (PROF_EMAIL, PROF_SENHA)
+VALUES 
+('professor@email.com', 'senha123');
 
--- Inserir critérios na tabela CRITERIOS
-INSERT INTO CRITERIOS (CRITERIO_NOME, CRITERIO_DESCRICAO) VALUES
-('Critério 1', 'Descrição do critério 1'),
-('Critério 2', 'Descrição do critério 2'),
-('Critério 3', 'Descrição do critério 3'),
-('Critério 4', 'Descrição do critério 4');
+-- Critérios
+INSERT INTO CRITERIOS (CRITERIO_NOME, CRITERIO_DESCRICAO)
+VALUES
+('Participação', 'Nível de participação do aluno nas atividades.'),
+('Colaboração', 'Nível de colaboração com os membros do grupo.'),
+('Entrega', 'Pontualidade e qualidade nas entregas de tarefas.');
 
--- Inserindo avaliações
-INSERT INTO AVALIACAO (AVALIADO_ALUNO_RA, AVALIADOR_ALUNO_RA, CRITERIO_ID, NOTA, AVALIACAO_DATA) VALUES
-(1234567890123, 1234567890124, 1, 3, '2024-11-01 10:00:00'), -- João avaliado por Maria
-(1234567890123, 1234567890125, 2, 2, '2024-11-01 10:10:00'), -- João avaliado por Pedro
-(1234567890123, 1234567890126, 3, 1, '2024-11-01 10:20:00'), -- João avaliado por Lucas
-(1234567890124, 1234567890123, 1, 2, '2024-11-01 10:30:00'), -- Maria avaliada por João
-(1234567890124, 1234567890125, 2, 1, '2024-11-01 10:40:00'), -- Maria avaliada por Pedro
-(1234567890124, 1234567890126, 3, 3, '2024-11-01 10:50:00'), -- Maria avaliada por Lucas
-(1234567890125, 1234567890123, 1, 2, '2024-11-01 11:00:00'), -- Pedro avaliado por João
-(1234567890125, 1234567890124, 2, 3, '2024-11-01 11:10:00'), -- Pedro avaliado por Maria
-(1234567890125, 1234567890126, 3, 0, '2024-11-01 11:20:00'), -- Pedro avaliado por Lucas
-(1234567890126, 1234567890123, 1, 1, '2024-11-01 11:30:00'), -- Lucas avaliado por João
-(1234567890126, 1234567890124, 2, 3, '2024-11-01 11:40:00'), -- Lucas avaliado por Maria
-(1234567890126, 1234567890125, 3, 2, '2024-11-01 11:50:00'), -- Lucas avaliado por Pedro
-(1234567890127, 1234567890128, 1, 3, '2024-11-01 12:00:00'), -- Juliana avaliada por Ana
-(1234567890127, 1234567890129, 2, 0, '2024-11-01 12:10:00'), -- Juliana avaliada por Gustavo
-(1234567890127, 1234567890130, 3, 2, '2024-11-01 12:20:00'), -- Juliana avaliada por Carla
-(1234567890128, 1234567890127, 1, 1, '2024-11-01 12:30:00'), -- Ana avaliada por Juliana
-(1234567890128, 1234567890129, 2, 2, '2024-11-01 12:40:00'), -- Ana avaliada por Gustavo
-(1234567890128, 1234567890130, 3, 3, '2024-11-01 12:50:00'), -- Ana avaliada por Carla
-(1234567890129, 1234567890127, 1, 0, '2024-11-01 13:00:00'), -- Gustavo avaliado por Juliana
-(1234567890129, 1234567890128, 2, 1, '2024-11-01 13:10:00'), -- Gustavo avaliado por Ana
-(1234567890129, 1234567890130, 3, 2, '2024-11-01 13:20:00'), -- Gustavo avaliado por Carla
-(1234567890130, 1234567890127, 1, 3, '2024-11-01 13:30:00'), -- Carla avaliada por Juliana
-(1234567890130, 1234567890128, 2, 2, '2024-11-01 13:40:00'), -- Carla avaliada por Ana
-(1234567890130, 1234567890129, 3, 1, '2024-11-01 13:50:00'), -- Carla avaliada por Gustavo
-(1234567890131, 1234567890132, 1, 3, '2024-11-01 14:00:00'), -- Márcio avaliado por Beatriz
-(1234567890131, 1234567890133, 2, 2, '2024-11-01 14:10:00'), -- Márcio avaliado por Patrícia
-(1234567890131, 1234567890134, 3, 1, '2024-11-01 14:20:00'), -- Márcio avaliado por Ricardo
-(1234567890132, 1234567890131, 1, 1, '2024-11-01 14:30:00'), -- Beatriz avaliada por Márcio
-(1234567890132, 1234567890133, 2, 0, '2024-11-01 14:40:00'), -- Beatriz avaliada por Patrícia
-(1234567890132, 1234567890134, 3, 2, '2024-11-01 14:50:00'), -- Beatriz avaliada por Ricardo
-(1234567890133, 1234567890131, 1, 2, '2024-11-01 15:00:00'), -- Patrícia avaliada por Márcio
-(1234567890133, 1234567890132, 2, 1, '2024-11-01 15:10:00'), -- Patrícia avaliada por Beatriz
-(1234567890133, 1234567890134, 3, 3, '2024-11-01 15:20:00'), -- Patrícia avaliada por Ricardo
-(1234567890134, 1234567890131, 1, 0, '2024-11-01 15:30:00'), -- Ricardo avaliado por Márcio
-(1234567890134, 1234567890132, 2, 3, '2024-11-01 15:40:00'), -- Ricardo avaliado por Beatriz
-(1234567890134, 1234567890133, 3, 1, '2024-11-01 15:50:00'); -- Ricardo avaliado por Patrícia
+-- Sprints
+INSERT INTO SPRINT (SPRINT_NUM, SPRINT_DATA_INICIO, SPRINT_DATA_FIM)
+VALUES
+(1, '2024-10-01', '2024-10-14'), -- Sprint 1
+(2, '2024-10-15', '2024-10-28'), -- Sprint 2
+(3, '2024-11-01', '2024-11-14'), -- Sprint 3
+(4, '2024-11-25', '2024-12-08'); -- Sprint Atual
 
+-- Avaliações Sprint 1
+INSERT INTO AVALIACAO (AVALIADO_ALUNO_RA, AVALIADOR_ALUNO_RA, CRITERIO_ID, NOTA, SPRINT_ID)
+VALUES
+(12345678901, 12345678902, 1, 2, 1), -- Maria avaliou João
+(12345678902, 12345678901, 2, 3, 1), -- João avaliou Maria
+(12345678903, 12345678904, 3, 1, 1), -- Ana avaliou Carlos
+(12345678904, 12345678903, 1, 2, 1); -- Carlos avaliou Ana
 
--- Inserindo dados na tabela SPRINT
-INSERT INTO SPRINT (SPRINT_NUM, SPRINT_SEMESTRE, SPRINT_DATA_INICIO, SPRINT_DATA_FIM) VALUES
-(1, 1, '2024-11-01', '2024-11-14'),
-(2, 1, '2024-11-15', '2024-11-30'),
-(3, 2, '2024-12-01', '2024-12-14');
+-- Avaliações Sprint 2
+INSERT INTO AVALIACAO (AVALIADO_ALUNO_RA, AVALIADOR_ALUNO_RA, CRITERIO_ID, NOTA, SPRINT_ID)
+VALUES
+(12345678901, 12345678902, 1, 3, 2), -- Maria avaliou João
+(12345678902, 12345678901, 2, 2, 2), -- João avaliou Maria
+(12345678903, 12345678904, 3, 2, 2), -- Ana avaliou Carlos
+(12345678904, 12345678903, 1, 1, 2); -- Carlos avaliou Ana
 
--- Inserindo dados na tabela CALENDARIO
-INSERT INTO CALENDARIO (SEMESTRE, SPRINT_ID, DATA_INICIO, DATA_FIM) VALUES
-('2024-1', 1, '2024-11-01', '2024-11-14'),
-('2024-1', 2, '2024-11-15', '2024-11-30'),
-('2024-2', 3, '2024-12-01', '2024-12-14');
+-- Avaliações Sprint 3
+INSERT INTO AVALIACAO (AVALIADO_ALUNO_RA, AVALIADOR_ALUNO_RA, CRITERIO_ID, NOTA, SPRINT_ID)
+VALUES
+(12345678901, 12345678902, 2, 1, 3), -- Maria avaliou João
+(12345678902, 12345678901, 3, 2, 3), -- João avaliou Maria
+(12345678903, 12345678904, 1, 3, 3), -- Ana avaliou Carlos
+(12345678904, 12345678903, 2, 3, 3); -- Carlos avaliou Ana
+
+-- Avaliações Sprint 4
+INSERT INTO AVALIACAO (AVALIADO_ALUNO_RA, AVALIADOR_ALUNO_RA, CRITERIO_ID, NOTA, SPRINT_ID)
+VALUES
+(12345678901, 12345678902, 1, 3, 4), -- Maria avaliou João
+(12345678902, 12345678901, 2, 2, 4), -- João avaliou Maria
+(12345678903, 12345678904, 3, 1, 4), -- Ana avaliou Carlos
+(12345678904, 12345678903, 1, 3, 4); -- Carlos avaliou Ana
+
+-- Pontos Sprint 1
+INSERT INTO PONTOS_SPRINT (PONTOS_INICIAIS, PONTOS_ATUAIS, SPRINT_ID, GRUPO_ID)
+VALUES
+(100, 95, 1, 1), -- Grupo Alpha: 100 - (2+3) = 95
+(100, 97, 1, 2); -- Grupo Beta: 100 - (1+2) = 97
+
+-- Pontos Sprint 2
+INSERT INTO PONTOS_SPRINT (PONTOS_INICIAIS, PONTOS_ATUAIS, SPRINT_ID, GRUPO_ID)
+VALUES
+(95, 90, 2, 1), -- Grupo Alpha: 95 - (3+2) = 90
+(97, 94, 2, 2); -- Grupo Beta: 97 - (2+1) = 94
+
+-- Pontos Sprint 3
+INSERT INTO PONTOS_SPRINT (PONTOS_INICIAIS, PONTOS_ATUAIS, SPRINT_ID, GRUPO_ID)
+VALUES
+(90, 87, 3, 1), -- Grupo Alpha: 90 - (1+2) = 87
+(94, 88, 3, 2); -- Grupo Beta: 94 - (3+3) = 88
 
 
 USE API;
@@ -195,3 +172,9 @@ SELECT * FROM ALUNO;
 SELECT * FROM PROFESSOR;
 SELECT * FROM GRUPO;
 SELECT * FROM CRITERIOS;
+SELECT * FROM SPRINT;
+SELECT * FROM PONTOS_SPRINT;
+
+SELECT * FROM AVALIACAO;
+
+SELECT * FROM ALUNO WHERE GRUPO_ID IS NULL

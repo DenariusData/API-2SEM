@@ -14,8 +14,6 @@ public class Aluno {
     private String senha;
     private byte[] foto;
     private int grupoId;
-    private String cursoSigla;
-    private String semestre;
     //endregion
 
     //region Aluno logado ()
@@ -23,16 +21,16 @@ public class Aluno {
         private static AlunoLogado instancia;
 
         // Construtor privado
-        private AlunoLogado(long ra, String email, String nome, String senha, byte[] foto, int grupoId, String cursoSigla, String semestre) {
-            super(ra, email, nome, senha, foto, grupoId, cursoSigla, semestre);
+        private AlunoLogado(long ra, String email, String nome, String senha, byte[] foto, int grupoId) {
+            super(ra, email, nome, senha, foto, grupoId);
         }
 
-        public static AlunoLogado getInstancia(long ra, String email, String nome, String senha, byte[] foto, int grupoId, String cursoSigla, String semestre) {
+        public static AlunoLogado getInstancia(long ra, String email, String nome, String senha, byte[] foto, int grupoId) {
             if (instancia == null) {
                 if (foto == null || foto.length == 0) {
                     foto = loadDefaultImage();
                 }
-                instancia = new AlunoLogado(ra, email, nome, senha, foto, grupoId, cursoSigla, semestre);
+                instancia = new AlunoLogado(ra, email, nome, senha, foto, grupoId);
             }
             return instancia;
         }
@@ -49,31 +47,22 @@ public class Aluno {
     //endregion
 
     //region Construtores
-    public Aluno(long ra, String email, String nome, String senha, byte[] foto, int grupoId, String cursoSigla, String semestre) {
+    public Aluno(long ra, String email, String nome, String senha, byte[] foto, int grupoId) {
         this.ra = ra;
         this.email = email;
         this.nome = nome;
         this.senha = senha;
         this.foto = foto;
         this.grupoId = grupoId;
-        this.cursoSigla = cursoSigla;
-        this.semestre = semestre;
+       
     }
     // Construtor para criação de aluno via professor
-    public Aluno(long ra, String email, String nome, int grupoId, String cursoSigla, String semestre) {
-        this.ra = ra;
-        this.email = email;
-        this.nome = nome;
-        this.grupoId = grupoId;
-        this.cursoSigla = cursoSigla;
-        this.semestre = semestre;
-    }
-
     public Aluno(long ra, String email, String nome, int grupoId) {
         this.ra = ra;
         this.email = email;
         this.nome = nome;
         this.grupoId = grupoId;
+       
     }
     //endregion
 
@@ -130,21 +119,8 @@ public class Aluno {
     public String getGrupoNome() {
         return GrupoDAO.getGrupoComAlunos(this.grupoId).getNome();
     }
-
-    public String getCursoSigla() {
-        return cursoSigla;
-    }
-
-    public void setCursoSigla(String cursoSigla) {
-        this.cursoSigla = cursoSigla;
-    }
-
-    public String getSemestre() {
-        return semestre;
-    }
-
-    public void setSemestre(String semestre) {
-        this.semestre = semestre;
+    public Grupo getGrupo() {
+        return GrupoDAO.getGrupoById(grupoId);
     }
     //endregion
 

@@ -45,15 +45,13 @@ public class ProfIntegrantesAddEditController {
     public void addAluno(Grupo grupo) {
         cmbGrupo.setValue(grupo);
     }
-    // Método para definir o grupo a ser editado
+
     public void setAluno(Aluno aluno, Grupo grupo) {
         this.alunoAtual = aluno;
         txtNomeAluno.setText(aluno.getNome());
         txtEmail.setText(aluno.getEmail());
         txtRa.setText(String.valueOf(aluno.getRa()));
         cmbGrupo.setValue(grupo);
-        txtSemestre.setText(String.valueOf(aluno.getSemestre()));
-        txtCursoSigla.setText(aluno.getCursoSigla()); // Definindo o cursoSigla
         btnSalvar.setText("Atualizar Aluno");
     }
 
@@ -70,19 +68,15 @@ public class ProfIntegrantesAddEditController {
         long ra = Long.parseLong(txtRa.getText());
         String email = txtEmail.getText();
         String nome = txtNomeAluno.getText();
-        String cursoSigla = txtCursoSigla.getText(); 
-        String semestre = txtSemestre.getText();
 
         if (alunoAtual == null) {
-            Aluno novoAluno = new Aluno(ra, email, nome, grupoId, cursoSigla, semestre);
+            Aluno novoAluno = new Aluno(ra, email, nome, grupoId);
             AlunoDAO.addAluno(novoAluno);
         } else {
             alunoAtual.setRa(ra);
             alunoAtual.setEmail(email);
             alunoAtual.setNome(nome);
             alunoAtual.setGrupoId(grupoId);
-            alunoAtual.setCursoSigla(cursoSigla);
-            alunoAtual.setSemestre(semestre);
             AlunoDAO.updateAluno(alunoAtual);
         }
 

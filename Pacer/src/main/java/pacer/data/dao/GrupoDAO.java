@@ -15,12 +15,10 @@ public class GrupoDAO {
     private static Connection connection = DatabaseConnection.getConnection();
 
     public static void addGrupo(Grupo grupo) {
-        String sql = "INSERT INTO GRUPO (GRUPO_NOME, REPOS_LINK, CURSO_SIGLA, SEMESTRE) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO GRUPO (GRUPO_NOME, REPOS_LINK) VALUES (?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, grupo.getNome());
             stmt.setString(2, grupo.getReposLink());
-            stmt.setString(3, grupo.getCursoSigla());
-            stmt.setString(4, grupo.getSemestre());
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -36,9 +34,8 @@ public class GrupoDAO {
                 grupos.add(new Grupo(
                         rs.getInt("GRUPO_ID"),
                         rs.getString("GRUPO_NOME"),
-                        rs.getString("REPOS_LINK"),
-                        rs.getString("CURSO_SIGLA"),
-                        rs.getString("SEMESTRE")
+                        rs.getString("REPOS_LINK")
+                        
                 ));
             }
         } catch (SQLException e) {
@@ -48,13 +45,11 @@ public class GrupoDAO {
     }
 
     public static void updateGrupo(Grupo grupo) {
-        String sql = "UPDATE GRUPO SET GRUPO_NOME = ?, REPOS_LINK = ?, CURSO_SIGLA = ?, SEMESTRE = ? WHERE GRUPO_ID = ?";
+        String sql = "UPDATE GRUPO SET GRUPO_NOME = ?, REPOS_LINK = ? WHERE GRUPO_ID = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, grupo.getNome());
             stmt.setString(2, grupo.getReposLink());
-            stmt.setString(3, grupo.getCursoSigla());
-            stmt.setString(4, grupo.getSemestre());
-            stmt.setInt(5, grupo.getId());
+            stmt.setInt(3, grupo.getId());
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -72,7 +67,7 @@ public class GrupoDAO {
     }
     public static Grupo getGrupoComAlunos(int grupoId) {
         Grupo grupo = null;
-        String sql = "SELECT G.GRUPO_ID, G.GRUPO_NOME, G.REPOS_LINK, G.CURSO_SIGLA, G.SEMESTRE, A.ALUNO_RA, A.ALUNO_EMAIL, A.ALUNO_NOME FROM GRUPO G LEFT JOIN ALUNO A ON G.GRUPO_ID = A.GRUPO_ID WHERE G.GRUPO_ID = ?";
+        String sql = "SELECT G.GRUPO_ID, G.GRUPO_NOME, G.REPOS_LINK, A.ALUNO_RA, A.ALUNO_EMAIL, A.ALUNO_NOME FROM GRUPO G LEFT JOIN ALUNO A ON G.GRUPO_ID = A.GRUPO_ID WHERE G.GRUPO_ID = ?";
     
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, grupoId);
@@ -85,9 +80,7 @@ public class GrupoDAO {
                         grupo = new Grupo(
                             rs.getInt("GRUPO_ID"),
                             rs.getString("GRUPO_NOME"),
-                            rs.getString("REPOS_LINK"),
-                            rs.getString("CURSO_SIGLA"),
-                            rs.getString("SEMESTRE")
+                            rs.getString("REPOS_LINK")
                         );
                     }
                     
@@ -111,6 +104,42 @@ public class GrupoDAO {
             e.printStackTrace();
         }
         
+        return grupo;
+    }
+    public static Grupo getGrupoByNome(String nome) {
+        Grupo grupo = null;
+        String sql = "SELECT * FROM GRUPO WHERE GRUPO_NOME = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, nome);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                grupo = new Grupo(
+                    rs.getInt("GRUPO_ID"), 
+                    rs.getString("GRUPO_NOME"), 
+                    rs.getString("REPOS_LINK")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return grupo;
+    }
+    public static Grupo getGrupoById(int id) {
+        Grupo grupo = null;
+        String sql = "SELECT * FROM GRUPO WHERE GRUPO_ID = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                grupo = new Grupo(
+                    rs.getInt("GRUPO_ID"), 
+                    rs.getString("GRUPO_NOME"), 
+                    rs.getString("REPOS_LINK")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return grupo;
     }
 }

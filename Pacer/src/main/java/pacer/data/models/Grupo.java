@@ -10,25 +10,19 @@ public class Grupo {
     private int grupoId;
     private String grupoNome;
     private String reposLink;
-    private String cursoSigla;
-    private String semestre;
     private List<Aluno> alunos;
     // endregion
 
     // region Construtores
-    public Grupo(String grupoNome, String reposLink, String cursoSigla, String semestre) {
+    public Grupo(String grupoNome, String reposLink) {
         this.grupoNome = grupoNome;
         this.reposLink = reposLink;
-        this.cursoSigla = cursoSigla;
-        this.semestre = semestre;
     }
 
-    public Grupo(int grupoId, String grupoNome, String reposLink, String cursoSigla, String semestre) {
+    public Grupo(int grupoId, String grupoNome, String reposLink) {
         this.grupoId = grupoId;
         this.grupoNome = grupoNome;
         this.reposLink = reposLink;
-        this.cursoSigla = cursoSigla;
-        this.semestre = semestre;
     }
     // endregion
 
@@ -57,22 +51,6 @@ public class Grupo {
         this.reposLink = reposLink;
     }
 
-    public String getCursoSigla() {
-        return cursoSigla;
-    }
-
-    public void setCursoSigla(String cursoSigla) {
-        this.cursoSigla = cursoSigla;
-    }
-
-    public String getSemestre() {
-        return semestre;
-    }
-
-    public void setSemestre(String semestre) {
-        this.semestre = semestre;
-    }
-
     public List<Aluno> getAlunos() { 
         return alunos;
     }
@@ -81,8 +59,8 @@ public class Grupo {
         this.alunos = alunos;
     }
     
-    public void getRelatorio(Stage stage) {
-        GrupoGerarRelatorio.GenRelatorio(this, stage);
+    public void getRelatorio(Stage stage, Sprint sprint) {
+        GrupoGerarRelatorio.GenRelatorio(this, stage, sprint);
     }
 
     @Override
