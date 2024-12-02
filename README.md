@@ -81,9 +81,9 @@ Principais Funcionalidades:
 </details>
 
 <details>
-<summary>Sprints</summary>
+<summary>Sprint</summary>
 
-## ✅ Validações com o cliente
+## ✅ Validações com o cliente ao longo das sprints
 
 | **Data**       | **Mensagem Enviada**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | **Retorno**                                                                                                                                                                     |
 |-----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -105,7 +105,7 @@ Principais Funcionalidades:
 | 12/11/2024      | É importante que na tela de avaliações o aluno avaliador consiga visualizar, após ter avaliado, qual pontuação atribuiu para cada colega?                                                                                                                                                                                                                                                                                                                                                                                                                                       | Sim, é importante que ele veja. Não precisa mostrar o e-mail nessa tela.                                                                                                     |
 | 12/11/2024      | Outro ponto que gostaríamos de entender é se deverá ficar disponível para os alunos cada nota, de cada critério e a cada sprint ou somente o acumulado.                                                                                                                                                                                                                                                                                                                                                                                                                         | Basta a média                                                                                                                                                                 |
 
-## ✅ Epics
+## ✅ Epics de todo projeto
 
 | **Atividade**                 | **Epic**                                                                                                                                                          | **Critério de Aceitação**                                                                                                                                                  |
 |--------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -128,19 +128,30 @@ Principais Funcionalidades:
 | Baixa | Como professor, eu quero poder redefinir minha senha via email, para recuperar o acesso ao sistema caso eu a esqueça. | O sistema deve implementar uma funcionalidade de recuperação de senha que permita ao professor solicitar uma nova senha através do seu endereço de e-mail. |
 | Baixa | Como aluno, eu também quero poder redefinir minha senha por e-mail, caso eu esqueça ou perca o acesso. | Similar à user story anterior, mas direcionada para os alunos. |
 
+## Definition of done:
+
+- Código funcional e organizado, disponibilizado no Github (executável);
+- Guia de instalação e manual do usuário disponilizado;
+- Todas as funcionalidades integradas.
+
+## Definition of ready:
+
+- Revisão do banco de dados junto ao modelo;
+- Remoção de dados excedentes contidos no banco;
+- O sistema permite solicitar a alteração de senha;
+- É possível ver a nota média;
 
 </details>
 
+## ✅ Manual do usuário e guia de instalação 
 
-Devido a quantidade de informações, será necessário baixar o arquivo para visualizar, clique no link a seguir [DoR,_UserStory_e_DoD](docs/userstory.xlsx)
+[Clique para acessar o guia de instalação do produto](caminho/para/o/Guia_de_Instalação_e_Execução_do_Executável_PACER-1_(2).pdf)
 
-[Clique aqui para visualizar as validações feitas com o cliente](docs/Validacoes.pdf)
-
-[Clique aqui visualizar a sprint backlog com o que está previsto para a sprint 4](docs/sprintbacklog.pdf)
+[Clique para acessar o manual do usuário](caminho/para/o/Manual_de_usuário_PACER+.pdf)
 
 ## ✅ Modelagem do banco de dados
 
-![Modelo atualizado](docs/Modelagems3.jpeg)
+![Modelo atualizado](docs/modelo.bd.atualizado.jpg)
 
 
 ## Contribuições
