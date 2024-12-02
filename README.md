@@ -53,8 +53,10 @@ Principais Funcionalidades:
 - Permitir que o professor cadastre o calendário de Sprints para cada semestre. Em vez de solicitar o número da Sprint em uma avaliação, o sistema deve verificar a data atual e automaticamente assumir que ela está associada à Sprint que acabou de finalizar;
 - Usar autenticação por usuário e senha para garantir que cada aluno possa realizar apenas uma avaliação por Sprint e que apenas o professor tenha acesso aos relatórios.
 
-  <details>
-<summary>Backolog do produto</summary>
+<details>
+<summary>Backlog do produto</summary>
+
+### Backlog do Produto
 
 | Rank | Prioridade             | User Story                                                                                                                                                                | Estimativa para Sprint | Perguntas para validação                                                                                   |
 |------|------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------|-----------------------------------------------------------------------------------------------------------|
@@ -73,17 +75,9 @@ Principais Funcionalidades:
 | 13   | Média    | Como professor, quero criar semestres no sistema para dividir as turmas e organizar as equipes conforme necessário.                                                      | 3                      | Deve ser possível criar, editar e excluir semestres, além de associar alunos e grupos a eles.             |
 | 14   | Alta    | Como aluno, preciso atribuir notas aos meus colegas de equipe ao final de cada Sprint, para contribuir com a avaliação de desempenho de cada um.                        | 4                      | O sistema deve garantir que todas as avaliações sejam registradas antes de concluir a Sprint.             |
 | 15   | Alta    | Como professor, quero definir um limite de pontos a ser distribuído pelos alunos durante as avaliações, permitindo que cada membro seja avaliado de acordo com o desempenho no grupo. | 4                      | Deve haver um controle de pontos máximo para cada avaliação, e o sistema precisa validar a distribuição correta dos pontos pelos alunos. |
-| 16   | Média                  | Como usuário (aluno ou professor), preciso acessar o sistema usando meu e-mail e senha, para garantir segurança no acesso e na gestão das informações.                   | 1                      | O sistema deve permitir login com e-mail e senha, além de opções de recuperação de senha?                 |
-| 17   | Média                  | Como professor, quero ter a capacidade de criar e editar critérios de avaliação para customizar a forma como o desempenho dos alunos é medido.                          | 3                      | O sistema deve permitir a criação, edição e exclusão de critérios, com a possibilidade de ativar ou desativar conforme necessário? |
-| 18   | Média                  | Como professor, quero alterar os membros de um grupo ao longo do semestre, para que as mudanças na composição das equipes sejam refletidas no sistema.                   | 3                      | O sistema deve permitir a alteração de membros de grupos, registrando a data e o motivo da alteração?     |
-| 19   | Média                  | Como professor, quero criar Sprints no sistema, para que os alunos possam avaliar seus colegas de equipe periodicamente.                                                 | 3                      | O sistema deve permitir a criação de Sprints com datas definidas, vinculando automaticamente as avaliações a cada Sprint? |
-| 20   | Alta                   | Como professor, desejo cadastrar o calendário das Sprints, para que o sistema possa automaticamente associar as avaliações às Sprints corretas com base nas datas.       | 3                      | O calendário deve ser configurado no início do semestre, e as Sprints devem ser automaticamente vinculadas às datas de avaliação? |
-| 21   | Alta                   | Como professor, preciso gerar relatórios com a nota média de todos os alunos de um grupo, para visualizar o desempenho coletivo.                                         | 3                      | O sistema deve permitir gerar relatórios filtrados por grupo e Sprint, com opção de exportação em PDF e CSV? |
-| 22   | Alta                   | Como professor, quero gerar relatórios detalhados com a nota média por aluno para cada critério de avaliação, a fim de analisar o desempenho individual.                 | 3                      | O sistema deve permitir filtrar os relatórios por aluno e por critério, com gráficos visuais do progresso ao longo do tempo? |
-| 23   | Baixa                  | Como aluno, quero visualizar a nota média de todos os integrantes do meu grupo, para ter uma visão geral do desempenho da equipe.                                        | 4                      | O sistema deve exibir as notas médias em um painel visual, com gráficos e comparações entre os membros?   |
-| 24   | Baixa                  | Como aluno, quero acompanhar minhas notas médias por critério de avaliação, para entender onde posso melhorar nas próximas Sprints.                                     | 4                      | O sistema deve exibir um painel detalhado de desempenho individual, com gráficos e comparativos por critério? |
-| 25   | Baixa                  | Como professor, quero poder redefinir minha senha via e-mail, para recuperar o acesso ao sistema caso eu a esqueça.                                                     | 4                      | O sistema deve enviar um link de redefinição de senha ao e-mail cadastrado e validar o novo acesso?       |
-| 26   | Baixa                  | Como aluno, também quero poder redefinir minha senha por e-mail, caso eu esqueça ou perca o acesso.                                                                     | 4                      | O sistema deve enviar um e-mail com instruções para redefinição de senha, garantindo a segurança do processo? |
+
+</details>
+
 
 
 [Clique aqui visualizar o backlog do produto](docs/backlog.pdf)
