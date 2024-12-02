@@ -29,7 +29,7 @@
             </HBox>
             <HBox spacing="10">
             <children>
-                  <Button fx:id="Concluir" onAction="#handleConcluir" style="-fx-background-color: #004aad; -fx-text-fill: white;" text="Baixar">
+                  <Button fx:id="Concluir" onAction="#handleConcluir" style="-fx-background-color: #004aad; -fx-text-fill: white;" text="Selecionar">
                   <HBox.margin>
                      <Insets left="15.0" />
                   </HBox.margin>

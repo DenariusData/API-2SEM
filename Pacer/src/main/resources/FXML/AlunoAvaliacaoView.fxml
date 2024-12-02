@@ -53,5 +53,10 @@
         
         <!-- ComboBox de Sprint -->
         <ComboBox fx:id="cmbSprint" layoutX="675.0" layoutY="82.0" onAction="#selectSprint" prefHeight="25.0" prefWidth="238.0" style="-fx-background-color: #FFFFFF;" />
+      <Button fx:id="btnVerPontos" layoutX="727.0" layoutY="113.0" mnemonicParsing="false" onAction="#handleVerPontos" style="-fx-background-color: #004aad;" text="➕ Visualizar pontos" textFill="WHITE">
+         <font>
+            <Font name="Arial Black" size="11.0" />
+         </font>
+      </Button>
     </children>
 </AnchorPane>

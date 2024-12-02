@@ -2,6 +2,8 @@ package pacer.aluno;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -22,12 +24,15 @@ import javafx.scene.input.MouseEvent;
 import pacer.data.dao.AlunoDAO;
 import pacer.data.dao.AvaliacaoDAO;
 import pacer.data.dao.CriteriosDAO;
+import pacer.data.dao.PontosDAO;
 import pacer.data.dao.SprintDAO;
 import pacer.data.models.Aluno;
 import pacer.data.models.AlunosParaAvaliacao;
 import pacer.data.models.Avaliacao;
 import pacer.data.models.Criterios;
+import pacer.data.models.Pontos;
 import pacer.data.models.Sprint;
+import pacer.professor.ProfVisualizarPontosController;
 import pacer.utils.mbox;
 import pacer.utils.sceneSwitcher;
 
@@ -57,6 +62,10 @@ public class AlunoAvaliacaoController implements Initializable {
 
     private final Sprint sprintAtual = SprintDAO.getSprintAtual();
 
+    private Pontos pontosSelecionados;
+
+    private LocalDate dataLimite;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         alunoLogado = Aluno.AlunoLogado.getAluno();
@@ -78,10 +87,16 @@ public class AlunoAvaliacaoController implements Initializable {
             tCarregaTable.start();
         }
         cmbSprint.setItems(sprints);
+
+        pontosSelecionados = PontosDAO.getPontosBySprintAndGrupo(sprintAtual.getSprintId(), alunoLogado.getGrupo().getId());
+        java.util.Date dataAtribuicao = pontosSelecionados.getDataAtribuicao();
+        LocalDate dataAtribuicaoLocalDateTime = dataAtribuicao.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
+
+        dataLimite = dataAtribuicaoLocalDateTime.plusDays(7);
     }
     @FXML
     public void selectSprint() {
-        sprintSelecionado = cmbSprint.getSelectionModel().getSelectedItem();
+        sprintSelecionado = cmbSprint.getValue();
         if (sprintSelecionado != null) {
             sprintId = sprintSelecionado.getSprintId();
         }
@@ -135,8 +150,14 @@ public class AlunoAvaliacaoController implements Initializable {
             mbox.ShowMessageBox(AlertType.WARNING, "Sprint", "Não há nenhuma sprint ativa no momento.");
             return;
         }
-        if (sprintSelecionado != sprintAtual) {
+        if (sprintSelecionado.getSprintId() != sprintAtual.getSprintId()) {
             mbox.ShowMessageBox(AlertType.WARNING, "Sprint", "Selecione a Sprint atual para efetuar a avaliação.");
+            return;
+        }
+            if (LocalDate.now().isBefore(pontosSelecionados.getDataAtribuicao().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()) || 
+                LocalDate.now().isAfter(dataLimite)) {
+
+            mbox.ShowMessageBox(AlertType.WARNING, "Sprint", "Não há periodo de avaliação ativo no momento");
             return;
         }
         AlunosParaAvaliacao.setAvaliado(alunoSelecionado);
@@ -144,6 +165,12 @@ public class AlunoAvaliacaoController implements Initializable {
 
         sceneSwitcher.switchSceneRetController("/FXML/AlunoRealizarAvalView.fxml", event);
         
+    }
+
+    @FXML
+    public void handleVerPontos(ActionEvent event) throws IOException {
+        ProfVisualizarPontosController controllerVerPontos = sceneSwitcher.openNewWindow("/FXML/ProfVisualizarPontosView.fxml");
+        controllerVerPontos.selectSprint(alunoLogado.getGrupo(), sprintSelecionado);
     }
 
     @FXML

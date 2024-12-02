@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.stage.Stage;
 import pacer.data.dao.SprintDAO;
 import pacer.data.models.Grupo;
 import pacer.data.models.Sprint;
@@ -22,7 +23,6 @@ public class ProfEquipesSprintController implements Initializable {
 
     private Sprint sprintSelecionada;
     private Grupo grupoSelecionado;
-    private Button btn;
     private String req;
 
     public void selectGrupo(Grupo grupo, String req) {
@@ -44,12 +44,22 @@ public class ProfEquipesSprintController implements Initializable {
         switch(req)
         {
             case "Relatorio" -> {
+                Stage stage = (Stage) cmbSprint.getScene().getWindow();
                 ProfEquipesController controller = sceneSwitcher.switchSceneRetController("/FXML/ProfEquipesView.fxml", event);
-                controller.gerarRelatorio(grupoSelecionado, sprintSelecionada);
+                controller.gerarRelatorio(grupoSelecionado, sprintSelecionada, stage);
+                break;
             }
             case "Pontos" -> {
-                ProfEquipesPontosController controllerPontos = sceneSwitcher.switchSceneRetController("/FXML/ProfEquipesPontosView.fxml", event);
+                ProfEquipesPontosController controllerPontos;
+                controllerPontos = sceneSwitcher.switchSceneRetController("/FXML/ProfEquipesPontosView.fxml", event);
                 controllerPontos.selectSprint(grupoSelecionado, sprintSelecionada);
+                break;
+            }
+
+            case "VerPontos" -> {
+                ProfVisualizarPontosController controllerVerPontos = sceneSwitcher.switchSceneRetController("/FXML/ProfVisualizarPontosView.fxml", event);
+                controllerVerPontos.selectSprint(grupoSelecionado, sprintSelecionada);
+                break;
             }
         }
     }

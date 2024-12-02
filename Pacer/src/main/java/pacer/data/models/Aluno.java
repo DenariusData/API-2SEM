@@ -119,6 +119,9 @@ public class Aluno {
     public String getGrupoNome() {
         return GrupoDAO.getGrupoComAlunos(this.grupoId).getNome();
     }
+    public Grupo getGrupo() {
+        return GrupoDAO.getGrupoById(grupoId);
+    }
     //endregion
 
     private static byte[] loadDefaultImage() {

@@ -8,7 +8,6 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -16,9 +15,8 @@ import pacer.data.dao.PontosDAO;
 import pacer.data.models.Grupo;
 import pacer.data.models.Pontos;
 import pacer.data.models.Sprint;
-import pacer.utils.mbox;
 
-public class ProfEquipesPontosController implements Initializable {
+public class ProfVisualizarPontosController implements Initializable {
     @FXML
     private TextField txtPontos;
 
@@ -26,9 +24,14 @@ public class ProfEquipesPontosController implements Initializable {
     private Label lblGrupo;
     @FXML
     private Label lblSprint;
+    @FXML
+    private Label lblPontosAtuais;
+    @FXML
+    private Label lblPontosDefinidos;
 
     private Grupo grupoSelecionado;
     private Sprint sprintSelecionada;
+    private Pontos pontosSelecionado;
 
     public void selectSprint(Grupo grupo, Sprint sprint) {
         sprintSelecionada = sprint;
@@ -40,8 +43,16 @@ public class ProfEquipesPontosController implements Initializable {
         try {
             Thread tCarregaLabels = new Thread(() -> {
                 Platform.runLater(() -> {
+                    Pontos pontos = new Pontos(sprintSelecionada.getSprintId(), grupoSelecionado.getId());
+                    pontosSelecionado = PontosDAO.getPontosBySprintAndGrupo(pontos);
                     lblGrupo.setText("Grupo: " + grupoSelecionado.getNome());
                     lblSprint.setText("Sprint: " + String.valueOf(sprintSelecionada.getSprint()));
+                    try {
+                        lblPontosDefinidos.setText("Pontos Definidos: " + String.valueOf(pontosSelecionado.getPontosIniciais()));
+                        lblPontosAtuais.setText("Pontos Atuais: " + String.valueOf(pontosSelecionado.getPontosAtuais()));
+                    } catch(Exception e) {
+                        e.printStackTrace();
+                    }   
                 });
             });
             tCarregaLabels.start();
@@ -49,28 +60,9 @@ public class ProfEquipesPontosController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
+    }  
     @FXML
-    public void enviarPontos(ActionEvent event) throws IOException {
-        try{
-            int pontosEscolhidos = Integer.parseInt(txtPontos.getText());
-            Pontos pontos = new Pontos(pontosEscolhidos, sprintSelecionada.getSprintId(), grupoSelecionado.getId());
-            if (PontosDAO.getPontosBySprintAndGrupo(pontos) != null) {
-                mbox.ShowError("Pontos ja foram atribuitos para o grupo selecionado na sprint selecionada.");
-                return;
-            }
-            PontosDAO.addPontos(pontos);
-            mbox.ShowMessageBox(AlertType.INFORMATION, "Pontos", "Pontos foram atribuitos ao grupo selecionado.");
-        } catch (Exception e) {
-            mbox.ShowError("Não foi possível atribuir os pontos ao grupo selecionado");
-            e.printStackTrace();
-        } finally {
-            cancelar(event);
-        }
-    }
-        
-    @FXML
-    public void cancelar(ActionEvent event) throws IOException {
+    public void handleOk(ActionEvent event) throws IOException {
         Stage stage = (Stage) lblGrupo.getScene().getWindow();
         stage.close();
     }

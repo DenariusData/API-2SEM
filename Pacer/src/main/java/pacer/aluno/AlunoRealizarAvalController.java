@@ -24,11 +24,14 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import pacer.data.dao.AvaliacaoDAO;
 import pacer.data.dao.CriteriosDAO;
+import pacer.data.dao.PontosDAO;
 import pacer.data.dao.SprintDAO;
 import pacer.data.models.Aluno;
 import pacer.data.models.AlunosParaAvaliacao;
 import pacer.data.models.Avaliacao;
 import pacer.data.models.Criterios;
+import pacer.data.models.Pontos;
+import pacer.data.models.Sprint;
 import pacer.utils.convertImage;
 import pacer.utils.mbox;
 import pacer.utils.sceneSwitcher;
@@ -56,9 +59,12 @@ public class AlunoRealizarAvalController implements Initializable {
 
     private Aluno alunoAvaliado;
 
+    private Pontos pontosDoGrupo;
+
+    private Sprint sprintAtual = SprintDAO.getSprintAtual();
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        
         
             toggleGroups = new ArrayList<>();
             avaliadorRa = Aluno.AlunoLogado.getAluno().getRa();
@@ -75,8 +81,11 @@ public class AlunoRealizarAvalController implements Initializable {
             avaliadoRa = alunoAvaliado.getRa();
 
             carregarCriterios();
-        
+            carregaPontos();
+    }
 
+    private void carregaPontos() {
+        pontosDoGrupo = PontosDAO.getPontosBySprintAndGrupo(sprintAtual.getSprintId(), alunoAvaliado.getGrupoId());
     }
 
     private void carregaAlunoAvaliado(Aluno alunoAvaliado) {
@@ -130,10 +139,13 @@ public class AlunoRealizarAvalController implements Initializable {
                     Avaliacao avaliacaoExistente = AvaliacaoDAO.getAvaliacaoPorAlunoECriterio(avaliadorRa, avaliadoRa, criterioId, sprintId);
     
                     if (avaliacaoExistente != null) {
+                        int notaAntiga = (int)avaliacaoExistente.getNota();
+                        int notaDif = ((int)nota - notaAntiga);
                         avaliacaoExistente.setNota(nota);
                         avaliacaoExistente.setData(LocalDateTime.now());
                         avaliacaoExistente.setSprintId(sprintId);
                         AvaliacaoDAO.update(avaliacaoExistente);
+                        pontosDoGrupo.setPontosAtuais(pontosDoGrupo.getPontosAtuais() - notaDif);
                     } 
                     else {
                         Avaliacao avaliacao = new Avaliacao();
@@ -143,9 +155,11 @@ public class AlunoRealizarAvalController implements Initializable {
                         avaliacao.setNota(nota);
                         avaliacao.setSprintId(sprintId);
                         avaliacao.setData(LocalDateTime.now());
-    
+                        pontosDoGrupo.setPontosAtuais(pontosDoGrupo.getPontosAtuais() - (int) nota);
+
                         AvaliacaoDAO.create(avaliacao);
                     }
+                    PontosDAO.updatePontos(pontosDoGrupo);
                 }
             }
             mbox.ShowMessageBox(AlertType.INFORMATION, "Avaliação", "Avaliação realizada com sucesso");

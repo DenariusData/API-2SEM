@@ -124,4 +124,22 @@ public class GrupoDAO {
         }
         return grupo;
     }
+    public static Grupo getGrupoById(int id) {
+        Grupo grupo = null;
+        String sql = "SELECT * FROM GRUPO WHERE GRUPO_ID = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                grupo = new Grupo(
+                    rs.getInt("GRUPO_ID"), 
+                    rs.getString("GRUPO_NOME"), 
+                    rs.getString("REPOS_LINK")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return grupo;
+    }
 }

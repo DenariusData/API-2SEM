@@ -90,7 +90,10 @@ VALUES
 (12345678901, 'joao.alpha@email.com', 'João Silva', 'senha123', 1),
 (12345678902, 'maria.alpha@email.com', 'Maria Oliveira', 'senha123', 1),
 (12345678903, 'carlos.beta@email.com', 'Carlos Santos', 'senha123', 2),
-(12345678904, 'ana.beta@email.com', 'Ana Pereira', 'senha123', 2);
+(12345678904, 'ana.beta@email.com', 'Ana Pereira', 'senha123', 2),
+(12345678905, 'lucas@email.com', 'Lucas Fernandes', 'senha123', NULL),
+(12345678906, 'juliana@email.com', 'Juliana Souza', 'senha123', NULL),
+(12345678907, 'ricardo@email.com', 'Ricardo Lima', 'senha123', NULL);
 
 -- Professor
 INSERT INTO PROFESSOR (PROF_EMAIL, PROF_SENHA)
@@ -170,4 +173,6 @@ SELECT * FROM GRUPO;
 SELECT * FROM CRITERIOS;
 SELECT * FROM SPRINT;
 SELECT * FROM PONTOS_SPRINT;
+SELECT * FROM AVALIACAO WHERE SPRINT_NUM
 
+SELECT * FROM ALUNO WHERE GRUPO_ID IS NULL

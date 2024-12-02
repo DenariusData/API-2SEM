@@ -20,22 +20,15 @@ public class ProfEquipesAddEditController {
     @FXML
     private TextField txtReposLink;
     @FXML
-    private TextField txtPontos;
-    @FXML
     private TextField txtCursoSigla;
     @FXML
     private Button btnSalvar;
 
-    @FXML
-    private Label lblPontosSprint;
 
     private Grupo grupoAtual;
 
     @FXML
     public void initialize() {
-        Sprint sprintAtual = SprintDAO.getSprintAtual();
-        if (sprintAtual != null)
-            lblPontosSprint.setText("Pontos da Sprint " + String.valueOf(sprintAtual.getSprint()) + ":");
     }
 
     public void setGrupo(Grupo grupo) {
@@ -49,7 +42,6 @@ public class ProfEquipesAddEditController {
     public void salvarGrupo(ActionEvent event) throws IOException {
         String nome = txtNomeGrupo.getText();
         String reposLink = txtReposLink.getText();
-        int pontos = Integer.parseInt(txtPontos.getText());
 
         if (grupoAtual == null) {
             Grupo novoGrupo = new Grupo(nome, reposLink);

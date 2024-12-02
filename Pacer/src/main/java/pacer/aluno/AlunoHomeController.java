@@ -111,7 +111,7 @@ public class AlunoHomeController implements Initializable {
         dateAvaliacaoStart = sprintAtual.getDataInicio();
         dateAvaliacaoEnd = sprintAtual.getDataFim();
         int diasFaltantes = (int)ChronoUnit.DAYS.between(LocalDate.now(), sprintAtual.getDataFim());
-        lblInfoMes.setText(traducaoMes.traduzirMes(dateAvaliacaoStart.getMonth()));
+        lblInfoMes.setText(traducaoMes.traduzirMes(LocalDate.now().getMonth()));
         lblInfoSprint.setText("Você está na Sprint " + sprintAtual.getSprint() + " faltam " + diasFaltantes + " dias para o fim.");
     }
 

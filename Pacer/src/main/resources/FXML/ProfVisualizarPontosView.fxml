@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="208.0" prefWidth="308.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pacer.professor.ProfVisualizarPontosController">
+    <children>
+        
+        <VBox layoutX="4.0" layoutY="6.0" prefHeight="110.0" prefWidth="294.0">
+         <Label fx:id="lblGrupo" prefHeight="27.0" prefWidth="279.0" style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #004aad;" text="Grupo: " textAlignment="CENTER">
+            <VBox.margin>
+               <Insets bottom="10.0" left="15.0" />
+            </VBox.margin>
+         </Label>
+         <Label fx:id="lblSprint" prefHeight="27.0" prefWidth="428.0" style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #004aad;" text="Sprint:" textAlignment="CENTER">
+            <VBox.margin>
+               <Insets bottom="10.0" left="15.0" />
+            </VBox.margin>
+         </Label>
+         <Label fx:id="lblPontosDefinidos" prefHeight="27.0" prefWidth="428.0" style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #004aad;" text="Pontos Definidos: " textAlignment="CENTER">
+            <VBox.margin>
+               <Insets bottom="10.0" left="15.0" />
+            </VBox.margin>
+         </Label>
+         <Label fx:id="lblPontosAtuais" prefHeight="27.0" prefWidth="428.0" style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #004aad;" text="Pontos Atuais: " textAlignment="CENTER">
+            <VBox.margin>
+               <Insets bottom="10.0" left="15.0" />
+            </VBox.margin>
+         </Label>
+            
+        </VBox>
+         <Button fx:id="btnOk" layoutX="14.0" layoutY="154.0" onAction="#handleOk" style="-fx-background-color: #004aad; -fx-text-fill: white;" text="Ok" />
+    </children>
+</AnchorPane>

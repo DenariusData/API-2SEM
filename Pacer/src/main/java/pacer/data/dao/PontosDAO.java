@@ -14,7 +14,6 @@ import pacer.data.models.Pontos;
 public class PontosDAO {
     private static Connection connection = DatabaseConnection.getConnection();
 
-    // Adicionar Pontos
     public static void addPontos(Pontos pontos) {
         String sql = "INSERT INTO PONTOS_SPRINT (PONTOS_INICIAIS, PONTOS_ATUAIS, SPRINT_ID, GRUPO_ID) VALUES (?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -28,7 +27,6 @@ public class PontosDAO {
         }
     }
 
-    // Obter todos os registros de Pontos
     public static List<Pontos> getAllPontos() {
         List<Pontos> pontosList = new ArrayList<>();
         String sql = "SELECT * FROM PONTOS_SPRINT";
@@ -38,7 +36,8 @@ public class PontosDAO {
                     rs.getInt("PONTOS_INICIAIS"),
                     rs.getInt("PONTOS_ATUAIS"),
                     rs.getInt("SPRINT_ID"),
-                    rs.getInt("GRUPO_ID")
+                    rs.getInt("GRUPO_ID"),
+                    rs.getTimestamp("DATA_ATRIBUICAO") // Retornar a data de atribuição
                 ));
             }
         } catch (SQLException e) {
@@ -47,7 +46,6 @@ public class PontosDAO {
         return pontosList;
     }
 
-    // Atualizar Pontos
     public static void updatePontos(Pontos pontos) {
         String sql = "UPDATE PONTOS_SPRINT SET PONTOS_INICIAIS = ?, PONTOS_ATUAIS = ? WHERE SPRINT_ID = ? AND GRUPO_ID = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -61,7 +59,6 @@ public class PontosDAO {
         }
     }
 
-    // Deletar Pontos
     public static void deletePontos(Pontos pontos) {
         String sql = "DELETE FROM PONTOS_SPRINT WHERE SPRINT_ID = ? AND GRUPO_ID = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -73,7 +70,6 @@ public class PontosDAO {
         }
     }
 
-    // Obter Pontos por SprintId e GrupoId
     public static Pontos getPontosBySprintAndGrupo(Pontos pontos) {
         String sql = "SELECT * FROM PONTOS_SPRINT WHERE SPRINT_ID = ? AND GRUPO_ID = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -85,7 +81,30 @@ public class PontosDAO {
                         rs.getInt("PONTOS_INICIAIS"),
                         rs.getInt("PONTOS_ATUAIS"),
                         rs.getInt("SPRINT_ID"),
-                        rs.getInt("GRUPO_ID")
+                        rs.getInt("GRUPO_ID"),
+                        rs.getTimestamp("DATA_ATRIBUICAO") // Retornar a data de atribuição
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static Pontos getPontosBySprintAndGrupo(int sprintId, int grupoId) {
+        String sql = "SELECT * FROM PONTOS_SPRINT WHERE SPRINT_ID = ? AND GRUPO_ID = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, sprintId);
+            stmt.setInt(2, grupoId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return new Pontos(
+                        rs.getInt("PONTOS_INICIAIS"),
+                        rs.getInt("PONTOS_ATUAIS"),
+                        rs.getInt("SPRINT_ID"),
+                        rs.getInt("GRUPO_ID"),
+                        rs.getTimestamp("DATA_ATRIBUICAO") // Retornar a data de atribuição
                     );
                 }
             }
