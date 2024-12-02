@@ -33,9 +33,9 @@ public class GrupoGerarRelatorio {
         Grupo grupo = GrupoDAO.getGrupoComAlunos(grupoSelecionado.getId());
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Salvar Relatório");
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Excel Files", "*.csv"));
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Excel Files", "*.xlsx"));
     
-        fileChooser.setInitialFileName("Relatorio - " + grupo.getNome() + " - Sprint " + sprint.getSprint() +".csv");
+        fileChooser.setInitialFileName("Relatorio - " + grupo.getNome() + " - Sprint " + sprint.getSprint() +".xlsx");
         File arquivo = fileChooser.showSaveDialog(stage);
     
         if (arquivo != null) {
