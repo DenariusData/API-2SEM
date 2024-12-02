@@ -88,11 +88,15 @@ public class AlunoAvaliacaoController implements Initializable {
         }
         cmbSprint.setItems(sprints);
 
-        pontosSelecionados = PontosDAO.getPontosBySprintAndGrupo(sprintAtual.getSprintId(), alunoLogado.getGrupo().getId());
-        java.util.Date dataAtribuicao = pontosSelecionados.getDataAtribuicao();
-        LocalDate dataAtribuicaoLocalDateTime = dataAtribuicao.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
-
-        dataLimite = dataAtribuicaoLocalDateTime.plusDays(7);
+        try {
+            pontosSelecionados = PontosDAO.getPontosBySprintAndGrupo(sprintAtual.getSprintId(), alunoLogado.getGrupo().getId());
+            java.util.Date dataAtribuicao = pontosSelecionados.getDataAtribuicao();
+            LocalDate dataAtribuicaoLocalDateTime = dataAtribuicao.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
+    
+            dataLimite = dataAtribuicaoLocalDateTime.plusDays(7);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
     @FXML
     public void selectSprint() {
@@ -146,7 +150,7 @@ public class AlunoAvaliacaoController implements Initializable {
             mbox.ShowMessageBox(AlertType.WARNING, "Erro", "Selecione um integrante do grupo para avaliar");
             return;
         }
-        if (sprintAtual == null) {
+        else if (sprintAtual == null) {
             mbox.ShowMessageBox(AlertType.WARNING, "Sprint", "Não há nenhuma sprint ativa no momento.");
             return;
         }
@@ -154,8 +158,8 @@ public class AlunoAvaliacaoController implements Initializable {
             mbox.ShowMessageBox(AlertType.WARNING, "Sprint", "Selecione a Sprint atual para efetuar a avaliação.");
             return;
         }
-            if (LocalDate.now().isBefore(pontosSelecionados.getDataAtribuicao().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()) || 
-                LocalDate.now().isAfter(dataLimite)) {
+        if (pontosSelecionados == null || LocalDate.now().plusDays(1).isBefore(pontosSelecionados.getDataAtribuicao().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()) || 
+        LocalDate.now().isAfter(dataLimite)) {
 
             mbox.ShowMessageBox(AlertType.WARNING, "Sprint", "Não há periodo de avaliação ativo no momento");
             return;
