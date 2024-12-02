@@ -54,7 +54,7 @@ Principais Funcionalidades:
 - Usar autenticação por usuário e senha para garantir que cada aluno possa realizar apenas uma avaliação por Sprint e que apenas o professor tenha acesso aos relatórios.
 
   <details>
-<summary>## ✅ Backolog do produto</summary>
+<summary>Backolog do produto</summary>
 
 | Rank | Prioridade             | User Story                                                                                                                                                                | Estimativa para Sprint | Perguntas para validação                                                                                   |
 |------|------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------|-----------------------------------------------------------------------------------------------------------|
