@@ -61,7 +61,7 @@ public class AlunoRealizarAvalController implements Initializable {
 
     private Pontos pontosDoGrupo;
 
-    private Sprint sprintAtual = SprintDAO.getSprintAtual();
+    private Sprint sprintSelecionada;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -81,16 +81,15 @@ public class AlunoRealizarAvalController implements Initializable {
             avaliadoRa = alunoAvaliado.getRa();
 
             carregarCriterios();
-            carregaPontos();
+    }
+
+    public void carregaSprintSelecionada(Sprint sprint) {
+        sprintSelecionada = sprint;
+        carregaPontos();
     }
 
     private void carregaPontos() {
-        pontosDoGrupo = PontosDAO.getPontosBySprintAndGrupo(sprintAtual.getSprintId(), alunoAvaliado.getGrupoId());
-    }
-
-    private void carregaAlunoAvaliado(Aluno alunoAvaliado) {
-        this.alunoAvaliado = alunoAvaliado;
-        avaliadoRa = alunoAvaliado.getRa();
+        pontosDoGrupo = PontosDAO.getPontosBySprintAndGrupo(sprintSelecionada.getSprintId(), alunoAvaliado.getGrupoId());
     }
 
     private void carregarCriterios() {
@@ -129,7 +128,7 @@ public class AlunoRealizarAvalController implements Initializable {
             for (int i = 0; i < toggleGroups.size(); i++) {
                 ToggleGroup group = toggleGroups.get(i);
                 int criterioId = criterios.get(i).getId();
-                int sprintId = SprintDAO.getSprintAtual().getSprintId();
+                int sprintId = sprintSelecionada.getSprintId();
     
                 ToggleButton selectedToggle = (ToggleButton) group.getSelectedToggle();
             

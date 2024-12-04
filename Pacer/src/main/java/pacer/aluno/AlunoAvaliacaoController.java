@@ -7,7 +7,6 @@ import java.time.ZoneId;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -60,8 +59,6 @@ public class AlunoAvaliacaoController implements Initializable {
 
     private Sprint sprintSelecionado;
 
-    private final Sprint sprintAtual = SprintDAO.getSprintAtual();
-
     private Pontos pontosSelecionados;
 
     private LocalDate dataLimite;
@@ -75,28 +72,7 @@ public class AlunoAvaliacaoController implements Initializable {
             mbox.ShowMessageBox(AlertType.ERROR, "Erro ao carregar grupo", "Erro ao carregar o grupo do usuário.");
         } 
         ObservableList<Sprint> sprints = FXCollections.observableArrayList(SprintDAO.getAllSprints());
-
-        if (sprintAtual != null) {
-            Thread tCarregaTable = new Thread(() -> {
-                Platform.runLater(() -> {
-                    cmbSprint.setValue(sprintAtual);
-                    sprintId = sprintAtual.getSprintId();
-                    configurarTableView(sprintId);
-                });
-            });
-            tCarregaTable.start();
-        }
         cmbSprint.setItems(sprints);
-
-        try {
-            pontosSelecionados = PontosDAO.getPontosBySprintAndGrupo(sprintAtual.getSprintId(), alunoLogado.getGrupo().getId());
-            java.util.Date dataAtribuicao = pontosSelecionados.getDataAtribuicao();
-            LocalDate dataAtribuicaoLocalDateTime = dataAtribuicao.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
-    
-            dataLimite = dataAtribuicaoLocalDateTime.plusDays(7);
-        } catch (Exception e){
-            e.printStackTrace();
-        }
     }
     @FXML
     public void selectSprint() {
@@ -150,27 +126,34 @@ public class AlunoAvaliacaoController implements Initializable {
             mbox.ShowMessageBox(AlertType.WARNING, "Erro", "Selecione um integrante do grupo para avaliar");
             return;
         }
-        else if (sprintAtual == null) {
-            mbox.ShowMessageBox(AlertType.WARNING, "Sprint", "Não há nenhuma sprint ativa no momento.");
+        if (verificarPeriodoAvaliativo()) {
+            mbox.ShowMessageBox(AlertType.WARNING, "Sprint", "Não há periodo de avaliação ativo no momento para a sprint selecionada");
             return;
         }
-        if (sprintSelecionado.getSprintId() != sprintAtual.getSprintId()) {
+        if (sprintSelecionado.getSprintId() != pontosSelecionados.getSprintId()) {
             mbox.ShowMessageBox(AlertType.WARNING, "Sprint", "Selecione a Sprint atual para efetuar a avaliação.");
-            return;
-        }
-        if (pontosSelecionados == null || LocalDate.now().plusDays(1).isBefore(pontosSelecionados.getDataAtribuicao().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()) || 
-        LocalDate.now().isAfter(dataLimite)) {
-
-            mbox.ShowMessageBox(AlertType.WARNING, "Sprint", "Não há periodo de avaliação ativo no momento");
             return;
         }
         AlunosParaAvaliacao.setAvaliado(alunoSelecionado);
         AlunosParaAvaliacao.setAvaliador(alunoLogado);
 
-        sceneSwitcher.switchSceneRetController("/FXML/AlunoRealizarAvalView.fxml", event);
-        
+        AlunoRealizarAvalController controller = sceneSwitcher.switchSceneRetController("/FXML/AlunoRealizarAvalView.fxml", event);
+        controller.carregaSprintSelecionada(sprintSelecionado);
     }
 
+    @FXML
+    public boolean verificarPeriodoAvaliativo() {
+        pontosSelecionados = PontosDAO.getPontosBySprintAndGrupo(sprintSelecionado.getSprintId(), alunoLogado.getGrupo().getId());
+        java.util.Date dataAtribuicao = pontosSelecionados.getDataAtribuicao();
+        LocalDate dataAtribuicaoLocalDateTime = dataAtribuicao.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
+        dataLimite = dataAtribuicaoLocalDateTime.plusDays(7);
+
+        if (pontosSelecionados == null || LocalDate.now().plusDays(1).isBefore(pontosSelecionados.getDataAtribuicao().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()) || 
+        LocalDate.now().isAfter(dataLimite)) {
+            return true;
+        }
+        return false;
+    }
     @FXML
     public void handleVerPontos(ActionEvent event) throws IOException {
         ProfVisualizarPontosController controllerVerPontos = sceneSwitcher.openNewWindow("/FXML/ProfVisualizarPontosView.fxml");

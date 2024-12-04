@@ -9,7 +9,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
 import pacer.data.dao.SprintDAO;
@@ -65,6 +64,7 @@ public class ProfEquipesSprintController implements Initializable {
     }
     @FXML
     public void cancelar(ActionEvent event) throws IOException {
-        sceneSwitcher.switchScene("/FXML/ProfEquipesView.fxml", event);
+        Stage stage = (Stage) cmbSprint.getScene().getWindow();
+        stage.close();
     }
 }
